@@ -18,10 +18,10 @@
     <ClCompile Include="CPP_2019_CA2_TS_AR.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="StockItem.cpp">
+    <ClCompile Include="Sale.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Sale.cpp">
+    <ClCompile Include="StockItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -30,6 +30,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Sale.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
