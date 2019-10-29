@@ -1,5 +1,8 @@
 #pragma once
 #include "pch.h"
+#include <string>
+#include <iostream>
+#include <fstream>
 
 using namespace std;
 class StockItem
@@ -12,6 +15,7 @@ private:
 	int quantity;
 	float cost;
 	static int stockItemCount;
+
 public:
 	StockItem();
 	StockItem(string title, string color, string size, int quantity, float cost);
