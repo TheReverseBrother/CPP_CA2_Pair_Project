@@ -137,6 +137,14 @@ ostream& operator<<(ostream& os, StockItem& item)
 	return os;
 }
 
+bool StockItem::operator < (const StockItem& rhs) const
+{
+
+	return true;
+}
+
+
+
 istream& operator>>(istream& in, StockItem& item)
 {
 	int id,quantity;

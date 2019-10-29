@@ -1,13 +1,24 @@
 #include "pch.h"
 
+
+// Method Definitions 
 void loadStock();
 void outputStock();
+
+// Streams
 ifstream in;
 ofstream out;
 
+//Stock set
+
+set<StockItem> stock;
+set<StockItem>::iterator stockIterator = stock.begin();
+
+
+
+
 int main()
 {
-
 	loadStock();
 
 
@@ -19,6 +30,10 @@ int main()
 	StockItem shoes("VANNNS", "BLUE", "XL", 2, 50);
 
 	cout << shoes << endl;
+
+	stock.insert(Jeans);
+
+	outputStock();
 }
 
 
@@ -31,12 +46,18 @@ void loadStock()
 		out.open("stock-list.txt");
 		loadStock();
 	}
-
-
-
 }
 
 void outputStock()
 {
+	out.open("stock-list.txt");
+	stockIterator = stock.begin();
+
+	for (stockIterator; stockIterator != stock.end(); stockIterator++) 
+	{
+		StockItem item = (StockItem)*stockIterator;
+		out << item;
+	}
+
 
 }

@@ -40,6 +40,6 @@ public:
 
 	friend ostream& operator<<(ostream& os, StockItem& item);
 	friend istream& operator>>(istream& in, StockItem& item);
-	
+	bool operator < (const StockItem& rhs) const;
 };
 
