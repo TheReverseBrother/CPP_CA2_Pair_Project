@@ -16,7 +16,8 @@ StockItem::StockItem()
 
 StockItem::StockItem(string title, string color, string size, int quantity, float cost)
 {
-	this->ID = stockItemCount + 1;
+	stockItemCount ++;
+	this->ID = stockItemCount;
 	setTitle(title);
 	setColor(color);
 	setSize(size);
@@ -26,6 +27,7 @@ StockItem::StockItem(string title, string color, string size, int quantity, floa
 
 StockItem::~StockItem()
 {
+	stockItemCount --;
 }
 
 
@@ -144,7 +146,7 @@ bool StockItem::operator < (const StockItem& rhs) const
 
 	if (this->ID == rhs.getID()) { return true; }
 	else { return false; }
-
+	//return false;
 }
 
 

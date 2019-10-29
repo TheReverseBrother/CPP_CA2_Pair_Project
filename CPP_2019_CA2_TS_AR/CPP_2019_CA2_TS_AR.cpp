@@ -30,7 +30,6 @@ int main()
 
 	StockItem shoes("VANNNS", "BLUE", "XL", 2, 50);
 	StockItem Jacket = StockItem("Jacket", "RED", "XL", 2, 50);
-	Jacket.setID(3);
 
 	cout << shoes << endl;
 
@@ -60,16 +59,11 @@ void outputStock()
 {
 	out.open("stock-list.txt");
 	stockBegin = stock.begin();
-	int count = 0;
 
 	for (auto x : stock)
 	{
-		
 		StockItem item = (StockItem)x;
-		
 		out << item;
-		count  = count +1;
 	}
 
-	cout << count;
 }
