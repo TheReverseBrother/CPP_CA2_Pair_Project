@@ -123,11 +123,11 @@ bool StockItem::operator!=(StockItem& rhs)
 	return false;
 }
 
-ofstream& operator<<(ofstream& os, StockItem& item)
-{
-	os << item.getID() << item.getTitle() << item.getColor() << item.getQuantity() << item.getCost() << endl;
-	return os;
-}
+//ofstream& operator<<(ofstream& os, StockItem& item)
+//{
+//	os << item.getID() << item.getTitle() << item.getColor() << item.getQuantity() << item.getCost() << endl;
+//	return os;
+//}
 
 //ifstream& operator>>(ifstream& in, StockItem& item)
 //{
