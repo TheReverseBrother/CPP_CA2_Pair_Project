@@ -11,7 +11,7 @@ private:
 
 public:
 	Sale();
-	Sale(int id, string salesAssistant, list<StockItem> items);
+	Sale(string salesAssistant, list<StockItem> items);
 	~Sale();
 
 	//Getters
