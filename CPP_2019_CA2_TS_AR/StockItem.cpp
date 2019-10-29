@@ -137,10 +137,14 @@ ostream& operator<<(ostream& os, StockItem& item)
 	return os;
 }
 
+
+// comparison operator for set
 bool StockItem::operator < (const StockItem& rhs) const
 {
 
-	return true;
+	if (this->ID == rhs.getID()) { return true; }
+	else { return false; }
+
 }
 
 

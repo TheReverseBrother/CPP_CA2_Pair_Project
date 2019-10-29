@@ -1,1 +1,3 @@
 100/Jeans/Blue/XL/10/2
+101/VANNNS/BLUE/XL/2/50
+3/Jacket/RED/XL/2/50

@@ -11,8 +11,9 @@ ofstream out;
 
 //Stock set
 
-set<StockItem> stock;
-set<StockItem>::iterator stockIterator = stock.begin();
+multiset<StockItem> stock;
+multiset<StockItem>::iterator stockBegin = stock.begin();
+multiset<StockItem>::iterator stockEnd = stock.cend();
 
 
 
@@ -28,10 +29,17 @@ int main()
 	cout << Jeans.getTitle() << endl;
 
 	StockItem shoes("VANNNS", "BLUE", "XL", 2, 50);
+	StockItem Jacket = StockItem("Jacket", "RED", "XL", 2, 50);
+	Jacket.setID(3);
 
 	cout << shoes << endl;
 
 	stock.insert(Jeans);
+	stock.insert(shoes);
+	stock.insert(Jacket);
+	
+
+
 
 	outputStock();
 }
@@ -51,13 +59,17 @@ void loadStock()
 void outputStock()
 {
 	out.open("stock-list.txt");
-	stockIterator = stock.begin();
+	stockBegin = stock.begin();
+	int count = 0;
 
-	for (stockIterator; stockIterator != stock.end(); stockIterator++) 
+	for (auto x : stock)
 	{
-		StockItem item = (StockItem)*stockIterator;
+		
+		StockItem item = (StockItem)x;
+		
 		out << item;
+		count  = count +1;
 	}
 
-
+	cout << count;
 }
