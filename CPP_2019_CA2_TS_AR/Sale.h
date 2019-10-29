@@ -15,15 +15,15 @@ public:
 	~Sale();
 
 	//Getters
-	int getID();
-	string getAssistant();
-	list<StockItem> getItems();
+	int getID()const;
+	string getAssistant() const;
+	list<StockItem> getItems()const;
 
 	//Setters
 	void setID(int ID);
 	void setAssistant(string assistant);
 	void setItems(list<StockItem> items);
-
-
+	friend ostream& operator<<(ostream& os, const Sale& sale);
+	friend istream& operator>>(istream& in, Sale& sale);
 };
 

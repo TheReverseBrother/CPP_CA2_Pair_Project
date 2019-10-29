@@ -8,7 +8,7 @@ int main()
 	StockItem Jeans;
 	cout << Jeans.getTitle() << endl;
 
-	StockItem shoes("VANNNS", "BLUE", SIZE::M, 2, 50);
+	StockItem shoes("VANNNS", "BLUE", "XL", 2, 50);
 
-	/*cout << shoes << endl;*/
+	cout << shoes << endl;
 }

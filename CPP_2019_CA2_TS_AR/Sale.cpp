@@ -21,15 +21,15 @@ Sale::~Sale()
 }
 
 //Getters
-int Sale::getID()
+int Sale::getID() const 
 {
 	return this->ID;
 }
-string Sale::getAssistant()
+string Sale::getAssistant() const 
 {
 	return string();
 }
-list<StockItem> Sale::getItems()
+list<StockItem> Sale::getItems() const 
 {
 	return list<StockItem>();
 }
@@ -60,4 +60,14 @@ void Sale::setItems(list<StockItem> items)
 	{
 		this->items = items;
 	}
+}
+
+ostream& operator<<(ostream& os, const Sale& sale)
+{
+	return os;
+}
+
+istream& operator>>(istream& in, Sale& sale)
+{
+	return in;
 }
