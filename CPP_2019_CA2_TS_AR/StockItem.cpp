@@ -3,16 +3,16 @@ int StockItem::stockItemCount = 100;
 StockItem::StockItem()
 {
 	
-	this->ID = stockItemCount + 1;
+	this->ID = 100;
 	this->title = "Jeans";
 	this->color = "Blue";
-	this->size = SIZE::M;
+	this->size = "XL";
 	this->quantity = 10;
 	this->cost = 2.00;
-	StockItem::stockItemCount++;
+	
 }
 
-StockItem::StockItem(string title, string color, SIZE size, int quantity, float cost)
+StockItem::StockItem(string title, string color, string size, int quantity, float cost)
 {
 	this->ID = stockItemCount + 1;
 	setTitle(title);
@@ -26,6 +26,11 @@ StockItem::~StockItem()
 {
 }
 
+
+void StockItem::setID(int ID)
+{
+	this->ID = ID;
+}
 
 //Setters
 void StockItem::setTitle(string& title)
@@ -52,7 +57,7 @@ void StockItem::setColor(string& color)
 	}
 }
 
-void StockItem::setSize(SIZE& size)
+void StockItem::setSize(string& size)
 {
 	this->size = size;
 }
@@ -98,7 +103,7 @@ string StockItem::getColor() const
 	return this->color;
 }
 
-SIZE StockItem::getSize() const
+string StockItem::getSize() const
 {
 	return this->size;
 }
@@ -123,13 +128,36 @@ bool StockItem::operator!=(StockItem& rhs)
 	return false;
 }
 
-//ofstream& operator<<(ofstream& os, StockItem& item)
-//{
-//	os << item.getID() << item.getTitle() << item.getColor() << item.getQuantity() << item.getCost() << endl;
-//	return os;
-//}
+ostream& operator<<(ostream& os, StockItem& item)
+{
+	os << item.getID() << "/" << item.getTitle() << "/" << item.getColor() << "/" << item.getSize() << "/" << 
+		item.getQuantity() << "/" << item.getCost() << endl;
+	return os;
+}
 
-//ifstream& operator>>(ifstream& in, StockItem& item)
-//{
-//	// TODO: insert return statement here
-//}
+istream& operator>>(istream& in, StockItem& item)
+{
+	int id,quantity;
+	string title, color, size;
+	float cost;
+
+	in >> id;
+	item.setID(id);
+
+	in >> title;
+	item.setTitle(title);
+
+	in >> color;
+	item.setColor(color);
+
+	in >> size;
+	item.setSize(size);
+
+	in >> quantity;
+	item.setQuantity(quantity);
+
+	in >> cost;
+	item.setCost(cost);
+
+	return in;
+}
