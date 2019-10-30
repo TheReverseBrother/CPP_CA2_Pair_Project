@@ -28,13 +28,16 @@ int main()
 	//StockItem Jeans;
 	//cout << Jeans.getTitle() << endl;
 
-	//StockItem Jacket = StockItem("Jacket", "RED", "XL", 2, 50);
+	StockItem Jacket = StockItem("Jacket", "RED", "XL", 2, 50);
+	cout<<"jacket id  "<<Jacket.getID()<<endl;
+
+
+
+
+
+
 
 	cout << stock.size() << endl;
-	
-
-
-
 	outputStock();
 }
 
@@ -144,8 +147,8 @@ void loadStock()
 
 			StockItem item(title, color, size, Quantity, Cost);
 			item.setID(ID);
-
 			stock.insert(item);
+			StockItem::stockItemCount = StockItem::stockItemCount + 1;
 		}
 	}
 }

@@ -14,12 +14,12 @@ private:
 	string size;
 	int quantity;
 	float cost;
-	static int stockItemCount;
 
 public:
 	StockItem();
 	StockItem(string title, string color, string size, int quantity, float cost);
 	~StockItem();
+	static int stockItemCount;
 
 	void setID(int ID);
 	void setTitle(string& title);

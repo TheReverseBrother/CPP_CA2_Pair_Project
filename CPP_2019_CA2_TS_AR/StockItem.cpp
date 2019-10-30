@@ -16,7 +16,7 @@ StockItem::StockItem()
 
 StockItem::StockItem(string title, string color, string size, int quantity, float cost)
 {
-	stockItemCount ++;
+	stockItemCount = stockItemCount +1;
 	this->ID = stockItemCount;
 	setTitle(title);
 	setColor(color);
@@ -27,7 +27,7 @@ StockItem::StockItem(string title, string color, string size, int quantity, floa
 
 StockItem::~StockItem()
 {
-	stockItemCount --;
+	stockItemCount = stockItemCount -1;
 }
 
 
@@ -96,6 +96,8 @@ int StockItem::getID() const
 {
 	return this->ID;
 }
+
+
 
 string StockItem::getTitle() const
 {
