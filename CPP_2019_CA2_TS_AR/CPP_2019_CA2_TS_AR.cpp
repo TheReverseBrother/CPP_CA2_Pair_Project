@@ -29,10 +29,18 @@ int main()
 	//cout << Jeans.getTitle() << endl;
 
 	StockItem Jacket = StockItem("Jacket", "RED", "XL", 2, 50);
-	cout<<"jacket id  "<<Jacket.getID()<<endl;
+	StockItem jeans;
+	cout<<"Jacket ID  "<<Jacket.getID()<<endl;
+	cout << "Jean ID  " << jeans.getID() << endl;
+	cout << endl;
+	cout << "Stock Count: " << StockItem::stockItemCount << endl;
+	cout << endl;
 
-
-
+	cout << "All stock" << endl;
+	for (StockItem s : stock)
+	{
+		cout << s << endl;
+	}
 
 
 
@@ -145,10 +153,9 @@ void loadStock()
 			cout << "test2" << title << color << size << Quantity << Cost << endl;
 
 
-			StockItem item(title, color, size, Quantity, Cost);
-			item.setID(ID);
+			StockItem item(ID,title, color, size, Quantity, Cost);
 			stock.insert(item);
-			StockItem::stockItemCount = StockItem::stockItemCount + 1;
+			
 		}
 	}
 }
