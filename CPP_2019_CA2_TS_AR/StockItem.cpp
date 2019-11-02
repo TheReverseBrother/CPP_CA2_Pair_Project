@@ -147,7 +147,7 @@ bool StockItem::operator!=(StockItem& rhs)
 ostream& operator<<(ostream& os, StockItem& item)
 {
 	os << item.getID() << "/" << item.getTitle() << "/" << item.getColor() << "/" << item.getSize() << "/" << 
-		item.getQuantity() << "/" << item.getCost() << endl;
+		item.getQuantity() << "/" << item.getCost();
 	return os;
 }
 
