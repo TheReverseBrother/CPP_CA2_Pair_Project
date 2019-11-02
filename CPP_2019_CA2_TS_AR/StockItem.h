@@ -1,5 +1,8 @@
 #pragma once
 #include "pch.h"
+#include <string>
+#include <iostream>
+#include <fstream>
 
 using namespace std;
 class StockItem
@@ -11,11 +14,12 @@ private:
 	string size;
 	int quantity;
 	float cost;
-	static int stockItemCount;
+
 public:
 	StockItem();
 	StockItem(string title, string color, string size, int quantity, float cost);
 	~StockItem();
+	static int stockItemCount;
 
 	void setID(int ID);
 	void setTitle(string& title);
@@ -36,6 +40,6 @@ public:
 
 	friend ostream& operator<<(ostream& os, StockItem& item);
 	friend istream& operator>>(istream& in, StockItem& item);
-	
+	bool operator < (const StockItem& rhs) const;
 };
 

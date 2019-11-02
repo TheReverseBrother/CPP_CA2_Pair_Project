@@ -1,5 +1,7 @@
 #include "StockItem.h"
+
 int StockItem::stockItemCount = 100;
+
 StockItem::StockItem()
 {
 	
@@ -14,7 +16,8 @@ StockItem::StockItem()
 
 StockItem::StockItem(string title, string color, string size, int quantity, float cost)
 {
-	this->ID = stockItemCount + 1;
+	stockItemCount = stockItemCount +1;
+	this->ID = stockItemCount;
 	setTitle(title);
 	setColor(color);
 	setSize(size);
@@ -24,6 +27,7 @@ StockItem::StockItem(string title, string color, string size, int quantity, floa
 
 StockItem::~StockItem()
 {
+	stockItemCount = stockItemCount -1;
 }
 
 
@@ -93,6 +97,8 @@ int StockItem::getID() const
 	return this->ID;
 }
 
+
+
 string StockItem::getTitle() const
 {
 	return this->title;
@@ -134,6 +140,18 @@ ostream& operator<<(ostream& os, StockItem& item)
 		item.getQuantity() << "/" << item.getCost() << endl;
 	return os;
 }
+
+
+// comparison operator for set
+bool StockItem::operator < (const StockItem& rhs) const
+{
+
+	if (this->ID == rhs.getID()) { return true; }
+	else { return false; }
+	//return false;
+}
+
+
 
 istream& operator>>(istream& in, StockItem& item)
 {
