@@ -4,8 +4,8 @@ int StockItem::stockItemCount = 100;
 
 StockItem::StockItem()
 {
-	
-	this->ID = 100;
+	++StockItem::stockItemCount;
+	this->ID = StockItem::stockItemCount;
 	this->title = "Jeans";
 	this->color = "Blue";
 	this->size = "XL";
@@ -14,10 +14,20 @@ StockItem::StockItem()
 	
 }
 
+StockItem::StockItem(int ID,string title, string color, string size, int quantity, float cost)
+{
+	setID(ID);
+	setTitle(title);
+	setColor(color);
+	setSize(size);
+	setQuantity(quantity);
+	setCost(cost);
+}
+
 StockItem::StockItem(string title, string color, string size, int quantity, float cost)
 {
-	stockItemCount = stockItemCount +1;
-	this->ID = stockItemCount;
+	++StockItem::stockItemCount;
+	this->ID = StockItem::stockItemCount;
 	setTitle(title);
 	setColor(color);
 	setSize(size);
@@ -27,7 +37,7 @@ StockItem::StockItem(string title, string color, string size, int quantity, floa
 
 StockItem::~StockItem()
 {
-	stockItemCount = stockItemCount -1;
+	//stockItemCount = stockItemCount -1;
 }
 
 
