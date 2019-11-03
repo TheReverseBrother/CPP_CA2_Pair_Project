@@ -134,7 +134,7 @@ float StockItem::getCost() const
 	return this->cost;
 }
 
-bool StockItem::operator==(const StockItem rhs)
+bool StockItem::operator==(const StockItem& rhs) const
 {
 	if ((this->ID == rhs.getID())&&(this->color == rhs.getColor())&&(this->title==rhs.getTitle())
 		&&(this->cost==rhs.getCost())&&(this->size==rhs.getSize())&&(this->quantity==rhs.getQuantity()))
