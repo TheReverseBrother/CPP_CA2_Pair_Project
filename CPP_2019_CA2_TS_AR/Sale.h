@@ -26,6 +26,8 @@ public:
 	void setAssistant(string assistant);
 	void setItems(list<StockItem> items);
 
+	bool removeItem(string id);
+
 	//Operators
 	friend ostream& operator<<(ostream& os, const Sale& sale);
 	friend istream& operator>>(istream& in, Sale& sale);
