@@ -27,11 +27,11 @@ int Sale::getID() const
 }
 string Sale::getAssistant() const 
 {
-	return string();
+	return this->salesAssistant;
 }
 list<StockItem> Sale::getItems() const 
 {
-	return list<StockItem>();
+	return this->items;
 }
 
 
@@ -64,10 +64,117 @@ void Sale::setItems(list<StockItem> items)
 
 ostream& operator<<(ostream& os, const Sale& sale)
 {
+	list<StockItem> items = sale.getItems();
+	os << sale.getID() << "%/%" << sale.getAssistant() << "%/%";
+	for (StockItem s : items)
+	{
+		os << s << "/%/";
+	}
+
 	return os;
 }
 
 istream& operator>>(istream& in, Sale& sale)
 {
+	list<StockItem> itemList;
+	string data,info,id,title,color,size,quantity,cost;
+	float costFloat;
+	int saleID,stockID,quantityInt;
+	//Delimiters
+	string infoDelimiter = "%/%";
+	string itemDelimiter = "/%/";
+	string delimiter = "/";
+
+	//fetch Data
+	std::getline(in, data);
+	
+
+	//Get Sale ID
+	info = data.substr(0,data.find(infoDelimiter));
+	data.erase(0,data.find(infoDelimiter)+infoDelimiter.length());
+	saleID = stoi(info);
+
+	//get Assistant
+	info = data.substr(0, data.find(infoDelimiter));
+	data.erase(0, data.find(infoDelimiter) + infoDelimiter.length());
+	string assistant = info;
+
+	//fetch all stockitems
+	size_t pos = 0;
+	while ((pos = data.find(itemDelimiter)) != std::string::npos)
+	{
+		//gets Item string
+		info = data.substr(0,pos);
+		data.erase(0,pos+itemDelimiter.length());
+
+		id = info.substr(0, info.find(delimiter));
+		info.erase(0, info.find(delimiter) + delimiter.length());
+
+		title = info.substr(0, info.find(delimiter));
+		info.erase(0, info.find(delimiter) + delimiter.length());
+
+		color = info.substr(0, info.find(delimiter));
+		info.erase(0, info.find(delimiter) + delimiter.length());
+
+		size = info.substr(0, info.find(delimiter));
+		info.erase(0, info.find(delimiter) + delimiter.length());
+
+		quantity = info.substr(0, info.find(delimiter));
+		info.erase(0, info.find(delimiter) + delimiter.length());
+
+		cost = info.substr(0, info.find(delimiter));
+		info.erase(0, info.find(delimiter) + delimiter.length());
+
+		try
+		{
+			stockID = stoi(id);
+		}
+		catch (invalid_argument const& e)
+		{
+		}
+		catch (out_of_range const& e)
+		{
+		}
+
+
+		//quantity
+		try
+		{
+			quantityInt = stoi(quantity);
+		}
+		catch (invalid_argument const& e)
+		{
+		}
+		catch (out_of_range const& e)
+		{
+		}
+
+		//cost
+		try
+		{
+			costFloat = stof(cost);
+		}
+		catch (invalid_argument const& e)
+		{
+		}
+		catch (out_of_range const& e)
+		{
+		}
+
+		StockItem item(stockID,title,color,size,quantityInt,costFloat);
+		itemList.push_back(item);
+	}
+
+	sale.setAssistant(assistant);
+	sale.setID(saleID);
+	sale.setItems(itemList);
 	return in;
+}
+
+bool Sale::operator< (const Sale& rhs) const
+{
+
+	if (this->ID == rhs.getID()) { return true; }
+	else { return false; }
+	//return false;
 }

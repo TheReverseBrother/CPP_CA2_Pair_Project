@@ -1,6 +1,8 @@
 #pragma once
 #include "pch.h"
-#include <list>
+#include "StockItem.h"
+class StockItem;
+using namespace std;
 class Sale
 {
 private:
@@ -23,7 +25,10 @@ public:
 	void setID(int ID);
 	void setAssistant(string assistant);
 	void setItems(list<StockItem> items);
+
+	//Operators
 	friend ostream& operator<<(ostream& os, const Sale& sale);
 	friend istream& operator>>(istream& in, Sale& sale);
+	bool operator< (const Sale& rhs) const;
 };
 

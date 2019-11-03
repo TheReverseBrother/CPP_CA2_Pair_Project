@@ -4,6 +4,8 @@
 // Method Definitions 
 void loadStock();
 void outputStock();
+void outputSales();
+void loadSales();
 
 // Streams
 ifstream in;
@@ -12,6 +14,7 @@ ofstream out;
 //Stock set
 
 multiset<StockItem> stock;
+multiset<Sale> Sales;
 multiset<StockItem>::iterator stockBegin = stock.begin();
 multiset<StockItem>::iterator stockEnd = stock.cend();
 
@@ -21,8 +24,10 @@ multiset<StockItem>::iterator stockEnd = stock.cend();
 int main()
 {
 	loadStock();
+	loadSales();
 
-
+	cout << endl;
+	cout << endl;
     std::cout << "Hello World!\n";
 
 	//StockItem Jeans;
@@ -32,21 +37,20 @@ int main()
 	StockItem jeans;
 	cout<<"Jacket ID  "<<Jacket.getID()<<endl;
 	cout << "Jean ID  " << jeans.getID() << endl;
-	cout << endl;
-	cout << "Stock Count: " << StockItem::stockItemCount << endl;
-	cout << endl;
 
-	cout << "All stock" << endl;
 	for (StockItem s : stock)
 	{
 		cout << s << endl;
 	}
 
+	for (Sale s : Sales)
+	{
+		cout << s << endl;
+	}
 
-
-
-	cout << stock.size() << endl;
+	
 	outputStock();
+	outputSales();
 }
 
 
@@ -72,12 +76,13 @@ void loadStock()
 		cout << "error loading file" << endl;
 		out.open("stock-list.txt");
 		out.close();
+		in.close();
 		loadStock();
 	}
 
 	while (!in.eof())
 	{
-		cout << "test";
+		//cout << "test";
 		in >> temp;
 		error = temp;
 
@@ -150,7 +155,7 @@ void loadStock()
 
 			// create object and add to set
 
-			cout << "test2" << title << color << size << Quantity << Cost << endl;
+			//cout << "test2" << title << color << size << Quantity << Cost << endl;
 
 
 			StockItem item(ID,title, color, size, Quantity, Cost);
@@ -158,11 +163,8 @@ void loadStock()
 			
 		}
 	}
+	in.close();
 }
-
-	//todo read from file into set
-
-
 
 void outputStock()
 {
@@ -172,8 +174,49 @@ void outputStock()
 	for (auto x : stock)
 	{
 		StockItem item = (StockItem)x;
-		out << item;
+		out << item << endl;
 	}
 
+	out.close();
+}
+
+void loadSales()
+{
+	in.open("sales.txt");
+	if (in.fail())
+	{
+		cout << "Error Loadng Sales" << endl;
+		in.close();
+	}
+	else
+	{
+		while (!in.eof())
+		{
+			Sale blankSale;
+			in >> blankSale;
+			Sales.insert(blankSale);
+			
+		}
+	}
+	in.close();
+}
+
+void outputSales()
+{
+	out.open("sales.txt");
+	if (out.fail())
+	{
+		cout << "Error Saving Sales" << endl;
+		out.close();
+	}
+	else
+	{
+
+		for (Sale s: Sales)
+		{
+			out << s << endl;
+		}
+
+	}
 	out.close();
 }
