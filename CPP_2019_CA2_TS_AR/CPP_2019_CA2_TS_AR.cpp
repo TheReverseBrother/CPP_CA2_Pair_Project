@@ -6,7 +6,7 @@ void loadStock();
 void outputStock();
 void outputSales();
 void loadSales();
-
+bool removeStock(const StockItem& item);
 // Streams
 ifstream in;
 ofstream out;
@@ -32,12 +32,22 @@ int main()
 
 	//StockItem Jeans;
 	//cout << Jeans.getTitle() << endl;
-
+	StockItem vanns(152, "VANNNS", "BLUE", "XL", 2, 50);
 	StockItem Jacket = StockItem("Jacket", "RED", "XL", 2, 50);
+	StockItem shoe(1, "Jacket", "RED", "XL", 2, 50);
+	StockItem shoes(1, "Jacket", "RED", "XL", 2, 50);
 	StockItem jeans;
 	cout<<"Jacket ID  "<<Jacket.getID()<<endl;
 	cout << "Jean ID  " << jeans.getID() << endl;
-
+	list<StockItem> itemList;
+	itemList.push_back(shoe);
+	itemList.push_back(shoes);
+	Sale sale1("George",itemList);
+	if (removeStock(vanns))
+	{
+		cout << "Hi Boi" << endl;
+	}
+	stock.insert(vanns);
 	for (StockItem s : stock)
 	{
 		cout << s << endl;
@@ -53,7 +63,16 @@ int main()
 	outputSales();
 }
 
-
+bool removeStock(const StockItem& item)
+{
+	auto it = find(stock.begin(), stock.end(), item);
+	if (it != stock.end())
+	{
+		stock.erase(it);
+		return true;
+	}
+	return false;
+}
 void loadStock()
 {
 	in.open("stock-list.txt");
@@ -190,13 +209,21 @@ void loadSales()
 	}
 	else
 	{
-		while (!in.eof())
+		Sale blankSale;
+		while (in >> blankSale)
+		{
+			if (!in.eof())
+			{
+				Sales.insert(blankSale);
+			}
+		}
+		/*while (!in.eof())
 		{
 			Sale blankSale;
 			in >> blankSale;
 			Sales.insert(blankSale);
 			
-		}
+		}*/
 	}
 	in.close();
 }
