@@ -62,8 +62,14 @@ void Sale::setItems(list<StockItem> items)
 	}
 }
 
-bool Sale::removeItem(string id)
+bool Sale::removeItem(const StockItem& item)
 {
+	auto it = find(this->items.begin(),this->items.end(),item);
+	if (it != items.end())
+	{
+		items.remove(item);
+		return true;
+	}
 	return false;
 }
 
