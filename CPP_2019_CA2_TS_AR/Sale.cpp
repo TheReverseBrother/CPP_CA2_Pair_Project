@@ -62,6 +62,17 @@ void Sale::setItems(list<StockItem> items)
 	}
 }
 
+bool Sale::removeItem(const StockItem& item)
+{
+	auto it = find(this->items.begin(),this->items.end(),item);
+	if (it != items.end())
+	{
+		items.remove(item);
+		return true;
+	}
+	return false;
+}
+
 ostream& operator<<(ostream& os, const Sale& sale)
 {
 	list<StockItem> items = sale.getItems();
@@ -87,7 +98,10 @@ istream& operator>>(istream& in, Sale& sale)
 
 	//fetch Data
 	std::getline(in, data);
-	
+	if (data.empty())
+	{
+		return in;
+	}
 
 	//Get Sale ID
 	info = data.substr(0,data.find(infoDelimiter));
