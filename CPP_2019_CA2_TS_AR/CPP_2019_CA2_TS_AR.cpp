@@ -12,7 +12,6 @@ ifstream in;
 ofstream out;
 
 //Stock set
-
 multiset<StockItem> stock;
 multiset<Sale> Sales;
 multiset<StockItem>::iterator stockBegin = stock.begin();
@@ -73,6 +72,17 @@ bool removeStock(const StockItem& item)
 	}
 	return false;
 }
+bool removeSale(const Sale& sale)
+{
+	auto it = find(Sales.begin(), Sales.end(), sale);
+	if (it != Sales.end())
+	{
+		Sales.erase(it);
+		return true;
+	}
+	return false;
+}
+
 void loadStock()
 {
 	in.open("stock-list.txt");
