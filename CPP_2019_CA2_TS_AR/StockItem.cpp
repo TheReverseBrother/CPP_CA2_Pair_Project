@@ -1,5 +1,4 @@
 #include "StockItem.h"
-
 int StockItem::stockItemCount = 100;
 
 StockItem::StockItem()

@@ -7,6 +7,7 @@ void outputStock();
 void outputSales();
 void loadSales();
 bool removeStock(const StockItem& item);
+bool removeSale(const Sale& sale);
 // Streams
 ifstream in;
 ofstream out;
@@ -14,6 +15,7 @@ ofstream out;
 //Stock set
 multiset<StockItem> stock;
 multiset<Sale> Sales;
+list<SalesAnalysis> AnalysisList;
 multiset<StockItem>::iterator stockBegin = stock.begin();
 multiset<StockItem>::iterator stockEnd = stock.cend();
 
@@ -24,7 +26,7 @@ int main()
 {
 	loadStock();
 	loadSales();
-
+	AnalysisList = SalesAnalysis::loadAnalysises();
 	cout << endl;
 	cout << endl;
     std::cout << "Hello World!\n";
@@ -38,28 +40,34 @@ int main()
 	StockItem jeans;
 	cout<<"Jacket ID  "<<Jacket.getID()<<endl;
 	cout << "Jean ID  " << jeans.getID() << endl;
-	list<StockItem> itemList;
-	itemList.push_back(shoe);
-	itemList.push_back(shoes);
-	Sale sale1("George",itemList);
-	if (removeStock(vanns))
-	{
-		cout << "Hi Boi" << endl;
-	}
-	stock.insert(vanns);
-	for (StockItem s : stock)
-	{
-		cout << s << endl;
-	}
+	//list<StockItem> itemList;
+	//itemList.push_back(shoe);
+	//itemList.push_back(shoes);
+	//Sale sale1("George",itemList);
+	//if (removeStock(vanns))
+	//{
+	//	cout << "Hi Boi" << endl;
+	//}
+	//stock.insert(vanns);
+	//for (StockItem s : stock)
+	//{
+	//	cout << s << endl;
+	//}
 
-	for (Sale s : Sales)
-	{
-		cout << s << endl;
-	}
+	//for (Sale s : Sales)
+	//{
+	//	cout << s << endl;
+	//}
 
 	
 	outputStock();
 	outputSales();
+
+	for (SalesAnalysis s : AnalysisList)
+	{
+		cout << s;
+	}
+	SalesAnalysis::saveAnalysises(AnalysisList);
 }
 
 bool removeStock(const StockItem& item)
