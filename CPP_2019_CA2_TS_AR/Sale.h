@@ -33,5 +33,6 @@ public:
 	friend ostream& operator<<(ostream& os, const Sale& sale);
 	friend istream& operator>>(istream& in, Sale& sale);
 	bool operator< (const Sale& rhs) const;
+	bool operator== (const Sale& rhs) const;
 };
 
