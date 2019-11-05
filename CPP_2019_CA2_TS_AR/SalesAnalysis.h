@@ -1,6 +1,6 @@
 #pragma once
 #include "pch.h"
-
+using namespace std;
 class SalesAnalysis
 {
 private:
@@ -22,8 +22,8 @@ public:
 	void setDateOfCreation(time_t& DOC);
 	void setTotalValue(float& value);
 
-	friend ostream& operator<<(ostream& os, const SalesAnalysis& saleAnalysis);
-	friend istream& operator>>(istream& in, const SalesAnalysis& saleAnalysis);
+	friend ostream& operator<<(ostream& os, SalesAnalysis& saleAnalysis);
+	friend istream& operator>>(istream& in, SalesAnalysis& saleAnalysis);
 
 
 	static list<SalesAnalysis> loadAnalysises();

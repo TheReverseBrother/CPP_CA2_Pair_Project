@@ -1,10 +1,10 @@
 #include "SalesAnalysis.h"
-#include <list>
+
 int SalesAnalysis::SalesCount = 1661;
 
 SalesAnalysis::SalesAnalysis()
 {
-	this->ID = 1;
+	this->ID = 0;
 	this->dayOfCreation = time(0);
 	this->totalValueOfSales = 1.00;
 }
@@ -60,7 +60,7 @@ void SalesAnalysis::setTotalValue(float& value)
 	this->totalValueOfSales = value;
 }
 
-ostream& operator<<(ostream& os, const SalesAnalysis& saleAnalysis)
+ostream& operator<<(ostream& os, SalesAnalysis& saleAnalysis)
 {
 	os << saleAnalysis.getID() << "/" << saleAnalysis.getDateOfCreation() << "/" <<  saleAnalysis.getTotalValue() << endl;
 
@@ -94,6 +94,8 @@ istream& operator>>(istream& in,SalesAnalysis& saleAnalysis)
 
 		info = data.substr(0, data.find(delimiter));
 		data.erase(0, data.find(delimiter) + delimiter.length());
+		price = stof(info);
+		saleAnalysis.setTotalValue(price);
 	}
 	catch (exception e)
 	{
@@ -144,7 +146,7 @@ void SalesAnalysis::saveAnalysises(list<SalesAnalysis>& list)
 
 		for (SalesAnalysis s : list)
 		{
-			out << s << endl;
+			out << s;
 		}
 
 	}
