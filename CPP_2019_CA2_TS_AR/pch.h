@@ -4,6 +4,7 @@
 #include <string>
 #include <set>
 #include <list>
+#include <ctime>
 #include "StockItem.h"
 #include "Sale.h"
 enum class SIZE { XS, S, M, L, XL, XXL, XXXL };

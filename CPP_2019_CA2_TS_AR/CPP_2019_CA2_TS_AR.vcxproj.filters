@@ -24,6 +24,9 @@
     <ClCompile Include="StockItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SalesAnalysis.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StockItem.h">
@@ -33,6 +36,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SalesAnalysis.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

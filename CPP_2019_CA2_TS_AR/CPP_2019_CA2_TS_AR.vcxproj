@@ -152,11 +152,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CPP_2019_CA2_TS_AR.cpp" />
+    <ClCompile Include="SalesAnalysis.cpp" />
     <ClCompile Include="StockItem.cpp" />
     <ClCompile Include="Sale.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
+    <ClInclude Include="SalesAnalysis.h" />
     <ClInclude Include="StockItem.h" />
     <ClInclude Include="Sale.h" />
   </ItemGroup>
