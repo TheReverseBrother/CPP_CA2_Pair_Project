@@ -40,24 +40,11 @@ int main()
 	StockItem jeans;
 	cout<<"Jacket ID  "<<Jacket.getID()<<endl;
 	cout << "Jean ID  " << jeans.getID() << endl;
-	//list<StockItem> itemList;
-	//itemList.push_back(shoe);
-	//itemList.push_back(shoes);
-	//Sale sale1("George",itemList);
-	//if (removeStock(vanns))
-	//{
-	//	cout << "Hi Boi" << endl;
-	//}
-	//stock.insert(vanns);
-	//for (StockItem s : stock)
-	//{
-	//	cout << s << endl;
-	//}
-
-	//for (Sale s : Sales)
-	//{
-	//	cout << s << endl;
-	//}
+	list<StockItem> itemList;
+	for (Sale s : Sales)
+	{
+		cout << s << endl;
+	}
 
 	
 	outputStock();
