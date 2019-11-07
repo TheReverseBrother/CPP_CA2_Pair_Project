@@ -43,6 +43,6 @@ public:
 	bool operator < (const StockItem& rhs) const;
 
 	static multiset<StockItem> loadStock();
-	static void saveStock(const multiset<StockItem>& list);
+	static void saveStock(const multiset<StockItem>& stock);
 };
 
