@@ -3,14 +3,12 @@ int StockItem::stockItemCount = 100;
 
 StockItem::StockItem()
 {
-	++StockItem::stockItemCount;
-	this->ID = StockItem::stockItemCount;
+	this->ID = 1;
 	this->title = "Jeans";
 	this->color = "Blue";
 	this->size = "XL";
 	this->quantity = 10;
 	this->cost = 2.00;
-	
 }
 
 StockItem::StockItem(int ID,string title, string color, string size, int quantity, float cost)
@@ -222,11 +220,13 @@ multiset<StockItem> StockItem::loadStock()
 		out.open("stock-list.txt");
 		out.close();
 		in.close();
-		loadStock();
+		
 	}
 
 	while (!in.eof())
 	{
+		try
+		{
 		//cout << "test";
 		in >> temp;
 		error = temp;
@@ -305,7 +305,20 @@ multiset<StockItem> StockItem::loadStock()
 
 			StockItem item(ID, title, color, size, Quantity, Cost);
 			stock.insert(item);
-
+		}
+		
+		}
+		catch (domain_error e)
+		{
+			cout << "Error Loading StockItem: " << e.what() << endl;
+		}
+		catch (invalid_argument const& e)
+		{
+			cout << "invalid argument while loading 'stock-list.txt' "<<  endl;
+		}
+		catch (out_of_range const& e)
+		{
+			cout << "out of range error in 'stock-list.txt' cost on item "<< endl;
 		}
 	}
 	in.close();

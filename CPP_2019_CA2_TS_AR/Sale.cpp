@@ -2,8 +2,8 @@
 int Sale::salesCount = 50;
 Sale::Sale()
 {
-	salesCount++;
-	setID(salesCount);
+	//salesCount++;
+	setID(1);
 	this->DOC = time(0);
 	setAssistant("George Default");
 	//setItems();

@@ -4,17 +4,11 @@
 // Method Definitions 
 bool removeStock(const StockItem& item);
 bool removeSale(const Sale& sale);
-// Streams
-ifstream in;
-ofstream out;
 
 //Stock set
 multiset<StockItem> stock;
 multiset<Sale> Sales;
 list<SalesAnalysis> AnalysisList;
-multiset<StockItem>::iterator stockBegin = stock.begin();
-multiset<StockItem>::iterator stockEnd = stock.cend();
-
 
 
 
@@ -23,6 +17,9 @@ int main()
 	stock = StockItem::loadStock();
 	Sales = Sale::loadSales();
 	AnalysisList = SalesAnalysis::loadAnalysises();
+
+
+
 	for (StockItem s : stock)
 	{
 		cout << s << endl;
@@ -35,6 +32,9 @@ int main()
 	{
 		cout << s;
 	}
+
+
+
 	StockItem::saveStock(stock);
 	Sale::saveSales(Sales);
 	SalesAnalysis::saveAnalysises(AnalysisList);
