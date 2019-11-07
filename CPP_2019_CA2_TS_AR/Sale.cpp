@@ -201,3 +201,50 @@ bool Sale::operator==(const Sale& rhs) const
 	}
 	return false;
 }
+
+multiset<Sale> Sale::loadSales()
+{
+	ifstream in;
+	multiset<Sale> Sales;
+	in.open("sales.txt");
+	if (in.fail())
+	{
+		cout << "Error Loadng Sales" << endl;
+		in.close();
+	}
+	else
+	{
+		Sale blankSale;
+		while (in >> blankSale)
+		{
+			if (!in.eof())
+			{
+				Sales.insert(blankSale);
+			}
+		}
+	}
+	in.close();
+	return Sales;
+}
+
+void Sale::saveSales(const multiset<Sale> Sales)
+{
+	ofstream out;
+	out.open("sales.txt");
+	if (out.fail())
+	{
+		cout << "Error Saving Sales" << endl;
+		out.close();
+	}
+	else
+	{
+
+		for (Sale s : Sales)
+		{
+			out << s << endl;
+		}
+
+	}
+	out.close();
+
+}

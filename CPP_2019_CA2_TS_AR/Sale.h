@@ -34,5 +34,9 @@ public:
 	friend istream& operator>>(istream& in, Sale& sale);
 	bool operator< (const Sale& rhs) const;
 	bool operator== (const Sale& rhs) const;
+
+
+	static multiset<Sale> loadSales();
+	static void saveSales(const multiset<Sale> Sales);
 };
 
