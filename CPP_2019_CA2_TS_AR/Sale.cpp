@@ -4,6 +4,7 @@ Sale::Sale()
 {
 	salesCount++;
 	setID(salesCount);
+	this->DOC = time(0);
 	setAssistant("George Default");
 	//setItems();
 }
@@ -34,6 +35,11 @@ list<StockItem> Sale::getItems() const
 	return this->items;
 }
 
+time_t Sale::getTime() const
+{
+	return this->DOC;
+}
+
 
 void Sale::setID(int ID)
 {
@@ -62,6 +68,11 @@ void Sale::setItems(list<StockItem> items)
 	}
 }
 
+void Sale::setTime(time_t DOC)
+{
+	this->DOC = DOC;
+}
+
 bool Sale::removeItem(const StockItem& item)
 {
 	auto it = find(this->items.begin(),this->items.end(),item);
@@ -76,7 +87,7 @@ bool Sale::removeItem(const StockItem& item)
 ostream& operator<<(ostream& os, const Sale& sale)
 {
 	list<StockItem> items = sale.getItems();
-	os << sale.getID() << "%/%" << sale.getAssistant() << "%/%";
+	os << sale.getID() << "%/%" << sale.getAssistant() << "%/%" << sale.getTime() << "%/%";
 	for (StockItem s : items)
 	{
 		os << s << "/%/";
@@ -90,7 +101,8 @@ istream& operator>>(istream& in, Sale& sale)
 	list<StockItem> itemList;
 	string data,info,id,title,color,size,quantity,cost;
 	float costFloat;
-	int saleID,stockID,quantityInt;
+	int saleID,stockID,quantityInt,timeInt;
+	time_t timeInfo;
 	//Delimiters
 	string infoDelimiter = "%/%";
 	string itemDelimiter = "/%/";
@@ -112,6 +124,12 @@ istream& operator>>(istream& in, Sale& sale)
 	info = data.substr(0, data.find(infoDelimiter));
 	data.erase(0, data.find(infoDelimiter) + infoDelimiter.length());
 	string assistant = info;
+	
+	//getDOC
+	info = data.substr(0, data.find(infoDelimiter));
+	data.erase(0, data.find(infoDelimiter) + infoDelimiter.length());
+	timeInt = stoi(info);
+	timeInfo = (time_t)timeInt;
 
 	//fetch all stockitems
 	size_t pos = 0;
@@ -181,6 +199,7 @@ istream& operator>>(istream& in, Sale& sale)
 
 	sale.setAssistant(assistant);
 	sale.setID(saleID);
+	sale.setTime(timeInfo);
 	sale.setItems(itemList);
 	return in;
 }
@@ -200,4 +219,51 @@ bool Sale::operator==(const Sale& rhs) const
 		return true;
 	}
 	return false;
+}
+
+multiset<Sale> Sale::loadSales()
+{
+	ifstream in;
+	multiset<Sale> Sales;
+	in.open("sales.txt");
+	if (in.fail())
+	{
+		cout << "Error Loadng Sales" << endl;
+		in.close();
+	}
+	else
+	{
+		Sale blankSale;
+		while (in >> blankSale)
+		{
+			if (!in.eof())
+			{
+				Sales.insert(blankSale);
+			}
+		}
+	}
+	in.close();
+	return Sales;
+}
+
+void Sale::saveSales(const multiset<Sale> Sales)
+{
+	ofstream out;
+	out.open("sales.txt");
+	if (out.fail())
+	{
+		cout << "Error Saving Sales" << endl;
+		out.close();
+	}
+	else
+	{
+
+		for (Sale s : Sales)
+		{
+			out << s << endl;
+		}
+
+	}
+	out.close();
+
 }
