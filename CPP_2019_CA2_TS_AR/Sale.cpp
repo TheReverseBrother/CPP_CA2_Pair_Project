@@ -192,3 +192,12 @@ bool Sale::operator< (const Sale& rhs) const
 	else { return false; }
 	//return false;
 }
+
+bool Sale::operator==(const Sale& rhs) const
+{
+	if (this->ID == rhs.getID() && this->salesAssistant == rhs.getAssistant() && this->items == rhs.getItems() )
+	{
+		return true;
+	}
+	return false;
+}
