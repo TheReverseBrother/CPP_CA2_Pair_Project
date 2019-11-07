@@ -10,6 +10,7 @@ private:
 	int ID;
 	string salesAssistant;
 	list<StockItem> items;
+	time_t DOC;
 	static int salesCount;
 
 public:
@@ -21,11 +22,13 @@ public:
 	int getID()const;
 	string getAssistant() const;
 	list<StockItem> getItems()const;
+	time_t getTime() const;
 
 	//Setters
 	void setID(int ID);
 	void setAssistant(string assistant);
 	void setItems(list<StockItem> items);
+	void setTime(time_t DOC);
 
 	bool removeItem(const StockItem& item);
 
