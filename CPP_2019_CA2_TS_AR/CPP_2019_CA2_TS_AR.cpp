@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "User_interface.h"
+#include "User-Interface.h"
 
 // Method Definitions 
 void loadStock();
@@ -31,7 +31,7 @@ int main()
 	cout << endl;
     std::cout << "Hello World!\n";
 
-	test();
+
 
 	//StockItem Jeans;
 	//cout << Jeans.getTitle() << endl;

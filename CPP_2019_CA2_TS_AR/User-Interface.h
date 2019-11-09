@@ -1,6 +1,6 @@
 #pragma once
 
-void mainMenu() 
+void mainMenu()
 {
 	int option;
 	string Input;
