@@ -1,7 +1,15 @@
 #pragma once
 
-int mainMenuOptionCast(string input);
 void addStockMenu();
+void addSaleMenu();
+void analyseSalesMenu();
+void searchStockMenu();
+void removeItemMenu();
+
+int mainMenuOptionCast(string input);
+
+
+
 void quitApplocation();
 
 
@@ -108,12 +116,40 @@ int mainMenuOptionCast(string input)
 
 #pragma endregion
 
-void addStockMenu() 
+#pragma region addStockMenu
+void addStockMenu()
 {
 	cout << "to do Write menu" << endl;
 }
+#pragma endregion
 
-void quitApplocation() 
+#pragma region addSaleMenu
+
+void addSaleMenu() {}
+
+#pragma endregion
+
+#pragma region analyseSalesMenu
+void analyseSalesMenu() {}
+#pragma endregion
+
+#pragma region searchStockMenu
+void searchStockMenu() {}
+#pragma endregion
+
+#pragma region removeItemMenu
+void removeItemMenu() {}
+#pragma endregion
+
+
+
+
+
+
+#pragma region quit
+void quitApplocation()
 {
 	exit(1);
 }
+#pragma endregion
+
