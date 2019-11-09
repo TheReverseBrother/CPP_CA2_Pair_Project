@@ -41,7 +41,7 @@
     <ClInclude Include="SalesAnalysis.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="User_interface.h">
+    <ClInclude Include="User-Interface.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
