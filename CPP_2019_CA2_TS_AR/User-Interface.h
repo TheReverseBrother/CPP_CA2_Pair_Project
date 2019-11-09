@@ -1,6 +1,8 @@
 #pragma once
 
 int mainMenuOptionCast(string input);
+void addStockMenu();
+void quitApplocation();
 
 
 #pragma region enums
@@ -16,13 +18,15 @@ enum mainMenuSelection
 };
 #pragma endregion
 
+#pragma region mainMenu
+
 
 
 void mainMenu()
 {
 	int option;
 	string input;
-	bool selected = fasle;
+	bool selected = false;
 
 	while (!selected)
 	{
@@ -41,12 +45,12 @@ void mainMenu()
 
 		switch (option)
 		{
-		case addStock: {}
-		case addSale: {}
-		case analyseSales: {}
-		case searchStock: {}
-		case removeItem: {}
-		case quit: {}
+		case addStock: {selected = true; addStockMenu(); }
+		case addSale: {selected = true; addSaleMenu(); }
+		case analyseSales: {selected = true; analyseSalesMenu(); }
+		case searchStock: {selected = true; searchStockMenu(); }
+		case removeItem: {selected = true; removeItemMenu(); }
+		case quit: {selected = true; quitApplocation(); }
 		case error: {}
 		}
 	}
@@ -100,4 +104,16 @@ int mainMenuOptionCast(string input)
 		else {return -1;}
 	}
 	return option;
+}
+
+#pragma endregion
+
+void addStockMenu() 
+{
+	cout << "to do Write menu" << endl;
+}
+
+void quitApplocation() 
+{
+	exit(1);
 }
