@@ -4,7 +4,8 @@
 // Method Definitions 
 bool removeStock(const StockItem& item);
 bool removeSale(const Sale& sale);
-
+int intValidator();
+double doubleValidator();
 //Stock set
 multiset<StockItem> stock;
 multiset<Sale> Sales;
@@ -33,7 +34,7 @@ int main()
 		cout << s;
 	}
 
-
+	
 
 	StockItem::saveStock(stock);
 	Sale::saveSales(Sales);
@@ -77,6 +78,68 @@ inline int intValidator()
 		{
 			getline(cin, data);
 			num = stoi(data);
+
+			running = false;
+		}
+		catch (invalid_argument e)
+		{
+			cout << "Invalid Arguement Please try Again" << endl;
+		}
+		catch (out_of_range e)
+		{
+			cout << "Out Of Range Please Try Again" << endl;
+		}
+		catch (exception e)
+		{
+			cout << "Unknown Error has Occured Please Try Again" << endl;
+		}
+	}
+
+	return num;
+}
+
+inline double doubleValidator()
+{
+	string data;
+	double num;
+	bool running = true;
+	while (running)
+	{
+		try
+		{
+			getline(cin, data);
+			num = stod(data);
+
+			running = false;
+		}
+		catch (invalid_argument e)
+		{
+			cout << "Invalid Arguement Please try Again" << endl;
+		}
+		catch (out_of_range e)
+		{
+			cout << "Out Of Range Please Try Again" << endl;
+		}
+		catch (exception e)
+		{
+			cout << "Unknown Error has Occured Please Try Again" << endl;
+		}
+	}
+
+	return num;
+}
+
+inline float floatValidator()
+{
+	string data;
+	float num;
+	bool running = true;
+	while (running)
+	{
+		try
+		{
+			getline(cin, data);
+			num = stof(data);
 
 			running = false;
 		}
