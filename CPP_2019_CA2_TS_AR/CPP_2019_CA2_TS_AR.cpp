@@ -60,3 +60,39 @@ bool removeSale(const Sale& sale)
 	}
 	return false;
 }
+
+/*
+Author: Tomas
+This function takes in a line from command line and parses it to an int 
+if arguement is invalid it makes you try again till valid arguement is passed.
+*/
+inline int intValidator()
+{
+	string data;
+	int num;
+	bool running = true;
+	while (running)
+	{
+		try
+		{
+			getline(cin, data);
+			num = stoi(data);
+
+			running = false;
+		}
+		catch (invalid_argument e)
+		{
+			cout << "Invalid Arguement Please try Again" << endl;
+		}
+		catch (out_of_range e)
+		{
+			cout << "Out Of Range Please Try Again" << endl;
+		}
+		catch (exception e)
+		{
+			cout << "Unknown Error has Occured Please Try Again" << endl;
+		}
+	}
+
+	return num;
+}
