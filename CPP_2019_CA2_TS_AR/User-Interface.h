@@ -5,8 +5,10 @@ void addSaleMenu();
 void analyseSalesMenu();
 void searchStockMenu();
 void removeItemMenu();
+void addNewStockItem();
 
 int mainMenuOptionCast(string input);
+int addStockMenuCast(string input);
 
 
 
@@ -23,6 +25,13 @@ enum mainMenuSelection
 	searchStock = 4,
 	removeItem = 5,
 	quit = 6
+};
+
+enum stockMenuEnums
+{
+	newItem = 1,
+	modifyStock = 2,
+	back = 3,
 };
 #pragma endregion
 
@@ -120,7 +129,75 @@ int mainMenuOptionCast(string input)
 void addStockMenu()
 {
 	bool selected = false;
+	int option = -1;
+	string input;
 
+
+	while (!selected) 
+	{
+		cout << "Stock Menu" << endl << endl;
+		cout << "1: New Item" << endl;
+		cout << "2: Modify Stock" << endl;
+		cout << "3: Back" << endl;
+		getline(cin, input);
+		option = addStockMenuCast(input);
+
+		switch (option) 
+		{
+		case newItem: {selected = true; addNewStockItem();}
+		case modifyStock: {}
+		case back: {selected = true; mainMenu();}
+		case error: {}
+		}
+
+	}
+
+	
+}
+
+int addStockMenuCast(string input)
+{
+
+#pragma region regexExpressions
+	smatch matches;
+
+	regex addStockReg("[aA][dD]{2}.?[sS][tT][oO][cC][kK]");
+	regex addSaleReg("[aA][dD]{2}.?[sS][tT][oO][cC][kK]");
+	regex analyseSalesReg("[aA][nN][aA][lL][yY][sS][eE].?[sS][aA][Ll][eE][sS]?");
+	regex searchStockReg("[sS][eE][aA][rR][cC][hH].?[sS][tT][oO][cC][kK]");
+	regex removeItemReg("[rR][eE][mM][oO][vV][eE].?[iI][tT][eE][mM][sS]?");
+	regex quitReg("[qQ][uU][iI][tT]");
+
+#pragma endregion
+
+
+	int option = -1;
+
+
+	string temp = input.substr(0, input.find(" "));
+
+	if (temp.length() == 1)
+	{
+		try
+		{
+			option = stoi(temp);
+			return option;
+		}
+		catch (invalid_argument & e)
+		{
+			cout << "invaild Menu Selection in Main Menu" << endl;
+			return option = -1;
+		}
+	}
+
+
+}
+
+
+
+void addNewStockItem() 
+{
+	bool selected = false;
 	string input;
 	string title;
 	string color;
@@ -128,15 +205,9 @@ void addStockMenu()
 	int quantity;
 	float cost;
 
-
-	cout << "Stock Menu" << endl << endl;
-	cout << "1: New Item" << endl;
-	cout << "2: Modify Stock" << endl;
-
-
 	while (!selected)
 	{
-	
+
 		while (!selected)
 		{
 			cout << "please enter stock Item Title" << endl;
@@ -146,7 +217,7 @@ void addStockMenu()
 
 		selected = false;
 
-		while (!selected) 
+		while (!selected)
 		{
 			cout << "please enter stock Item Color" << endl;
 			getline(cin, color);
@@ -180,7 +251,11 @@ void addStockMenu()
 		}
 	}
 
+	addStockMenu();
 }
+
+
+
 #pragma endregion
 
 #pragma region addSaleMenu
