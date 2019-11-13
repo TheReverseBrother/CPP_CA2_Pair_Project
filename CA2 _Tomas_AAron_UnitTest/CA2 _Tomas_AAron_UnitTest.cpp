@@ -5,6 +5,7 @@
 
 #include "../CPP_2019_CA2_TS_AR/pch.h"
 #include "../CPP_2019_CA2_TS_AR/StockItem.h"
+#include "../CPP_2019_CA2_TS_AR/Sale.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -175,6 +176,46 @@ namespace CA2TomasAAronUnitTest
 
 	TEST_CLASS(Test_Sale)
 	{
-		
+		TEST_METHOD(Test_Default_Constructor)
+		{
+			Sale s;
+			time_t timeNow = time(0);
+			int id = 1;
+			string assistant = "George Default";
+
+			Assert::AreEqual(s.getID(),id);
+			Assert::AreEqual(s.getTime(),timeNow);
+			Assert::AreEqual(s.getAssistant(),assistant);
+		}
+
+		TEST_METHOD(setTime_Test)
+		{
+			Sale s;
+			time_t timeNow = time(0);
+			s.setTime(timeNow);
+
+			Assert::AreEqual(s.getTime(),timeNow);
+		}
+
+		TEST_METHOD(setItems_Test)
+		{
+			Sale s;
+			list<StockItem> items;
+			StockItem st;
+			auto func = [&] {
+				s.setItems(items);
+			};
+
+			Assert::ExpectException<domain_error>(func);
+
+			//test With items
+			items.push_back(st);
+			s.setItems(items);
+
+			list<StockItem> itemsInClass = s.getItems();
+
+			Assert::AreEqual(itemsInClass,items);
+
+		}
 	};
 }
