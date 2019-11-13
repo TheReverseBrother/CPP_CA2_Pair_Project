@@ -1,5 +1,9 @@
 #include "pch.h"
 #include "CppUnitTest.h"
+#include <stdexcept>
+#include <functional>
+
+#include "../CPP_2019_CA2_TS_AR/pch.h"
 #include "../CPP_2019_CA2_TS_AR/StockItem.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -10,14 +14,66 @@ namespace CA2TomasAAronUnitTest
 	{
 	public:
 		
-		TEST_METHOD(Test_Constructor)
+		TEST_METHOD(Test_Default_Constructor)
 		{
+			StockItem s1;
+			int id= 1 ;
+			string title =  "Jeans";
+			string color = "Blue";
+			string size = "XL";
+			int quantity = 10;
+			float cost = 2.0;
+
+			Assert::AreEqual(s1.getID(),id);
+			Assert::AreEqual(s1.getColor(),color);
+			Assert::AreEqual(s1.getTitle(),title);
+			Assert::AreEqual(s1.getSize(),size);
+			Assert::AreEqual(s1.getQuantity(),quantity);
+			Assert::AreEqual(s1.getCost(),cost);
+		}
+
+		TEST_METHOD(setTitle_Test)
+		{
+			//Test One Char
+			auto func = [] {
+				StockItem t;
+				string title = "2";
+				t.setTitle(title);
+			};
+
+			Assert::ExpectException<domain_error>(func);
+
+			//Test 2 Char
+			auto func2 = [] {
+				StockItem t;
+				string title = "WW";
+				t.setTitle(title);
+			};
+
+			Assert::ExpectException<domain_error>(func2);
+
+			//Test 3 Char
+			auto func3 = [] {
+				StockItem t;
+				string title = "WWW";
+				t.setTitle(title);
+			};
+
+			Assert::ExpectException<domain_error>(func3);
+
+			//Test 4 Char
 			StockItem s;
-			int id = 1;
+			string title = "Jean";
+			s.setTitle(title);
 
-			Assert::AreEqual(s.getID(),id);
+			Assert::AreEqual(s.getTitle(),title);
 
+			//Test Long String
+			
+			title = "Purple Hoodie";
+			s.setTitle(title);
 
+			Assert::AreEqual(s.getTitle(), title);
 		}
 	};
 }
