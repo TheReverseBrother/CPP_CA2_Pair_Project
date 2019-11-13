@@ -219,5 +219,49 @@ namespace CA2TomasAAronUnitTest
 			Assert::AreEqual(size1,size2);
 
 		}
+
+		TEST_METHOD(setAssistant_Test)
+		{
+			Sale s;
+			string name = "J";
+
+
+			//Test 1 Char
+			auto func = [&] {
+				s.setAssistant(name);
+			};
+
+			Assert::ExpectException<domain_error>(func);
+
+
+			//Test 2 Char
+			name = "JJ";
+			auto func1 = [&] {
+				s.setAssistant(name);
+			};
+
+			Assert::ExpectException<domain_error>(func1);
+
+			//Test 3 Char
+			name = "Jim";
+			auto func2 = [&] {
+				s.setAssistant(name);
+			};
+
+			Assert::ExpectException<domain_error>(func2);
+
+			//Test 4 Char
+			name = "John";
+			s.setAssistant(name);
+
+			Assert::AreEqual(s.getAssistant(),name);
+
+			//Test Long String
+			name = "John Quincy Adams";
+			s.setAssistant(name);
+
+			Assert::AreEqual(s.getAssistant(), name);
+
+		}
 	};
 }
