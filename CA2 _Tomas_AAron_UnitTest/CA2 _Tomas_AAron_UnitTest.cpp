@@ -75,5 +75,47 @@ namespace CA2TomasAAronUnitTest
 
 			Assert::AreEqual(s.getTitle(), title);
 		}
+
+
+		TEST_METHOD(setColor_Test)
+		{
+			StockItem t;
+			string color = "2";
+
+			//Test One Char
+			auto func = [&] {
+				t.setColor(color);
+			};
+
+			Assert::ExpectException<domain_error>(func);
+
+			//Test 2 Char
+			color = "WW";
+			auto func1 = [&] {
+				t.setColor(color);
+			};
+
+			Assert::ExpectException<domain_error>(func1);
+
+			//Test 3 Char
+			color = "WWW";
+			t.setColor(color);
+
+			Assert::AreEqual(t.getColor(), color);
+
+
+			//Test 4 Char
+			color = "WWWW";
+			t.setColor(color);
+
+			Assert::AreEqual(t.getColor(),color);
+
+			//Test Long String
+			color = "Eggshell White";
+			t.setColor(color);
+
+			Assert::AreEqual(t.getColor(), color);
+
+		}
 	};
 }
