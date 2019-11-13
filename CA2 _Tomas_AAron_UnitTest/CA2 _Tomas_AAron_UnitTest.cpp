@@ -117,5 +117,30 @@ namespace CA2TomasAAronUnitTest
 			Assert::AreEqual(t.getColor(), color);
 
 		}
-	};
+	
+		TEST_METHOD(setQuantity_Test)
+		{
+			StockItem t;
+			int num = 0;
+
+			//Test 0 
+			auto func = [&] {
+				t.setQuantity(num);
+			};
+
+			Assert::ExpectException<domain_error>(func);
+
+			//Test 1
+			num = 1;
+			t.setQuantity(num);
+
+			Assert::AreEqual(t.getQuantity(), num);
+			//Test 10
+			num = 10;
+			t.setQuantity(num);
+
+			Assert::AreEqual(t.getQuantity(),num);
+
+		}
+};
 }
