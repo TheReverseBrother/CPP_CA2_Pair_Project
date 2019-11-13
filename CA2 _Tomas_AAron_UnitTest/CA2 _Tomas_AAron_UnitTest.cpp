@@ -10,7 +10,7 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace CA2TomasAAronUnitTest
 {
-	TEST_CLASS(CA2TomasAAronUnitTest)
+	TEST_CLASS(Test_StockItem)
 	{
 	public:
 		
@@ -172,4 +172,9 @@ namespace CA2TomasAAronUnitTest
 
 		}
 };
+
+	TEST_CLASS(Test_Sale)
+	{
+		
+	};
 }
