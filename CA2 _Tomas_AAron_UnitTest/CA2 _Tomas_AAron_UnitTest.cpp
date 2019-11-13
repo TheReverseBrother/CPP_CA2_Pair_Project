@@ -142,5 +142,34 @@ namespace CA2TomasAAronUnitTest
 			Assert::AreEqual(t.getQuantity(),num);
 
 		}
+
+		TEST_METHOD(setCost_Test)
+		{
+			StockItem t;
+			float cost = -0.00;
+
+			//Test -1.00
+			auto func = [&] {
+				t.setCost(cost);
+			};
+
+			Assert::ExpectException<domain_error>(func);
+
+			//Test 0.00
+			cost = 0.00;
+			auto func1 = [&] {
+				t.setCost(cost);
+			};
+
+			Assert::ExpectException<domain_error>(func1);
+
+			//Test 12.00
+			cost = 12.00;
+			t.setCost(cost);
+
+			Assert::AreEqual(t.getCost(),cost);
+
+
+		}
 };
 }
