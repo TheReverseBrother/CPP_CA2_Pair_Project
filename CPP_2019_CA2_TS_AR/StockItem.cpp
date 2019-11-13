@@ -48,7 +48,7 @@ void StockItem::setTitle(string& title)
 {
 	if (title.size() < 4)
 	{
-		throw new domain_error("Invalid Length of String");
+		throw domain_error("Invalid Length of String");
 	}
 	else
 	{
