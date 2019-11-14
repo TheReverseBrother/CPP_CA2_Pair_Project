@@ -6,6 +6,7 @@
 #include "../CPP_2019_CA2_TS_AR/pch.h"
 #include "../CPP_2019_CA2_TS_AR/StockItem.h"
 #include "../CPP_2019_CA2_TS_AR/Sale.h"
+#include "../CPP_2019_CA2_TS_AR/SalesAnalysis.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -281,13 +282,26 @@ namespace CA2TomasAAronUnitTest
 			bool removed = s.removeItem(st);
 			Assert::IsTrue(removed);
 
-
-
 		}
 	};
 
 	TEST_CLASS(Test_SaleAnalysis)
 	{
+		TEST_METHOD(Test_Default_Constructor)
+		{
+			SalesAnalysis s;
+			int id = 0;
+			time_t timeNow = time(0);
+			float price = 1.00;
 
+			Assert::AreEqual(s.getID(),id);
+			Assert::AreEqual(s.getDateOfCreation(),timeNow);
+			Assert::AreEqual(s.getTotalValue(),price);
+		}
+
+		TEST_METHOD(Test_Regular_Constructor)
+		{
+
+		}
 	};
 }
