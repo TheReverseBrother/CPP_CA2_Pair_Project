@@ -264,4 +264,9 @@ namespace CA2TomasAAronUnitTest
 
 		}
 	};
+
+	TEST_CLASS(Test_SaleAnalysis)
+	{
+
+	};
 }
