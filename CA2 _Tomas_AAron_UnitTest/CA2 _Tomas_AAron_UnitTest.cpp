@@ -263,6 +263,27 @@ namespace CA2TomasAAronUnitTest
 			Assert::AreEqual(s.getAssistant(), name);
 
 		}
+
+		TEST_METHOD(removeItem_Test)
+		{
+			Sale s;
+			list<StockItem> items;
+			StockItem st;
+			int size1, size2;
+			items.push_back(st);
+			s.setItems(items);
+
+			list<StockItem> itemsInSale = s.getItems();
+			size1 = items.size();
+			size2 = itemsInSale.size();
+			Assert::AreEqual(size1,size2);
+
+			bool removed = s.removeItem(st);
+			Assert::IsTrue(removed);
+
+
+
+		}
 	};
 
 	TEST_CLASS(Test_SaleAnalysis)
