@@ -6,6 +6,7 @@ SalesAnalysis::SalesAnalysis()
 {
 	this->ID = 0;
 	this->dayOfCreation = time(0);
+	this->lastAnalysis = time(0);
 	this->totalValueOfSales = 1.00;
 }
 
@@ -43,6 +44,11 @@ float SalesAnalysis::getTotalValue() const
 	return this->totalValueOfSales;
 }
 
+time_t SalesAnalysis::getLastAnalysis() const
+{
+	return this->lastAnalysis;
+}
+
 
 //Setters
 void SalesAnalysis::setID(int& ID)
@@ -60,9 +66,14 @@ void SalesAnalysis::setTotalValue(float& value)
 	this->totalValueOfSales = value;
 }
 
+void SalesAnalysis::setLastAnalysis(time_t& lastAnalysis)
+{
+	this->lastAnalysis = lastAnalysis;
+}
+
 ostream& operator<<(ostream& os, SalesAnalysis& saleAnalysis)
 {
-	os << saleAnalysis.getID() << "/" << saleAnalysis.getDateOfCreation() << "/" <<  saleAnalysis.getTotalValue() << endl;
+	os << saleAnalysis.getID() << "/" << saleAnalysis.getDateOfCreation() << "/" << saleAnalysis.getLastAnalysis() << "/" <<   saleAnalysis.getTotalValue() << endl;
 
 	return os;
 }
@@ -91,6 +102,12 @@ istream& operator>>(istream& in,SalesAnalysis& saleAnalysis)
 		timeInt = stoi(info);
 		timeInfo = (time_t) timeInt;
 		saleAnalysis.setDateOfCreation(timeInfo);
+
+		info = data.substr(0, data.find(delimiter));
+		data.erase(0, data.find(delimiter) + delimiter.length());
+		timeInt = stoi(info);
+		timeInfo = (time_t)timeInt;
+		saleAnalysis.setLastAnalysis(timeInfo);
 
 		info = data.substr(0, data.find(delimiter));
 		data.erase(0, data.find(delimiter) + delimiter.length());
