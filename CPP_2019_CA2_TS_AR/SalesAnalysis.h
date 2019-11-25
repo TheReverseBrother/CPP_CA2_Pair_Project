@@ -1,5 +1,7 @@
 #pragma once
 #include "pch.h"
+#include "Sale.h"
+class Sale;
 using namespace std;
 class SalesAnalysis
 {
