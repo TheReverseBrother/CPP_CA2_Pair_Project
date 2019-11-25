@@ -27,7 +27,7 @@ public:
 
 	friend ostream& operator<<(ostream& os, SalesAnalysis& saleAnalysis);
 	friend istream& operator>>(istream& in, SalesAnalysis& saleAnalysis);
-
+	void operator()(Sale s);
 
 	static list<SalesAnalysis> loadAnalysises();
 	static void saveAnalysises(list<SalesAnalysis>& list);

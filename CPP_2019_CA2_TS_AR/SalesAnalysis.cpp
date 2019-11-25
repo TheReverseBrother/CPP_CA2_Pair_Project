@@ -18,12 +18,13 @@ SalesAnalysis::SalesAnalysis(int ID, time_t dayOfCreation, float totalValueOfSal
 	setTotalValue(totalValueOfSales);
 }
 
-SalesAnalysis::SalesAnalysis(float totalValueOfSales)
+SalesAnalysis::SalesAnalysis(time_t lastAnalysis)
 {
 	++SalesAnalysis::SalesCount;
 	setID(SalesAnalysis::SalesCount);
 	this->dayOfCreation = time(0);
-	setTotalValue(totalValueOfSales);
+	this->lastAnalysis = lastAnalysis;
+	this->totalValueOfSales = 0;
 }
 
 SalesAnalysis::~SalesAnalysis()
@@ -135,6 +136,15 @@ istream& operator>>(istream& in,SalesAnalysis& saleAnalysis)
 
 	return in;
 
+}
+
+void SalesAnalysis::operator()(Sale s)
+{
+	if (s.getTime() > this->lastAnalysis)
+	{
+		//Make it add to Price
+		//this->totalValueOfSales += s.
+	}
 }
 
 list<SalesAnalysis> SalesAnalysis::loadAnalysises()
