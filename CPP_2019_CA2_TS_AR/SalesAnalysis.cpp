@@ -142,8 +142,7 @@ void SalesAnalysis::operator()(Sale s)
 {
 	if (s.getTime() > this->lastAnalysis)
 	{
-		//Make it add to Price
-		//this->totalValueOfSales += s.
+		this->totalValueOfSales += s.getTotalSalePrice();
 	}
 }
 
