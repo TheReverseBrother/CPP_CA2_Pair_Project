@@ -1,19 +1,21 @@
 #pragma once
 
+#pragma region method definitions
 void addStockMenu();
 void addSaleMenu();
 void analyseSalesMenu();
 void searchStockMenu();
 void removeItemMenu();
 void addNewStockItem();
-
+void addNewSale();
+void refundSaleMenu();
 int mainMenuOptionCast(string input);
 int addStockMenuCast(string input);
 
 
 
 void quitApplocation();
-
+#pragma endregion
 
 #pragma region enums
 enum mainMenuSelection
@@ -31,6 +33,13 @@ enum stockMenuEnums
 {
 	newItem = 1,
 	modifyStock = 2,
+	back = 3,
+};
+
+enum salesMenuEnums
+{
+	newSale = 1,
+	refundSale = 2,
 	back = 3,
 };
 #pragma endregion
@@ -68,7 +77,7 @@ void mainMenu()
 		case searchStock: {selected = true; searchStockMenu(); }
 		case removeItem: {selected = true; removeItemMenu(); }
 		case quit: {selected = true; quitApplocation(); }
-		case error: {}
+		case error: {selected = true;  cout << "Error Returning to main menu" << endl; mainMenu(); }
 		}
 	}
 }
@@ -145,9 +154,9 @@ void addStockMenu()
 		switch (option) 
 		{
 		case newItem: {selected = true; addNewStockItem();}
-		case modifyStock: {}
+		case modifyStock: {selected = true; modifyStockMenu(); }
 		case back: {selected = true; mainMenu();}
-		case error: {}
+		case error: {cout << "Error Returning to main menu" << endl; mainMenu(); }
 		}
 
 	}
@@ -161,12 +170,9 @@ int addStockMenuCast(string input)
 #pragma region regexExpressions
 	smatch matches;
 
-	regex addStockReg("[aA][dD]{2}.?[sS][tT][oO][cC][kK]");
-	regex addSaleReg("[aA][dD]{2}.?[sS][tT][oO][cC][kK]");
-	regex analyseSalesReg("[aA][nN][aA][lL][yY][sS][eE].?[sS][aA][Ll][eE][sS]?");
-	regex searchStockReg("[sS][eE][aA][rR][cC][hH].?[sS][tT][oO][cC][kK]");
-	regex removeItemReg("[rR][eE][mM][oO][vV][eE].?[iI][tT][eE][mM][sS]?");
-	regex quitReg("[qQ][uU][iI][tT]");
+	regex newItemReg("[nN][eE][wW].?[iI][tT][eE][mM]");
+	regex modifyStockReg("[mM][oO][dD][iI][fF][yY].?[sS][tT][oO][cC][kK]");
+	regex backReg("[bB][aA][cC][kK]");
 
 #pragma endregion
 
@@ -189,7 +195,18 @@ int addStockMenuCast(string input)
 			return option = -1;
 		}
 	}
+	else
+	{
 
+		if (input.length() > 0)
+		{
+			if (regex_search(input, matches, newItemReg)) { return newItem; }
+			else if (regex_search(input, matches, modifyStockReg)) { return modifyStock; }
+			else if (regex_search(input, matches, backReg)) { return back; }
+		}
+		else { return -1; }
+	}
+	return option;
 
 }
 
@@ -255,6 +272,39 @@ void addNewStockItem()
 }
 
 
+void modifyStockMenu() 
+{
+	bool selected = false;
+	smatch matches;
+	string IDinput;
+	regex IDReg("^[0-9]+$");
+
+	while (!selected)
+	{
+		cout << "Modify Stock" << endl << endl;
+		cout << "Enter Stock ID" << endl;
+		getline(cin, IDinput);
+
+		if (regex_search(IDinput, matches, IDReg))
+		{
+			try  
+			{
+				int ID = stoi(IDinput);
+				searchByID(ID);
+			}
+			catch (invalid_argument & e) 
+			{
+				cout << "error in cast modifyStockMenu" << endl;
+			}
+		}
+
+	}
+
+
+}
+
+
+
 
 #pragma endregion
 
@@ -262,7 +312,28 @@ void addNewStockItem()
 
 void addSaleMenu() 
 {
+		bool selected = false;
+		int option = -1;
+		string input;
 
+		while (!selected)
+		{
+			cout << "Sale Menu" << endl << endl;
+			cout << "1: New Sale" << endl;
+			cout << "2: Refund Sale" << endl;
+			cout << "3: Back" << endl;
+			getline(cin, input);
+			option = addStockMenuCast(input);
+
+			switch (option)
+			{
+			case newSale: {selected = true; addNewSale(); }
+			case refundSale: {selected = true; refundSaleMenu(); }
+			case back: {selected = true; mainMenu(); }
+			case error: {cout << "Error Returning to main menu" << endl; mainMenu(); }
+			}
+
+		}
 }
 
 #pragma endregion
@@ -278,11 +349,6 @@ void searchStockMenu() {}
 #pragma region removeItemMenu
 void removeItemMenu() {}
 #pragma endregion
-
-
-
-
-
 
 #pragma region quit
 void quitApplocation()
