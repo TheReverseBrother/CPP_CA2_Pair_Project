@@ -10,6 +10,7 @@ private:
 	int ID;
 	string salesAssistant;
 	list<StockItem> items;
+	float totalSalePrice;
 	time_t DOC;
 	static int salesCount;
 
@@ -23,12 +24,14 @@ public:
 	string getAssistant() const;
 	list<StockItem> getItems()const;
 	time_t getTime() const;
+	float getTotalSalePrice() const;
 
 	//Setters
 	void setID(int ID);
 	void setAssistant(string assistant);
 	void setItems(list<StockItem> items);
 	void setTime(time_t DOC);
+	void setTotalSalePrice(float price);
 
 	bool removeItem(const StockItem& item);
 
