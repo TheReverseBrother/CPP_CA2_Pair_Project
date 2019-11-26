@@ -143,8 +143,6 @@ void SalesAnalysis::operator()(Sale s)
 	if (s.getTime() > this->lastAnalysis)
 	{
 		totalValueOfSales += s.getTotalSalePrice();
-		cout << this->totalValueOfSales << endl;
-
 	}
 }
 
