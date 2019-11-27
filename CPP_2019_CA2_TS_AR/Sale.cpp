@@ -1,5 +1,7 @@
 #include "Sale.h"
 int Sale::salesCount = 50;
+
+#pragma region Constructors
 Sale::Sale()
 {
 	//salesCount++;
@@ -22,7 +24,9 @@ Sale::~Sale()
 {
 }
 
-//Getters
+#pragma endregion
+
+#pragma region Getters
 int Sale::getID() const 
 {
 	return this->ID;
@@ -35,18 +39,17 @@ list<StockItem> Sale::getItems() const
 {
 	return this->items;
 }
-
 time_t Sale::getTime() const
 {
 	return this->DOC;
 }
-
 float Sale::getTotalSalePrice() const
 {
 	return this->totalSalePrice;
 }
+#pragma endregion
 
-
+#pragma region Setters
 void Sale::setID(int ID)
 {
 	this->ID = ID;
@@ -73,23 +76,22 @@ void Sale::setItems(list<StockItem> items)
 		this->items = items;
 	}
 }
-
 void Sale::setTime(time_t DOC)
 {
 	this->DOC = DOC;
 }
-
 void Sale::setTotalSalePrice(float price)
 {
 	this->totalSalePrice = price;
 }
+#pragma endregion
 
+#pragma region Methods
 void Sale::print()
 {
 	string date = time_to_local_date(this->DOC);
 	printf("%-10d %-20s %-10d %-15f %-15s\n", this->ID, this->salesAssistant.c_str(), this->items.size(), this->totalSalePrice, date.c_str());
 }
-
 
 bool Sale::removeItem(const StockItem& item)
 {
@@ -101,9 +103,9 @@ bool Sale::removeItem(const StockItem& item)
 	}
 	return false;
 }
+#pragma endregion
 
-
-
+#pragma region operators
 ostream& operator<<(ostream& os, const Sale& sale)
 {
 	list<StockItem> items = sale.getItems();
@@ -240,7 +242,9 @@ bool Sale::operator==(const Sale& rhs) const
 	}
 	return false;
 }
+#pragma endregion
 
+#pragma region Static Methods
 multiset<Sale> Sale::loadSales()
 {
 	ifstream in;
@@ -287,3 +291,4 @@ void Sale::saveSales(const multiset<Sale> Sales)
 	out.close();
 
 }
+#pragma endregion
