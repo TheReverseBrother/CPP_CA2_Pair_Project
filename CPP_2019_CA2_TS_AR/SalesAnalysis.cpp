@@ -97,9 +97,21 @@ istream& operator>>(istream& in,SalesAnalysis& saleAnalysis)
 		price = stof(info);
 		saleAnalysis.setTotalValue(price);
 	}
-	catch (exception e)
+	catch (domain_error e)
 	{
-		e.what();
+		cout << "Error Loading SalesAnalysis" << endl;
+		int x = 0;
+		saleAnalysis.setID(x);
+	}
+	catch (invalid_argument const& e)
+	{
+		cout << "Error Loading SalesAnalysis" << endl;
+		int x = 0;
+		saleAnalysis.setID(x);
+	}
+	catch (out_of_range const& e)
+	{
+		cout << "Error Loading SalesAnalysis" << endl;
 		int x = 0;
 		saleAnalysis.setID(x);
 	}

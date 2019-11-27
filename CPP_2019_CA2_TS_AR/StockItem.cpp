@@ -3,14 +3,12 @@ int StockItem::stockItemCount = 100;
 
 StockItem::StockItem()
 {
-	++StockItem::stockItemCount;
-	this->ID = StockItem::stockItemCount;
+	this->ID = 1;
 	this->title = "Jeans";
 	this->color = "Blue";
 	this->size = "XL";
 	this->quantity = 10;
 	this->cost = 2.00;
-	
 }
 
 StockItem::StockItem(int ID,string title, string color, string size, int quantity, float cost)
@@ -50,7 +48,7 @@ void StockItem::setTitle(string& title)
 {
 	if (title.size() < 4)
 	{
-		throw new domain_error("Invalid Length of String");
+		throw domain_error("Invalid Length of String");
 	}
 	else
 	{
@@ -168,8 +166,6 @@ bool StockItem::operator < (const StockItem& rhs) const
 	//return false;
 }
 
-
-
 istream& operator>>(istream& in, StockItem& item)
 {
 	int id,quantity;
@@ -195,4 +191,150 @@ istream& operator>>(istream& in, StockItem& item)
 	item.setCost(cost);
 
 	return in;
+}
+
+multiset<StockItem> StockItem::loadStock()
+{
+	ifstream in;
+	ofstream out;
+	multiset<StockItem> stock;
+
+	in.open("stock-list.txt");
+
+	string temp;
+	string error;
+	string delimiter = "/";
+	string id;
+	string title;
+	string color;
+	string size;
+	string quantity;
+	string cost;
+	int ID;
+	int Quantity;
+	float Cost;
+
+	if (in.fail())
+	{
+		cout << "error loading file" << endl;
+		out.open("stock-list.txt");
+		out.close();
+		in.close();
+		
+	}
+
+	while (!in.eof())
+	{
+		try
+		{
+		//cout << "test";
+		in >> temp;
+		error = temp;
+
+		if (temp.length() > 10)
+		{
+			//splice string 
+
+			id = temp.substr(0, temp.find(delimiter));
+			temp.erase(0, temp.find(delimiter) + delimiter.length());
+
+			title = temp.substr(0, temp.find(delimiter));
+			temp.erase(0, temp.find(delimiter) + delimiter.length());
+
+			color = temp.substr(0, temp.find(delimiter));
+			temp.erase(0, temp.find(delimiter) + delimiter.length());
+
+			size = temp.substr(0, temp.find(delimiter));
+			temp.erase(0, temp.find(delimiter) + delimiter.length());
+
+			quantity = temp.substr(0, temp.find(delimiter));
+			temp.erase(0, temp.find(delimiter) + delimiter.length());
+
+			cost = temp.substr(0, temp.find(delimiter));
+			temp.erase(0, temp.find(delimiter) + delimiter.length());
+
+			/// cast to correct types
+
+			//id
+			try
+			{
+				ID = stoi(id);
+			}
+			catch (invalid_argument const& e)
+			{
+				cout << "invalid argument while loading 'stock-list.txt' id on item " << error << endl;
+			}
+			catch (out_of_range const& e)
+			{
+				cout << "out of range error in 'stock-list.txt' id on item " << error << endl;
+			}
+
+
+			//quantity
+			try
+			{
+				Quantity = stoi(quantity);
+			}
+			catch (invalid_argument const& e)
+			{
+				cout << "invalid argument while loading 'stock-list.txt' quantity on item " << error << endl;
+			}
+			catch (out_of_range const& e)
+			{
+				cout << "out of range error in 'stock-list.txt' quantity on item " << error << endl;
+			}
+
+			//cost
+			try
+			{
+				Cost = stof(cost);
+			}
+			catch (invalid_argument const& e)
+			{
+				cout << "invalid argument while loading 'stock-list.txt' cost on item " << error << endl;
+			}
+			catch (out_of_range const& e)
+			{
+				cout << "out of range error in 'stock-list.txt' cost on item " << error << endl;
+			}
+
+			// create object and add to set
+
+			//cout << "test2" << title << color << size << Quantity << Cost << endl;
+
+
+			StockItem item(ID, title, color, size, Quantity, Cost);
+			stock.insert(item);
+		}
+		
+		}
+		catch (domain_error e)
+		{
+			cout << "Error Loading StockItem: " << e.what() << endl;
+		}
+		catch (invalid_argument const& e)
+		{
+			cout << "invalid argument while loading 'stock-list.txt' "<<  endl;
+		}
+		catch (out_of_range const& e)
+		{
+			cout << "out of range error in 'stock-list.txt' cost on item "<< endl;
+		}
+	}
+	in.close();
+	return stock;
+}
+
+void StockItem::saveStock(const multiset<StockItem>& stock)
+{
+	ofstream out;
+	out.open("stock-list.txt");
+
+	for (auto x : stock)
+	{
+		StockItem item = (StockItem)x;
+		out << item << endl;
+	}
+
+	out.close();
 }

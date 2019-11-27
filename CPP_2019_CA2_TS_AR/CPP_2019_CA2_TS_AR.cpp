@@ -2,30 +2,22 @@
 #include "User-interface.h"
 
 // Method Definitions 
-void loadStock();
-void outputStock();
-void outputSales();
-void loadSales();
 bool removeStock(const StockItem& item);
 bool removeSale(const Sale& sale);
-// Streams
-ifstream in;
-ofstream out;
-
+int intValidator();
+double doubleValidator();
+float floatValidator();
 //Stock set
 multiset<StockItem> stock;
 multiset<Sale> Sales;
 list<SalesAnalysis> AnalysisList;
-multiset<StockItem>::iterator stockBegin = stock.begin();
-multiset<StockItem>::iterator stockEnd = stock.cend();
-
 
 
 
 int main()
 {
-	loadStock();
-	loadSales();
+	stock = StockItem::loadStock();
+	Sales = Sale::loadSales();
 	AnalysisList = SalesAnalysis::loadAnalysises();
 	cout << endl;
 	cout << endl;
@@ -52,19 +44,28 @@ int main()
 	cout<<"Jacket ID  "<<Jacket.getID()<<endl;
 	cout << "Jean ID  " << jeans.getID() << endl;
 	list<StockItem> itemList;
+
+
+
+
+	for (StockItem s : stock)
+	{
+		cout << s << endl;
+	}
+	
 	for (Sale s : Sales)
 	{
 		cout << s << endl;
 	}
-
-	
-	outputStock();
-	outputSales();
-
 	for (SalesAnalysis s : AnalysisList)
 	{
 		cout << s;
 	}
+
+	
+
+	StockItem::saveStock(stock);
+	Sale::saveSales(Sales);
 	SalesAnalysis::saveAnalysises(AnalysisList);
 }
 
@@ -89,177 +90,132 @@ bool removeSale(const Sale& sale)
 	return false;
 }
 
-void loadStock()
+/*
+Author: Tomas
+This function takes in a line from command line and parses it to an int 
+if arguement is invalid it makes you try again till valid arguement is passed.
+*/
+inline int intValidator()
 {
-	in.open("stock-list.txt");
-
-	string temp;
-	string error;
-	string delimiter = "/";
-	string id;
-	string title;
-	string color;
-	string size;
-	string quantity;
-	string cost;
-	int ID;
-	int Quantity;
-	float Cost;
-
-	if (in.fail())
+	string data;
+	int num;
+	bool running = true;
+	while (running)
 	{
-		cout << "error loading file" << endl;
-		out.open("stock-list.txt");
-		out.close();
-		in.close();
-		loadStock();
-	}
-
-	while (!in.eof())
-	{
-		//cout << "test";
-		in >> temp;
-		error = temp;
-
-		if (temp.length() > 10) 
+		try
 		{
-			//splice string 
+			getline(cin, data);
+			num = stoi(data);
 
-			id = temp.substr(0, temp.find(delimiter));
-			temp.erase(0, temp.find(delimiter) + delimiter.length());
-
-			title = temp.substr(0, temp.find(delimiter));
-			temp.erase(0, temp.find(delimiter) + delimiter.length());
-
-			color = temp.substr(0, temp.find(delimiter));
-			temp.erase(0, temp.find(delimiter) + delimiter.length());
-
-			size = temp.substr(0, temp.find(delimiter));
-			temp.erase(0, temp.find(delimiter) + delimiter.length());
-
-			quantity = temp.substr(0, temp.find(delimiter));
-			temp.erase(0, temp.find(delimiter) + delimiter.length());
-
-			cost = temp.substr(0, temp.find(delimiter));
-			temp.erase(0, temp.find(delimiter) + delimiter.length());
-
-			/// cast to correct types
-
-			//id
-			try
-			{
-				ID = stoi(id);
-			}
-			catch (invalid_argument const& e)
-			{
-				cout << "invalid argument while loading 'stock-list.txt' id on item " << error << endl;
-			}
-			catch (out_of_range const& e)
-			{
-				cout << "out of range error in 'stock-list.txt' id on item " << error << endl;
-			}
-
-
-			//quantity
-			try
-			{
-				Quantity = stoi(quantity);
-			}
-			catch (invalid_argument const& e)
-			{
-				cout << "invalid argument while loading 'stock-list.txt' quantity on item " << error << endl;
-			}
-			catch (out_of_range const& e)
-			{
-				cout << "out of range error in 'stock-list.txt' quantity on item " << error << endl;
-			}
-
-			//cost
-			try
-			{
-				Cost = stof(cost);
-			}
-			catch (invalid_argument const& e)
-			{
-				cout << "invalid argument while loading 'stock-list.txt' cost on item " << error << endl;
-			}
-			catch (out_of_range const& e)
-			{
-				cout << "out of range error in 'stock-list.txt' cost on item " << error << endl;
-			}
-
-			// create object and add to set
-
-			//cout << "test2" << title << color << size << Quantity << Cost << endl;
-
-
-			StockItem item(ID,title, color, size, Quantity, Cost);
-			stock.insert(item);
-			
+			running = false;
+		}
+		catch (invalid_argument e)
+		{
+			cout << "Invalid Arguement Please try Again" << endl;
+		}
+		catch (out_of_range e)
+		{
+			cout << "Out Of Range Please Try Again" << endl;
+		}
+		catch (exception e)
+		{
+			cout << "Unknown Error has Occured Please Try Again" << endl;
 		}
 	}
-	in.close();
+
+	return num;
 }
 
-void outputStock()
+/*
+Author: Tomas
+This function takes in a line from command line and parses it to an double
+if arguement is invalid it makes you try again till valid arguement is passed.
+*/
+inline double doubleValidator()
 {
-	out.open("stock-list.txt");
-	stockBegin = stock.begin();
-
-	for (auto x : stock)
+	string data;
+	double num;
+	bool running = true;
+	while (running)
 	{
-		StockItem item = (StockItem)x;
-		out << item << endl;
-	}
-
-	out.close();
-}
-
-void loadSales()
-{
-	in.open("sales.txt");
-	if (in.fail())
-	{
-		cout << "Error Loadng Sales" << endl;
-		in.close();
-	}
-	else
-	{
-		Sale blankSale;
-		while (in >> blankSale)
+		try
 		{
-			if (!in.eof())
-			{
-				Sales.insert(blankSale);
-			}
+			getline(cin, data);
+			num = stod(data);
+
+			running = false;
 		}
-		/*while (!in.eof())
+		catch (invalid_argument e)
 		{
-			Sale blankSale;
-			in >> blankSale;
-			Sales.insert(blankSale);
-			
-		}*/
+			cout << "Invalid Arguement Please try Again" << endl;
+		}
+		catch (out_of_range e)
+		{
+			cout << "Out Of Range Please Try Again" << endl;
+		}
+		catch (exception e)
+		{
+			cout << "Unknown Error has Occured Please Try Again" << endl;
+		}
 	}
-	in.close();
+
+	return num;
 }
 
-void outputSales()
+/*
+Author: Tomas
+This function takes in a line from command line and parses it to an float
+if arguement is invalid it makes you try again till valid arguement is passed.
+*/
+inline float floatValidator()
 {
-	out.open("sales.txt");
-	if (out.fail())
+	string data;
+	float num;
+	bool running = true;
+	while (running)
 	{
-		cout << "Error Saving Sales" << endl;
-		out.close();
-	}
-	else
-	{
-
-		for (Sale s: Sales)
+		try
 		{
-			out << s << endl;
-		}
+			getline(cin, data);
+			num = stof(data);
 
+			running = false;
+		}
+		catch (invalid_argument e)
+		{
+			cout << "Invalid Arguement Please try Again" << endl;
+		}
+		catch (out_of_range e)
+		{
+			cout << "Out Of Range Please Try Again" << endl;
+		}
+		catch (exception e)
+		{
+			cout << "Unknown Error has Occured Please Try Again" << endl;
+		}
 	}
-	out.close();
+
+	return num;
+}
+
+/*
+Author: Tomas
+takes in the number of choices valid in a menu and only returns when a valid choice has been selected
+*/
+inline int menuValidator(int noOfChoices)
+{
+	bool running = true;
+	int choice;
+	while (running)
+	{
+		choice = intValidator();
+		if (choice >= 0 && choice <= noOfChoices)
+		{
+			running = false;
+		}
+		else
+		{
+			cout << "Invalid Choice Please Choose A Designated Number" << endl;
+		}
+	}
 }

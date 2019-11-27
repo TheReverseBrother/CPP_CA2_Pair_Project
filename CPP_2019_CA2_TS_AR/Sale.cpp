@@ -2,8 +2,9 @@
 int Sale::salesCount = 50;
 Sale::Sale()
 {
-	salesCount++;
-	setID(salesCount);
+	//salesCount++;
+	setID(1);
+	this->DOC = time(0);
 	setAssistant("George Default");
 	//setItems();
 }
@@ -34,6 +35,11 @@ list<StockItem> Sale::getItems() const
 	return this->items;
 }
 
+time_t Sale::getTime() const
+{
+	return this->DOC;
+}
+
 
 void Sale::setID(int ID)
 {
@@ -62,6 +68,11 @@ void Sale::setItems(list<StockItem> items)
 	}
 }
 
+void Sale::setTime(time_t DOC)
+{
+	this->DOC = DOC;
+}
+
 bool Sale::removeItem(const StockItem& item)
 {
 	auto it = find(this->items.begin(),this->items.end(),item);
@@ -76,7 +87,7 @@ bool Sale::removeItem(const StockItem& item)
 ostream& operator<<(ostream& os, const Sale& sale)
 {
 	list<StockItem> items = sale.getItems();
-	os << sale.getID() << "%/%" << sale.getAssistant() << "%/%";
+	os << sale.getID() << "%/%" << sale.getAssistant() << "%/%" << sale.getTime() << "%/%";
 	for (StockItem s : items)
 	{
 		os << s << "/%/";
@@ -90,7 +101,8 @@ istream& operator>>(istream& in, Sale& sale)
 	list<StockItem> itemList;
 	string data,info,id,title,color,size,quantity,cost;
 	float costFloat;
-	int saleID,stockID,quantityInt;
+	int saleID,stockID,quantityInt,timeInt;
+	time_t timeInfo;
 	//Delimiters
 	string infoDelimiter = "%/%";
 	string itemDelimiter = "/%/";
@@ -103,85 +115,86 @@ istream& operator>>(istream& in, Sale& sale)
 		return in;
 	}
 
-	//Get Sale ID
-	info = data.substr(0,data.find(infoDelimiter));
-	data.erase(0,data.find(infoDelimiter)+infoDelimiter.length());
-	saleID = stoi(info);
-
-	//get Assistant
-	info = data.substr(0, data.find(infoDelimiter));
-	data.erase(0, data.find(infoDelimiter) + infoDelimiter.length());
-	string assistant = info;
-
-	//fetch all stockitems
-	size_t pos = 0;
-	while ((pos = data.find(itemDelimiter)) != std::string::npos)
+	try
 	{
-		//gets Item string
-		info = data.substr(0,pos);
-		data.erase(0,pos+itemDelimiter.length());
 
-		id = info.substr(0, info.find(delimiter));
-		info.erase(0, info.find(delimiter) + delimiter.length());
+		//Get Sale ID
+		info = data.substr(0, data.find(infoDelimiter));
+		data.erase(0, data.find(infoDelimiter) + infoDelimiter.length());
+		saleID = stoi(info);
 
-		title = info.substr(0, info.find(delimiter));
-		info.erase(0, info.find(delimiter) + delimiter.length());
+		//get Assistant
+		info = data.substr(0, data.find(infoDelimiter));
+		data.erase(0, data.find(infoDelimiter) + infoDelimiter.length());
+		string assistant = info;
 
-		color = info.substr(0, info.find(delimiter));
-		info.erase(0, info.find(delimiter) + delimiter.length());
+		//getDOC
+		info = data.substr(0, data.find(infoDelimiter));
+		data.erase(0, data.find(infoDelimiter) + infoDelimiter.length());
+		timeInt = stoi(info);
+		timeInfo = (time_t)timeInt;
 
-		size = info.substr(0, info.find(delimiter));
-		info.erase(0, info.find(delimiter) + delimiter.length());
-
-		quantity = info.substr(0, info.find(delimiter));
-		info.erase(0, info.find(delimiter) + delimiter.length());
-
-		cost = info.substr(0, info.find(delimiter));
-		info.erase(0, info.find(delimiter) + delimiter.length());
-
-		try
+		//fetch all stockitems
+		size_t pos = 0;
+		while ((pos = data.find(itemDelimiter)) != std::string::npos)
 		{
+			//gets Item string
+			info = data.substr(0, pos);
+			data.erase(0, pos + itemDelimiter.length());
+
+			id = info.substr(0, info.find(delimiter));
+			info.erase(0, info.find(delimiter) + delimiter.length());
+
+			title = info.substr(0, info.find(delimiter));
+			info.erase(0, info.find(delimiter) + delimiter.length());
+
+			color = info.substr(0, info.find(delimiter));
+			info.erase(0, info.find(delimiter) + delimiter.length());
+
+			size = info.substr(0, info.find(delimiter));
+			info.erase(0, info.find(delimiter) + delimiter.length());
+
+			quantity = info.substr(0, info.find(delimiter));
+			info.erase(0, info.find(delimiter) + delimiter.length());
+
+			cost = info.substr(0, info.find(delimiter));
+			info.erase(0, info.find(delimiter) + delimiter.length());
+
+			
 			stockID = stoi(id);
-		}
-		catch (invalid_argument const& e)
-		{
-		}
-		catch (out_of_range const& e)
-		{
-		}
 
-
-		//quantity
-		try
-		{
+			//quantity
 			quantityInt = stoi(quantity);
-		}
-		catch (invalid_argument const& e)
-		{
-		}
-		catch (out_of_range const& e)
-		{
-		}
 
-		//cost
-		try
-		{
+			//cost
 			costFloat = stof(cost);
-		}
-		catch (invalid_argument const& e)
-		{
-		}
-		catch (out_of_range const& e)
-		{
+
+			StockItem item(stockID, title, color, size, quantityInt, costFloat);
+			itemList.push_back(item);
 		}
 
-		StockItem item(stockID,title,color,size,quantityInt,costFloat);
-		itemList.push_back(item);
+		sale.setAssistant(assistant);
+		sale.setID(saleID);
+		sale.setTime(timeInfo);
+		sale.setItems(itemList);
+	}
+	catch (domain_error e)
+	{
+		cout << "Error Loadin Sales: " << e.what() << endl;
+		sale.setID(1);
+	}
+	catch (invalid_argument const& e)
+	{
+		cout << "Error Loading Sales: Invalid Arguement" << endl;
+		sale.setID(1);
+	}
+	catch (out_of_range const& e)
+	{
+		cout << "Error Loading Sales: out of range " << endl;
+		sale.setID(1);
 	}
 
-	sale.setAssistant(assistant);
-	sale.setID(saleID);
-	sale.setItems(itemList);
+
 	return in;
 }
 
@@ -200,4 +213,51 @@ bool Sale::operator==(const Sale& rhs) const
 		return true;
 	}
 	return false;
+}
+
+multiset<Sale> Sale::loadSales()
+{
+	ifstream in;
+	multiset<Sale> Sales;
+	in.open("sales.txt");
+	if (in.fail())
+	{
+		cout << "Error Loadng Sales" << endl;
+		in.close();
+	}
+	else
+	{
+		Sale blankSale;
+		while (in >> blankSale)
+		{
+			if (!in.eof() && blankSale.getID() != 1)
+			{
+				Sales.insert(blankSale);
+			}
+		}
+	}
+	in.close();
+	return Sales;
+}
+
+void Sale::saveSales(const multiset<Sale> Sales)
+{
+	ofstream out;
+	out.open("sales.txt");
+	if (out.fail())
+	{
+		cout << "Error Saving Sales" << endl;
+		out.close();
+	}
+	else
+	{
+
+		for (Sale s : Sales)
+		{
+			out << s << endl;
+		}
+
+	}
+	out.close();
+
 }
