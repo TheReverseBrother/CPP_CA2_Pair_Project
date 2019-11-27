@@ -84,6 +84,13 @@ void Sale::setTotalSalePrice(float price)
 	this->totalSalePrice = price;
 }
 
+void Sale::print()
+{
+	string date = time_to_local_date(this->DOC);
+	printf("%-10d %-20s %-10d %-15f %-15s\n", this->ID, this->salesAssistant.c_str(), this->items.size(), this->totalSalePrice, date.c_str());
+}
+
+
 bool Sale::removeItem(const StockItem& item)
 {
 	auto it = find(this->items.begin(),this->items.end(),item);
@@ -94,6 +101,8 @@ bool Sale::removeItem(const StockItem& item)
 	}
 	return false;
 }
+
+
 
 ostream& operator<<(ostream& os, const Sale& sale)
 {

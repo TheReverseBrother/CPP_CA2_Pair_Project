@@ -33,7 +33,9 @@ public:
 	void setTime(time_t DOC);
 	void setTotalSalePrice(float price);
 
+	void print();
 	bool removeItem(const StockItem& item);
+	//string time_to_local_date(time_t utc);
 
 	//Operators
 	friend ostream& operator<<(ostream& os, const Sale& sale);
