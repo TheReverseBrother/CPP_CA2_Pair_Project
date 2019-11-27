@@ -1,6 +1,7 @@
 #include "StockItem.h"
 int StockItem::stockItemCount = 100;
 
+#pragma region Constructors
 StockItem::StockItem()
 {
 	this->ID = 1;
@@ -36,14 +37,13 @@ StockItem::~StockItem()
 {
 	//stockItemCount = stockItemCount -1;
 }
-
-
+#pragma endregion
+#pragma region Setters
 void StockItem::setID(int ID)
 {
 	this->ID = ID;
 }
 
-//Setters
 void StockItem::setTitle(string& title)
 {
 	if (title.size() < 4)
@@ -96,15 +96,13 @@ void StockItem::setCost(float& cost)
 		this->cost = cost;
 	}
 }
+#pragma endregion
 
-
-//Getters
+#pragma region Getters
 int StockItem::getID() const
 {
 	return this->ID;
 }
-
-
 
 string StockItem::getTitle() const
 {
@@ -130,7 +128,16 @@ float StockItem::getCost() const
 {
 	return this->cost;
 }
+#pragma endregion
 
+#pragma region Methods
+void StockItem::print()
+{
+	printf("%-10d %-10s %-10s %-10s %-10d %-10f\n", this->ID, this->title.c_str(), this->color.c_str(), this->size.c_str(), this->quantity, this->cost);
+}
+#pragma endregion
+
+#pragma region Operators
 bool StockItem::operator==(const StockItem& rhs) const
 {
 	if ((this->ID == rhs.getID())&&(this->color == rhs.getColor())&&(this->title==rhs.getTitle())
@@ -156,8 +163,6 @@ ostream& operator<<(ostream& os, StockItem& item)
 	return os;
 }
 
-
-// comparison operator for set
 bool StockItem::operator < (const StockItem& rhs) const
 {
 
@@ -192,7 +197,9 @@ istream& operator>>(istream& in, StockItem& item)
 
 	return in;
 }
+#pragma endregion
 
+#pragma region Static Methods
 multiset<StockItem> StockItem::loadStock()
 {
 	ifstream in;
@@ -338,3 +345,4 @@ void StockItem::saveStock(const multiset<StockItem>& stock)
 
 	out.close();
 }
+#pragma endregion

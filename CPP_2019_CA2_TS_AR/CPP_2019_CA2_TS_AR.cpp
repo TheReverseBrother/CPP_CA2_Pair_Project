@@ -17,31 +17,31 @@ list<SalesAnalysis> AnalysisList;
 
 int main()
 {
-	//stock = StockItem::loadStock();
+	stock = StockItem::loadStock();
 	Sales = Sale::loadSales();
 	AnalysisList = SalesAnalysis::loadAnalysises();
 
 
 
-	//for (StockItem s : stock)
-	//{
-	//	cout << s << endl;
-	//}
-	//for (Sale s : Sales)
-	//{
-	//	cout << s << endl;
-	//}
-	//for (SalesAnalysis s : AnalysisList)
-	//{
-	//	cout << s;
-	//}
-	SalesAnalysis si = *AnalysisList.rbegin();
-	time_t lastAnalysis = si.getDateOfCreation();
-	SalesAnalysis s = createSaleAnalysis(lastAnalysis);
+	for (StockItem s : stock)
+	{
+		s.print();
+	}
+	for (Sale s : Sales)
+	{
+		s.print();
+	}
+	for (SalesAnalysis s : AnalysisList)
+	{
+		s.print();
+	}
+	//SalesAnalysis si = *AnalysisList.rbegin();
+	//time_t lastAnalysis = si.getDateOfCreation();
+	//SalesAnalysis s = createSaleAnalysis(lastAnalysis);
 	//int x = intValidator();
 
 	//cout << s << endl;
-	//StockItem::saveStock(stock);
+	StockItem::saveStock(stock);
 	Sale::saveSales(Sales);
 	SalesAnalysis::saveAnalysises(AnalysisList);
 }
