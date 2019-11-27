@@ -27,6 +27,8 @@ public:
 	void setTotalValue(float& value);
 	void setLastAnalysis(time_t& lastAnalysis);
 
+	void print();
+
 	friend ostream& operator<<(ostream& os, SalesAnalysis& saleAnalysis);
 	friend istream& operator>>(istream& in, SalesAnalysis& saleAnalysis);
 	void operator()(Sale s);

@@ -72,6 +72,13 @@ void SalesAnalysis::setLastAnalysis(time_t& lastAnalysis)
 	this->lastAnalysis = lastAnalysis;
 }
 
+void SalesAnalysis::print()
+{
+	string lastAnalysis = time_to_local_date(this->lastAnalysis);
+	string date = time_to_local_date(this->dayOfCreation);
+	printf("%-15d %-20s %-15f %-15s\n", this->ID, lastAnalysis.c_str(), this->totalValueOfSales, date.c_str());
+}
+
 ostream& operator<<(ostream& os, SalesAnalysis& saleAnalysis)
 {
 	os << saleAnalysis.getID() << "/" << saleAnalysis.getDateOfCreation() << "/" << saleAnalysis.getLastAnalysis() << "/" <<   saleAnalysis.getTotalValue() << endl;
@@ -143,6 +150,7 @@ void SalesAnalysis::operator()(Sale s)
 	if (s.getTime() > this->lastAnalysis)
 	{
 		totalValueOfSales += s.getTotalSalePrice();
+		s.print();
 	}
 }
 
