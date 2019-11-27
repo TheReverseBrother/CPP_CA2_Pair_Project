@@ -8,7 +8,6 @@ int intValidator();
 double doubleValidator();
 float floatValidator();
 //Stock set
-multiset<StockItem> stock;
 multiset<Sale> Sales;
 list<SalesAnalysis> AnalysisList;
 
@@ -23,6 +22,20 @@ int main()
 	cout << endl;
 
 	cout << "Welcome" << endl;
+	auto StockIT = stock.begin();
+	StockItem temp;
+	for (int i = 0; i < stock.size(); i++) 
+	{
+		temp = *StockIT;
+
+		cout << "id " << temp.getID();
+		StockIT++;
+		
+	}
+
+	cout << endl;
+	
+
 
 	mainMenu();
 
@@ -36,14 +49,14 @@ int main()
 
 	//StockItem Jeans;
 	//cout << Jeans.getTitle() << endl;
-	StockItem vanns(152, "VANNNS", "BLUE", "XL", 2, 50);
-	StockItem Jacket = StockItem("Jacket", "RED", "XL", 2, 50);
-	StockItem shoe(1, "Jacket", "RED", "XL", 2, 50);
-	StockItem shoes(1, "Jacket", "RED", "XL", 2, 50);
-	StockItem jeans;
-	cout<<"Jacket ID  "<<Jacket.getID()<<endl;
-	cout << "Jean ID  " << jeans.getID() << endl;
-	list<StockItem> itemList;
+	//StockItem vanns(152, "VANNNS", "BLUE", "XL", 2, 50);
+	//StockItem Jacket = StockItem("Jacket", "RED", "XL", 2, 50);
+	//StockItem shoe(1, "Jacket", "RED", "XL", 2, 50);
+	//StockItem shoes(1, "Jacket", "RED", "XL", 2, 50);
+	//StockItem jeans;
+	//cout<<"Jacket ID  "<<Jacket.getID()<<endl;
+	//cout << "Jean ID  " << jeans.getID() << endl;
+	//list<StockItem> itemList;
 
 
 

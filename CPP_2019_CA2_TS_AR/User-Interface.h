@@ -2,6 +2,8 @@
 
 #pragma region method definitions
 void addStockMenu();
+void modifyStockMenu();
+StockItem searchStockByID(int id);
 void addSaleMenu();
 void analyseSalesMenu();
 void searchStockMenu();
@@ -16,6 +18,14 @@ int addStockMenuCast(string input);
 
 void quitApplocation();
 #pragma endregion
+
+#pragma region Definitions
+
+multiset<StockItem> stock;
+
+#pragma endregion
+
+
 
 #pragma region enums
 enum mainMenuSelection
@@ -40,7 +50,7 @@ enum salesMenuEnums
 {
 	newSale = 1,
 	refundSale = 2,
-	back = 3,
+
 };
 #pragma endregion
 
@@ -83,7 +93,7 @@ void mainMenu()
 }
 
 
-int mainMenuOptionCast(string input) 
+int mainMenuOptionCast(string input)
 {
 	int option = -1;
 
@@ -102,32 +112,32 @@ int mainMenuOptionCast(string input)
 
 	string temp = input.substr(0, input.find(" "));
 
-	if (temp.length() == 1) 
+	if (temp.length() == 1)
 	{
-		try 
+		try
 		{
 			option = stoi(temp);
 			return option;
 		}
-		catch (invalid_argument & e) 
-		{ 
+		catch (invalid_argument & e)
+		{
 			cout << "invaild Menu Selection in Main Menu" << endl;
 			return option = -1;
 		}
 	}
 	else
 	{
-		
-		if (input.length() > 0) 
+
+		if (input.length() > 0)
 		{
 			if (regex_search(input, matches, addStockReg)) { return addStock; }
-			else if(regex_search(input, matches, addSaleReg)){ return addSale; }
+			else if (regex_search(input, matches, addSaleReg)) { return addSale; }
 			else if (regex_search(input, matches, analyseSalesReg)) { return analyseSales; }
 			else if (regex_search(input, matches, searchStockReg)) { return searchStock; }
 			else if (regex_search(input, matches, removeItemReg)) { return removeItem; }
 			else if (regex_search(input, matches, quitReg)) { return quit; }
 		}
-		else {return -1;}
+		else { return -1; }
 	}
 	return option;
 }
@@ -142,7 +152,7 @@ void addStockMenu()
 	string input;
 
 
-	while (!selected) 
+	while (!selected)
 	{
 		cout << "Stock Menu" << endl << endl;
 		cout << "1: New Item" << endl;
@@ -151,17 +161,17 @@ void addStockMenu()
 		getline(cin, input);
 		option = addStockMenuCast(input);
 
-		switch (option) 
+		switch (option)
 		{
-		case newItem: {selected = true; addNewStockItem();}
+		case newItem: {selected = true; addNewStockItem(); }
 		case modifyStock: {selected = true; modifyStockMenu(); }
-		case back: {selected = true; mainMenu();}
+		case back: {selected = true; mainMenu(); }
 		case error: {cout << "Error Returning to main menu" << endl; mainMenu(); }
 		}
 
 	}
 
-	
+
 }
 
 int addStockMenuCast(string input)
@@ -212,7 +222,7 @@ int addStockMenuCast(string input)
 
 
 
-void addNewStockItem() 
+void addNewStockItem()
 {
 	bool selected = false;
 	string input;
@@ -272,12 +282,14 @@ void addNewStockItem()
 }
 
 
-void modifyStockMenu() 
+void modifyStockMenu()
 {
 	bool selected = false;
 	smatch matches;
 	string IDinput;
 	regex IDReg("^[0-9]+$");
+
+	StockItem item;
 
 	while (!selected)
 	{
@@ -287,14 +299,16 @@ void modifyStockMenu()
 
 		if (regex_search(IDinput, matches, IDReg))
 		{
-			try  
+			try
 			{
 				int ID = stoi(IDinput);
-				searchByID(ID);
+				selected = true;
+				item = searchStockByID(ID);
+
 			}
-			catch (invalid_argument & e) 
+			catch (invalid_argument & e)
 			{
-				cout << "error in cast modifyStockMenu" << endl;
+				cout << "Invalid Argument" << endl;
 			}
 		}
 
@@ -310,30 +324,30 @@ void modifyStockMenu()
 
 #pragma region addSaleMenu
 
-void addSaleMenu() 
+void addSaleMenu()
 {
-		bool selected = false;
-		int option = -1;
-		string input;
+	bool selected = false;
+	int option = -1;
+	string input;
 
-		while (!selected)
+	while (!selected)
+	{
+		cout << "Sale Menu" << endl << endl;
+		cout << "1: New Sale" << endl;
+		cout << "2: Refund Sale" << endl;
+		cout << "3: Back" << endl;
+		getline(cin, input);
+		option = addStockMenuCast(input);
+
+		switch (option)
 		{
-			cout << "Sale Menu" << endl << endl;
-			cout << "1: New Sale" << endl;
-			cout << "2: Refund Sale" << endl;
-			cout << "3: Back" << endl;
-			getline(cin, input);
-			option = addStockMenuCast(input);
-
-			switch (option)
-			{
-			case newSale: {selected = true; addNewSale(); }
-			case refundSale: {selected = true; refundSaleMenu(); }
-			case back: {selected = true; mainMenu(); }
-			case error: {cout << "Error Returning to main menu" << endl; mainMenu(); }
-			}
-
+		case newSale: {selected = true; /*addNewSale();*/ }
+		case refundSale: {selected = true; /*refundSaleMenu();*/ }
+		case back: {selected = true; mainMenu(); }
+		case error: {cout << "Error Returning to main menu" << endl; mainMenu(); }
 		}
+
+	}
 }
 
 #pragma endregion
@@ -344,6 +358,35 @@ void analyseSalesMenu() {}
 
 #pragma region searchStockMenu
 void searchStockMenu() {}
+
+
+#pragma region  Searches
+
+
+StockItem searchStockByID(int id)
+{
+	StockItem item;
+
+	for (auto it = stock.begin(); it != stock.end(); it++)
+	{
+		item = *it;
+		if (item.getID() == id)
+		{
+			return item;
+		}
+		
+
+	}
+
+
+
+}
+
+
+#pragma endregion
+
+
+
 #pragma endregion
 
 #pragma region removeItemMenu
