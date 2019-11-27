@@ -5,6 +5,7 @@ Sale::Sale()
 	//salesCount++;
 	setID(1);
 	this->DOC = time(0);
+	this->totalSalePrice = 0;
 	setAssistant("George Default");
 	//setItems();
 }
@@ -40,6 +41,11 @@ time_t Sale::getTime() const
 	return this->DOC;
 }
 
+float Sale::getTotalSalePrice() const
+{
+	return this->totalSalePrice;
+}
+
 
 void Sale::setID(int ID)
 {
@@ -73,6 +79,18 @@ void Sale::setTime(time_t DOC)
 	this->DOC = DOC;
 }
 
+void Sale::setTotalSalePrice(float price)
+{
+	this->totalSalePrice = price;
+}
+
+void Sale::print()
+{
+	string date = time_to_local_date(this->DOC);
+	printf("%-10d %-20s %-10d %-15f %-15s\n", this->ID, this->salesAssistant.c_str(), this->items.size(), this->totalSalePrice, date.c_str());
+}
+
+
 bool Sale::removeItem(const StockItem& item)
 {
 	auto it = find(this->items.begin(),this->items.end(),item);
@@ -84,10 +102,12 @@ bool Sale::removeItem(const StockItem& item)
 	return false;
 }
 
+
+
 ostream& operator<<(ostream& os, const Sale& sale)
 {
 	list<StockItem> items = sale.getItems();
-	os << sale.getID() << "%/%" << sale.getAssistant() << "%/%" << sale.getTime() << "%/%";
+	os << sale.getID() << "%/%" << sale.getAssistant() << "%/%" << sale.getTime() << "%/%" << sale.getTotalSalePrice() << "%/%";
 	for (StockItem s : items)
 	{
 		os << s << "/%/";
@@ -100,7 +120,7 @@ istream& operator>>(istream& in, Sale& sale)
 {
 	list<StockItem> itemList;
 	string data,info,id,title,color,size,quantity,cost;
-	float costFloat;
+	float costFloat,price = 0;
 	int saleID,stockID,quantityInt,timeInt;
 	time_t timeInfo;
 	//Delimiters
@@ -133,6 +153,11 @@ istream& operator>>(istream& in, Sale& sale)
 		data.erase(0, data.find(infoDelimiter) + infoDelimiter.length());
 		timeInt = stoi(info);
 		timeInfo = (time_t)timeInt;
+
+		//getTotalPrice
+		info = data.substr(0, data.find(infoDelimiter));
+		data.erase(0, data.find(infoDelimiter) + infoDelimiter.length());
+		price = stof(info);
 
 		//fetch all stockitems
 		size_t pos = 0;
@@ -177,6 +202,7 @@ istream& operator>>(istream& in, Sale& sale)
 		sale.setID(saleID);
 		sale.setTime(timeInfo);
 		sale.setItems(itemList);
+		sale.setTotalSalePrice(price);
 	}
 	catch (domain_error e)
 	{

@@ -10,6 +10,7 @@ private:
 	int ID;
 	string salesAssistant;
 	list<StockItem> items;
+	float totalSalePrice;
 	time_t DOC;
 	static int salesCount;
 
@@ -23,14 +24,18 @@ public:
 	string getAssistant() const;
 	list<StockItem> getItems()const;
 	time_t getTime() const;
+	float getTotalSalePrice() const;
 
 	//Setters
 	void setID(int ID);
 	void setAssistant(string assistant);
 	void setItems(list<StockItem> items);
 	void setTime(time_t DOC);
+	void setTotalSalePrice(float price);
 
+	void print();
 	bool removeItem(const StockItem& item);
+	//string time_to_local_date(time_t utc);
 
 	//Operators
 	friend ostream& operator<<(ostream& os, const Sale& sale);

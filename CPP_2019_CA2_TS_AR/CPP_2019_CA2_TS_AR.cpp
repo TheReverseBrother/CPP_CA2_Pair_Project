@@ -4,6 +4,7 @@
 // Method Definitions 
 bool removeStock(const StockItem& item);
 bool removeSale(const Sale& sale);
+SalesAnalysis createSaleAnalysis(time_t lastAnalysis);
 int intValidator();
 double doubleValidator();
 float floatValidator();
@@ -16,30 +17,48 @@ list<SalesAnalysis> AnalysisList;
 
 int main()
 {
-	stock = StockItem::loadStock();
+	//stock = StockItem::loadStock();
 	Sales = Sale::loadSales();
 	AnalysisList = SalesAnalysis::loadAnalysises();
 
 
 
-	for (StockItem s : stock)
-	{
-		cout << s << endl;
-	}
-	for (Sale s : Sales)
-	{
-		cout << s << endl;
-	}
-	for (SalesAnalysis s : AnalysisList)
-	{
-		cout << s;
-	}
+	//for (StockItem s : stock)
+	//{
+	//	cout << s << endl;
+	//}
+	//for (Sale s : Sales)
+	//{
+	//	cout << s << endl;
+	//}
+	//for (SalesAnalysis s : AnalysisList)
+	//{
+	//	cout << s;
+	//}
 
-	
+	//time_t lastAnalysis = (time_t)1573121444;
+	SalesAnalysis s = createSaleAnalysis();
+	//int x = intValidator();
 
-	StockItem::saveStock(stock);
+	//cout << s << endl;
+	//StockItem::saveStock(stock);
 	Sale::saveSales(Sales);
 	SalesAnalysis::saveAnalysises(AnalysisList);
+}
+
+SalesAnalysis createSaleAnalysis(time_t lastAnalysis)
+{
+	time_t lastAnalysis = /*(time_t)1573121444;*/lastAnalysis;
+	SalesAnalysis newAnalysis(lastAnalysis);
+	
+	printf("%-10s %-20s %-10s %-15s %-15s\n", "ID", "Sale Assistant","No. Items","Total Price","Date");
+	newAnalysis = for_each(Sales.begin(),Sales.end(), newAnalysis);
+
+	cout << endl;
+	cout << "New Analysis Generated: " << endl;
+	printf("%-15s %-20s %-15s %-15s\n", "ID", "Last Analysis", "Total Value", "Date Generated");
+	newAnalysis.print();
+	return newAnalysis;
 }
 
 bool removeStock(const StockItem& item)

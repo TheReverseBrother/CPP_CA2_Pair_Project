@@ -6,6 +6,7 @@ SalesAnalysis::SalesAnalysis()
 {
 	this->ID = 0;
 	this->dayOfCreation = time(0);
+	this->lastAnalysis = time(0);
 	this->totalValueOfSales = 1.00;
 }
 
@@ -17,12 +18,13 @@ SalesAnalysis::SalesAnalysis(int ID, time_t dayOfCreation, float totalValueOfSal
 	setTotalValue(totalValueOfSales);
 }
 
-SalesAnalysis::SalesAnalysis(float totalValueOfSales)
+SalesAnalysis::SalesAnalysis(time_t lastAnalysis)
 {
 	++SalesAnalysis::SalesCount;
 	setID(SalesAnalysis::SalesCount);
 	this->dayOfCreation = time(0);
-	setTotalValue(totalValueOfSales);
+	this->lastAnalysis = lastAnalysis;
+	this->totalValueOfSales = 0;
 }
 
 SalesAnalysis::~SalesAnalysis()
@@ -43,6 +45,11 @@ float SalesAnalysis::getTotalValue() const
 	return this->totalValueOfSales;
 }
 
+time_t SalesAnalysis::getLastAnalysis() const
+{
+	return this->lastAnalysis;
+}
+
 
 //Setters
 void SalesAnalysis::setID(int& ID)
@@ -60,9 +67,21 @@ void SalesAnalysis::setTotalValue(float& value)
 	this->totalValueOfSales = value;
 }
 
+void SalesAnalysis::setLastAnalysis(time_t& lastAnalysis)
+{
+	this->lastAnalysis = lastAnalysis;
+}
+
+void SalesAnalysis::print()
+{
+	string lastAnalysis = time_to_local_date(this->lastAnalysis);
+	string date = time_to_local_date(this->dayOfCreation);
+	printf("%-15d %-20s %-15f %-15s\n", this->ID, lastAnalysis.c_str(), this->totalValueOfSales, date.c_str());
+}
+
 ostream& operator<<(ostream& os, SalesAnalysis& saleAnalysis)
 {
-	os << saleAnalysis.getID() << "/" << saleAnalysis.getDateOfCreation() << "/" <<  saleAnalysis.getTotalValue() << endl;
+	os << saleAnalysis.getID() << "/" << saleAnalysis.getDateOfCreation() << "/" << saleAnalysis.getLastAnalysis() << "/" <<   saleAnalysis.getTotalValue() << endl;
 
 	return os;
 }
@@ -94,6 +113,12 @@ istream& operator>>(istream& in,SalesAnalysis& saleAnalysis)
 
 		info = data.substr(0, data.find(delimiter));
 		data.erase(0, data.find(delimiter) + delimiter.length());
+		timeInt = stoi(info);
+		timeInfo = (time_t)timeInt;
+		saleAnalysis.setLastAnalysis(timeInfo);
+
+		info = data.substr(0, data.find(delimiter));
+		data.erase(0, data.find(delimiter) + delimiter.length());
 		price = stof(info);
 		saleAnalysis.setTotalValue(price);
 	}
@@ -118,6 +143,15 @@ istream& operator>>(istream& in,SalesAnalysis& saleAnalysis)
 
 	return in;
 
+}
+
+void SalesAnalysis::operator()(Sale s)
+{
+	if (s.getTime() > this->lastAnalysis)
+	{
+		totalValueOfSales += s.getTotalSalePrice();
+		s.print();
+	}
 }
 
 list<SalesAnalysis> SalesAnalysis::loadAnalysises()
