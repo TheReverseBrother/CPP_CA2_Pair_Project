@@ -35,9 +35,9 @@ int main()
 	//{
 	//	cout << s;
 	//}
-
-	//time_t lastAnalysis = (time_t)1573121444;
-	SalesAnalysis s = createSaleAnalysis();
+	SalesAnalysis si = *AnalysisList.rbegin();
+	time_t lastAnalysis = si.getDateOfCreation();
+	SalesAnalysis s = createSaleAnalysis(lastAnalysis);
 	//int x = intValidator();
 
 	//cout << s << endl;
@@ -46,9 +46,9 @@ int main()
 	SalesAnalysis::saveAnalysises(AnalysisList);
 }
 
-SalesAnalysis createSaleAnalysis(time_t lastAnalysis)
+SalesAnalysis createSaleAnalysis(time_t time)
 {
-	time_t lastAnalysis = /*(time_t)1573121444;*/lastAnalysis;
+	time_t lastAnalysis = /*(time_t)1573121444;*/time;
 	SalesAnalysis newAnalysis(lastAnalysis);
 	
 	printf("%-10s %-20s %-10s %-15s %-15s\n", "ID", "Sale Assistant","No. Items","Total Price","Date");
