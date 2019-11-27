@@ -255,7 +255,7 @@ void addNewStockItem()
 		while (!selected)
 		{
 			cout << "please enter stock Item Size 'XS, S, M, L, XL'" << endl;
-			getline(cin, input);
+			getline(cin, size);
 			selected = true;
 		}
 
@@ -265,6 +265,8 @@ void addNewStockItem()
 		{
 			cout << "please enter stock Item Quantity" << endl;
 			getline(cin, input);
+			quantity = stoi(input);
+
 			selected = true;
 		}
 
@@ -274,8 +276,13 @@ void addNewStockItem()
 		{
 			cout << "please enter stock Item Cost" << endl;
 			getline(cin, input);
+			cost = stod(input);
 			selected = true;
 		}
+
+		StockItem item (title, color, size, quantity, cost);
+		stock.insert(item);
+
 	}
 
 	addStockMenu();
@@ -294,6 +301,7 @@ void modifyStockMenu()
 	while (!selected)
 	{
 		cout << "Modify Stock" << endl << endl;
+		cout << "enter any letter to return to Stock menu" << endl << endl;
 		cout << "Enter Stock ID" << endl;
 		getline(cin, IDinput);
 
@@ -302,14 +310,38 @@ void modifyStockMenu()
 			try
 			{
 				int ID = stoi(IDinput);
-				selected = true;
+				
 				item = searchStockByID(ID);
+				if (item.getID() == -1) 
+				{
+					cout << "No item has this id " << endl;
+				}
+				else 
+				{
+					selected = true;
+
+					
+
+
+
+			
+
+				}
+
+
+
 
 			}
 			catch (invalid_argument & e)
 			{
 				cout << "Invalid Argument" << endl;
 			}
+		}
+		else
+		{
+			selected = true;
+			addStockMenu();
+
 		}
 
 	}
@@ -374,6 +406,10 @@ StockItem searchStockByID(int id)
 		{
 			return item;
 		}
+		else 
+		{
+			return item = StockItem(-1, "null", "null", "null", 0, 0);
+		}
 		
 
 	}
@@ -396,6 +432,12 @@ void removeItemMenu() {}
 #pragma region quit
 void quitApplocation()
 {
+
+	
+	StockItem::saveStock(stock);
+	//Sale::saveSales(Sales);
+	//SalesAnalysis::saveAnalysises(AnalysisList);
+
 	exit(1);
 }
 #pragma endregion

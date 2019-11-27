@@ -75,7 +75,7 @@ void StockItem::setSize(string& size)
 
 void StockItem::setQuantity(int& quantity)
 {
-	if (quantity < 1)
+	if (quantity < 0)
 	{
 		throw domain_error("Invalid Number");
 	}
@@ -87,7 +87,7 @@ void StockItem::setQuantity(int& quantity)
 
 void StockItem::setCost(float& cost)
 {
-	if (cost <= 0.00)
+	if (cost < 0.00)
 	{
 		throw domain_error("Invalid Number");
 	}

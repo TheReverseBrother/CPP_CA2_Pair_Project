@@ -28,7 +28,7 @@ int main()
 	{
 		temp = *StockIT;
 
-		cout << "id " << temp.getID();
+		cout << "id " << temp.getTitle() << "";
 		StockIT++;
 		
 	}
@@ -77,7 +77,7 @@ int main()
 
 	
 
-	StockItem::saveStock(stock);
+	//StockItem::saveStock(stock);
 	Sale::saveSales(Sales);
 	SalesAnalysis::saveAnalysises(AnalysisList);
 }
