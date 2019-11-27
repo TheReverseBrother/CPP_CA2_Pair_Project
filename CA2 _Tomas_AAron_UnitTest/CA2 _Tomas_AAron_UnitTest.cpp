@@ -301,7 +301,43 @@ namespace CA2TomasAAronUnitTest
 
 		TEST_METHOD(Test_Regular_Constructor)
 		{
+			time_t lastAnalysis = (time_t)1573121444;
+			time_t timeNow = time(0);
+			int ID = 1663;
+			SalesAnalysis s(lastAnalysis);
+			float value = 0;
 
+			Assert::AreEqual(s.getDateOfCreation(),timeNow);
+			Assert::AreEqual(s.getLastAnalysis(),lastAnalysis);
+			Assert::AreEqual(s.getTotalValue(),value);
+			Assert::AreEqual(s.getID(), ID);
+
+			
+		}
+
+		TEST_METHOD(Test_Functor)
+		{
+			StockItem s;
+			StockItem t;
+			list<StockItem> itemlist;
+
+			itemlist.push_back(s);
+			itemlist.push_back(t);
+
+			Sale sale;
+			sale.setItems(itemlist);
+
+			list<Sale> AllSales;
+			AllSales.push_back(sale);
+
+			time_t lastAnalysis = time(0);
+			lastAnalysis -= 1000;
+			SalesAnalysis sA(lastAnalysis);
+
+			sA = for_each(AllSales.begin(), AllSales.end(),sA);
+
+			float price = 1;
+			Assert::AreEqual(sA.getTotalValue(),price);
 		}
 	};
 }

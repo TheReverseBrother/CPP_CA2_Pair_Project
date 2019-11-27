@@ -7,7 +7,7 @@ Sale::Sale()
 	//salesCount++;
 	setID(1);
 	this->DOC = time(0);
-	this->totalSalePrice = 0;
+	this->totalSalePrice = 1;
 	setAssistant("George Default");
 	//setItems();
 }
