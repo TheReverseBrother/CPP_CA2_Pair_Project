@@ -130,10 +130,12 @@ float StockItem::getCost() const
 }
 #pragma endregion
 
+#pragma region Methods
 void StockItem::print()
 {
 	printf("%-10d %-10s %-10s %-10s %-10d %-10f\n", this->ID, this->title.c_str(), this->color.c_str(), this->size.c_str(), this->quantity, this->cost);
 }
+#pragma endregion
 
 #pragma region Operators
 bool StockItem::operator==(const StockItem& rhs) const
