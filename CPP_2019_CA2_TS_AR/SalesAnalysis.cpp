@@ -1,7 +1,7 @@
 #include "SalesAnalysis.h"
 
 int SalesAnalysis::SalesCount = 1661;
-
+#pragma region Constructors
 SalesAnalysis::SalesAnalysis()
 {
 	this->ID = 0;
@@ -30,8 +30,9 @@ SalesAnalysis::SalesAnalysis(time_t lastAnalysis)
 SalesAnalysis::~SalesAnalysis()
 {
 }
+#pragma endregion
 
-//Getters
+#pragma region Getters
 int SalesAnalysis::getID() const
 {
 	return this->ID;
@@ -44,14 +45,13 @@ float SalesAnalysis::getTotalValue() const
 {
 	return this->totalValueOfSales;
 }
-
 time_t SalesAnalysis::getLastAnalysis() const
 {
 	return this->lastAnalysis;
 }
+#pragma endregion
 
-
-//Setters
+#pragma region Setters
 void SalesAnalysis::setID(int& ID)
 {
 	this->ID = ID;
@@ -71,14 +71,18 @@ void SalesAnalysis::setLastAnalysis(time_t& lastAnalysis)
 {
 	this->lastAnalysis = lastAnalysis;
 }
+#pragma endregion
 
+#pragma region Methods
 void SalesAnalysis::print()
 {
 	string lastAnalysis = time_to_local_date(this->lastAnalysis);
 	string date = time_to_local_date(this->dayOfCreation);
 	printf("%-15d %-20s %-15f %-15s\n", this->ID, lastAnalysis.c_str(), this->totalValueOfSales, date.c_str());
 }
+#pragma endregion
 
+#pragma region Operators
 ostream& operator<<(ostream& os, SalesAnalysis& saleAnalysis)
 {
 	os << saleAnalysis.getID() << "/" << saleAnalysis.getDateOfCreation() << "/" << saleAnalysis.getLastAnalysis() << "/" <<   saleAnalysis.getTotalValue() << endl;
@@ -153,7 +157,9 @@ void SalesAnalysis::operator()(Sale s)
 		s.print();
 	}
 }
+#pragma endregion
 
+#pragma region Static Methods
 list<SalesAnalysis> SalesAnalysis::loadAnalysises()
 {
 	list<SalesAnalysis> analysises;
@@ -198,4 +204,4 @@ void SalesAnalysis::saveAnalysises(list<SalesAnalysis>& list)
 	}
 	out.close();
 }
-
+#pragma endregion
