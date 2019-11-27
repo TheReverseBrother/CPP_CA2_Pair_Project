@@ -20,7 +20,7 @@ public:
 	StockItem(string title, string color, string size, int quantity, float cost);
 	~StockItem();
 	
-
+	//Setters
 	void setID(int ID);
 	void setTitle(string& title);
 	void setColor(string& color);
@@ -28,12 +28,15 @@ public:
 	void setQuantity(int& quantity);
 	void setCost(float& cost);
 
+	//getters
 	int getID() const;
 	string getTitle() const;
 	string getColor() const;
 	string getSize() const;
 	int getQuantity() const;
 	float getCost() const;
+
+	void print();
 
 	bool operator==(const StockItem& rhs)const;
 	bool operator!=(StockItem& rhs);
