@@ -38,7 +38,7 @@ int main()
 	//
 
 
-	//mainMenu();
+	mainMenu();
 
 
 	for (auto i : Sales)
@@ -73,6 +73,13 @@ int main()
 	//StockItem::saveStock(stock);
 	Sale::saveSales(Sales);
 	//SalesAnalysis::saveAnalysises(AnalysisList);
+}
+
+
+Sale createSale() 
+{
+	list<StockItem> items{};
+	return Sale("test", items);
 }
 
 SalesAnalysis createSaleAnalysis(time_t time)
