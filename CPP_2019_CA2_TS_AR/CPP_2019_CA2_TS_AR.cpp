@@ -90,24 +90,24 @@ SalesAnalysis createSaleAnalysis(time_t time)
 	return newAnalysis;
 }
 
-bool removeStock(const StockItem& item)
+bool removeStock(const int key)
 {
-	//auto it = find(stock.begin(), stock.end(), item);
-	//if (it != stock.end())
-	//{
-	//	stock.erase(it);
-	//	return true;
-	//}
+	auto it = stock.find(key);
+	if (it != stock.end())
+	{
+		stock.erase(it);
+		return true;
+	}
 	return false;
 }
-bool removeSale(const Sale& sale)
+bool removeSale(const int key)
 {
-	//auto it = find(Sales.begin(), Sales.end(),make_pair(sale.getID(), sale));
-	//if (it != Sales.end())
-	//{
-	//	Sales.erase(it);
-	//	return true;
-	//}
+	auto it = Sales.find(key);
+	if (it != Sales.end())
+	{
+		Sales.erase(it);
+		return true;
+	}
 	return false;
 }
 
