@@ -7,6 +7,7 @@
 #include <ctime>
 #include <stdexcept>
 #include <regex>
+#include <map>
 #include "SalesAnalysis.h"
 #include "StockItem.h"
 #include "Sale.h"
