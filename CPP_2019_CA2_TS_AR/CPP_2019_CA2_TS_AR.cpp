@@ -100,14 +100,14 @@ bool removeStock(const int key)
 	}
 	return false;
 }
-bool removeSale(const Sale& sale)
+bool removeSale(const int key)
 {
-	//auto it = find(Sales.begin(), Sales.end(),make_pair(sale.getID(), sale));
-	//if (it != Sales.end())
-	//{
-	//	Sales.erase(it);
-	//	return true;
-	//}
+	auto it = Sales.find(key);
+	if (it != Sales.end())
+	{
+		Sales.erase(it);
+		return true;
+	}
 	return false;
 }
 
