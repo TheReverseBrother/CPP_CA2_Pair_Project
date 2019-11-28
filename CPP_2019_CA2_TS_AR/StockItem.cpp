@@ -339,7 +339,7 @@ void StockItem::saveStock(const map<int,StockItem>& stock)
 
 	for (auto i : stock)
 	{
-		cout << i.second << endl;
+		out << i.second << endl;
 	}
 
 	out.close();
