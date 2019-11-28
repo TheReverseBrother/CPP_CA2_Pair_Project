@@ -50,8 +50,8 @@ public:
 #pragma endregion
 
 #pragma region Static Methods
-	static multiset<Sale> loadSales();
-	static void saveSales(const multiset<Sale> Sales);
+	static map<int, Sale> loadSales();
+	static void saveSales(const map<int, Sale> Sales);
 #pragma endregion
 };
 

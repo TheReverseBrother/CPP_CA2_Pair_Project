@@ -245,10 +245,10 @@ bool Sale::operator==(const Sale& rhs) const
 #pragma endregion
 
 #pragma region Static Methods
-multiset<Sale> Sale::loadSales()
+map<int,Sale> Sale::loadSales()
 {
 	ifstream in;
-	multiset<Sale> Sales;
+	map<int, Sale> Sales;
 	in.open("sales.txt");
 	if (in.fail())
 	{
@@ -262,7 +262,7 @@ multiset<Sale> Sale::loadSales()
 		{
 			if (!in.eof() && blankSale.getID() != 1)
 			{
-				Sales.insert(blankSale);
+				Sales.insert(make_pair(blankSale.getID(), blankSale));
 			}
 		}
 	}
@@ -270,7 +270,7 @@ multiset<Sale> Sale::loadSales()
 	return Sales;
 }
 
-void Sale::saveSales(const multiset<Sale> Sales)
+void Sale::saveSales(const map<int,Sale> Sales)
 {
 	ofstream out;
 	out.open("sales.txt");
@@ -282,9 +282,9 @@ void Sale::saveSales(const multiset<Sale> Sales)
 	else
 	{
 
-		for (Sale s : Sales)
+		for (auto i : Sales)
 		{
-			out << s << endl;
+			out << i.second << endl;
 		}
 
 	}
