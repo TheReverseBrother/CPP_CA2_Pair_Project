@@ -4,6 +4,7 @@
 // Method Definitions 
 bool removeStock(const StockItem& item);
 bool removeSale(const Sale& sale);
+StockItem chooseItem();
 SalesAnalysis createSaleAnalysis(time_t lastAnalysis);
 int intValidator();
 double doubleValidator();
@@ -16,7 +17,7 @@ list<SalesAnalysis> AnalysisList;
 
 int main()
 {
-	//stock = StockItem::loadStock();
+	stock = StockItem::loadStock();
 	Sales = Sale::loadSales();
 	//AnalysisList = SalesAnalysis::loadAnalysises();
 	//cout << endl;
@@ -38,19 +39,19 @@ int main()
 	//
 
 
-	mainMenu();
+	//mainMenu();
 
 
-	for (auto i : Sales)
-	{
-		cout << i.second << endl;
-	}
+	//for (auto i : Sales)
+	//{
+	//	cout << i.second << endl;
+	//}
 
 
  //   std::cout << "Hello World!\n";
 
 
-
+	createSale();
 	//StockItem Jeans;
 	//cout << Jeans.getTitle() << endl;
 	//StockItem vanns(152, "VANNNS", "BLUE", "XL", 2, 50);
@@ -70,7 +71,7 @@ int main()
 	//time_t lastAnalysis = si.getDateOfCreation();
 	//SalesAnalysis s = createSaleAnalysis(lastAnalysis);
 	//int x = intValidator();
-	//StockItem::saveStock(stock);
+	StockItem::saveStock(stock);
 	Sale::saveSales(Sales);
 	//SalesAnalysis::saveAnalysises(AnalysisList);
 }
@@ -78,9 +79,41 @@ int main()
 
 Sale createSale() 
 {
+	bool runOnce = false;
+	bool running = false;
+
+	while (running)
+	{
+
+	}
+	printf("%-10s %-10s %-10s %-10s %-10s %-10s\n", "ID", "Item", "Color", "Size", "Quantity", "Unit Price");
+	for (auto i : stock)
+	{
+		i.second.print();
+	}
+	cout << "Please Select An Item By ID" << endl;
+
+
 	StockItem Jacket = StockItem("Jacket", "RED", "XL", 2, 50);
 	list<StockItem> items{Jacket};
 	return Sale("test", items);
+}
+
+StockItem chooseItem()
+{
+	map<int, StockItem>::iterator it;
+	bool running = true;
+	while (running)
+	{
+		int choice = intValidator();
+		it = stock.find(choice);
+		if (it != stock.end())
+		{
+			running = false;
+		}
+	}
+
+	return *it;
 }
 
 SalesAnalysis createSaleAnalysis(time_t time)
