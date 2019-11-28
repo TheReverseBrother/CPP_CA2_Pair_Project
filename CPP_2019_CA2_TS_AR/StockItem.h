@@ -54,8 +54,8 @@ public:
 #pragma endregion
 
 #pragma region Static Methods
-	static multiset<StockItem> loadStock();
-	static void saveStock(const multiset<StockItem>& stock);
+	static map<int,StockItem> loadStock();
+	static void saveStock(const map<int,StockItem>& stock);
 #pragma endregion
 };
 
