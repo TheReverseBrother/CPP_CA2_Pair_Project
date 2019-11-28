@@ -149,12 +149,13 @@ istream& operator>>(istream& in,SalesAnalysis& saleAnalysis)
 
 }
 
-void SalesAnalysis::operator()(Sale s)
+void SalesAnalysis::operator()(pair<int, Sale> x)
 {
-	if (s.getTime() > this->lastAnalysis)
+	
+	if (x.second.getTime() > this->lastAnalysis)
 	{
-		totalValueOfSales += s.getTotalSalePrice();
-		s.print();
+		totalValueOfSales += x.second.getTotalSalePrice();
+		x.second.print();
 	}
 }
 #pragma endregion

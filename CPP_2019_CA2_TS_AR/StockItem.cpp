@@ -200,11 +200,11 @@ istream& operator>>(istream& in, StockItem& item)
 #pragma endregion
 
 #pragma region Static Methods
-multiset<StockItem> StockItem::loadStock()
+map<int,StockItem> StockItem::loadStock()
 {
 	ifstream in;
 	ofstream out;
-	multiset<StockItem> stock;
+	map<int,StockItem> stock;
 
 	in.open("stock-list.txt");
 
@@ -311,7 +311,7 @@ multiset<StockItem> StockItem::loadStock()
 
 
 			StockItem item(ID, title, color, size, Quantity, Cost);
-			stock.insert(item);
+			stock.insert(make_pair(item.getID(),item));
 		}
 		
 		}
@@ -332,15 +332,14 @@ multiset<StockItem> StockItem::loadStock()
 	return stock;
 }
 
-void StockItem::saveStock(const multiset<StockItem>& stock)
+void StockItem::saveStock(const map<int,StockItem>& stock)
 {
 	ofstream out;
 	out.open("stock-list.txt");
 
-	for (auto x : stock)
+	for (auto i : stock)
 	{
-		StockItem item = (StockItem)x;
-		out << item << endl;
+		cout << i.second << endl;
 	}
 
 	out.close();

@@ -21,7 +21,7 @@ void quitApplocation();
 
 #pragma region Definitions
 
-multiset<StockItem> stock;
+map<int,StockItem> stock;
 
 #pragma endregion
 
@@ -281,7 +281,7 @@ void addNewStockItem()
 		}
 
 		StockItem item (title, color, size, quantity, cost);
-		stock.insert(item);
+		stock.insert(make_pair(item.getID(),item));
 
 	}
 
@@ -399,23 +399,23 @@ StockItem searchStockByID(int id)
 {
 	StockItem item;
 
-	for (auto it = stock.begin(); it != stock.end(); it++)
-	{
-		item = *it;
-		if (item.getID() == id)
-		{
-			return item;
-		}
-		else 
-		{
-			return item = StockItem(-1, "null", "null", "null", 0, 0);
-		}
-		
+	//for (auto it = stock.begin(); it != stock.end(); it++)
+	//{
+	//	item = *it;
+	//	if (item.getID() == id)
+	//	{
+	//		return item;
+	//	}
+	//	else 
+	//	{
+	//		return item = StockItem(-1, "null", "null", "null", 0, 0);
+	//	}
+	//	
 
-	}
+	//}
 
-
-
+	StockItem s;
+	return s;
 }
 
 
