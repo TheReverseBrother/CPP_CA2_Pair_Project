@@ -1,5 +1,5 @@
 #include "pch.h"
-
+#include "User-interface.h"
 
 // Method Definitions 
 bool removeStock(const StockItem& item);
@@ -9,7 +9,6 @@ int intValidator();
 double doubleValidator();
 float floatValidator();
 //Stock set
-multiset<StockItem> stock;
 multiset<Sale> Sales;
 list<SalesAnalysis> AnalysisList;
 
@@ -20,6 +19,46 @@ int main()
 	stock = StockItem::loadStock();
 	Sales = Sale::loadSales();
 	AnalysisList = SalesAnalysis::loadAnalysises();
+	cout << endl;
+	cout << endl;
+
+	cout << "Welcome" << endl;
+	auto StockIT = stock.begin();
+	StockItem temp;
+	for (int i = 0; i < stock.size(); i++) 
+	{
+		temp = *StockIT;
+
+		cout << "id " << temp.getTitle() << "";
+		StockIT++;
+		
+	}
+
+	cout << endl;
+	
+
+
+	mainMenu();
+
+
+
+
+
+    std::cout << "Hello World!\n";
+
+
+
+	//StockItem Jeans;
+	//cout << Jeans.getTitle() << endl;
+	//StockItem vanns(152, "VANNNS", "BLUE", "XL", 2, 50);
+	//StockItem Jacket = StockItem("Jacket", "RED", "XL", 2, 50);
+	//StockItem shoe(1, "Jacket", "RED", "XL", 2, 50);
+	//StockItem shoes(1, "Jacket", "RED", "XL", 2, 50);
+	//StockItem jeans;
+	//cout<<"Jacket ID  "<<Jacket.getID()<<endl;
+	//cout << "Jean ID  " << jeans.getID() << endl;
+	//list<StockItem> itemList;
+
 
 
 
@@ -27,6 +66,7 @@ int main()
 	{
 		s.print();
 	}
+	
 	for (Sale s : Sales)
 	{
 		s.print();
@@ -39,9 +79,7 @@ int main()
 	//time_t lastAnalysis = si.getDateOfCreation();
 	//SalesAnalysis s = createSaleAnalysis(lastAnalysis);
 	//int x = intValidator();
-
-	//cout << s << endl;
-	StockItem::saveStock(stock);
+	//StockItem::saveStock(stock);
 	Sale::saveSales(Sales);
 	SalesAnalysis::saveAnalysises(AnalysisList);
 }
