@@ -9,42 +9,45 @@ int intValidator();
 double doubleValidator();
 float floatValidator();
 //Stock set
-multiset<Sale> Sales;
+map<int,Sale> Sales;
 list<SalesAnalysis> AnalysisList;
 
 
 
 int main()
 {
-	stock = StockItem::loadStock();
+	//stock = StockItem::loadStock();
 	Sales = Sale::loadSales();
-	AnalysisList = SalesAnalysis::loadAnalysises();
-	cout << endl;
-	cout << endl;
+	//AnalysisList = SalesAnalysis::loadAnalysises();
+	//cout << endl;
+	//cout << endl;
 
-	cout << "Welcome" << endl;
-	auto StockIT = stock.begin();
-	StockItem temp;
-	for (int i = 0; i < stock.size(); i++) 
+	//cout << "Welcome" << endl;
+	//auto StockIT = stock.begin();
+	//StockItem temp;
+	//for (int i = 0; i < stock.size(); i++) 
+	//{
+	//	temp = *StockIT;
+
+	//	cout << "id " << temp.getTitle() << "";
+	//	StockIT++;
+	//	
+	//}
+
+	//cout << endl;
+	//
+
+
+	//mainMenu();
+
+
+	for (auto i : Sales)
 	{
-		temp = *StockIT;
-
-		cout << "id " << temp.getTitle() << "";
-		StockIT++;
-		
+		cout << i.second << endl;
 	}
 
-	cout << endl;
-	
 
-
-	mainMenu();
-
-
-
-
-
-    std::cout << "Hello World!\n";
+ //   std::cout << "Hello World!\n";
 
 
 
@@ -62,26 +65,14 @@ int main()
 
 
 
-	for (StockItem s : stock)
-	{
-		s.print();
-	}
-	
-	for (Sale s : Sales)
-	{
-		s.print();
-	}
-	for (SalesAnalysis s : AnalysisList)
-	{
-		s.print();
-	}
+
 	//SalesAnalysis si = *AnalysisList.rbegin();
 	//time_t lastAnalysis = si.getDateOfCreation();
 	//SalesAnalysis s = createSaleAnalysis(lastAnalysis);
 	//int x = intValidator();
 	//StockItem::saveStock(stock);
 	Sale::saveSales(Sales);
-	SalesAnalysis::saveAnalysises(AnalysisList);
+	//SalesAnalysis::saveAnalysises(AnalysisList);
 }
 
 SalesAnalysis createSaleAnalysis(time_t time)
@@ -101,22 +92,22 @@ SalesAnalysis createSaleAnalysis(time_t time)
 
 bool removeStock(const StockItem& item)
 {
-	auto it = find(stock.begin(), stock.end(), item);
-	if (it != stock.end())
-	{
-		stock.erase(it);
-		return true;
-	}
+	//auto it = find(stock.begin(), stock.end(), item);
+	//if (it != stock.end())
+	//{
+	//	stock.erase(it);
+	//	return true;
+	//}
 	return false;
 }
 bool removeSale(const Sale& sale)
 {
-	auto it = find(Sales.begin(), Sales.end(), sale);
-	if (it != Sales.end())
-	{
-		Sales.erase(it);
-		return true;
-	}
+	//auto it = find(Sales.begin(), Sales.end(),make_pair(sale.getID(), sale));
+	//if (it != Sales.end())
+	//{
+	//	Sales.erase(it);
+	//	return true;
+	//}
 	return false;
 }
 
