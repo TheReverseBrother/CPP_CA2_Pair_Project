@@ -38,7 +38,7 @@ int main()
 	//
 
 
-	//mainMenu();
+	mainMenu();
 
 
 	for (auto i : Sales)
@@ -54,7 +54,7 @@ int main()
 	//StockItem Jeans;
 	//cout << Jeans.getTitle() << endl;
 	//StockItem vanns(152, "VANNNS", "BLUE", "XL", 2, 50);
-	//StockItem Jacket = StockItem("Jacket", "RED", "XL", 2, 50);
+	
 	//StockItem shoe(1, "Jacket", "RED", "XL", 2, 50);
 	//StockItem shoes(1, "Jacket", "RED", "XL", 2, 50);
 	//StockItem jeans;
@@ -73,6 +73,14 @@ int main()
 	//StockItem::saveStock(stock);
 	Sale::saveSales(Sales);
 	//SalesAnalysis::saveAnalysises(AnalysisList);
+}
+
+
+Sale createSale() 
+{
+	StockItem Jacket = StockItem("Jacket", "RED", "XL", 2, 50);
+	list<StockItem> items{Jacket};
+	return Sale("test", items);
 }
 
 SalesAnalysis createSaleAnalysis(time_t time)

@@ -4,6 +4,7 @@
 void addStockMenu();
 void modifyStockMenu();
 StockItem searchStockByID(int id);
+Sale createSale();
 void addSaleMenu();
 void analyseSalesMenu();
 void searchStockMenu();
@@ -319,13 +320,7 @@ void modifyStockMenu()
 				else 
 				{
 					selected = true;
-
-					
-
-
-
-			
-
+					//add modify stock method
 				}
 
 
@@ -373,13 +368,19 @@ void addSaleMenu()
 
 		switch (option)
 		{
-		case newSale: {selected = true; /*addNewSale();*/ }
+		case newSale: {selected = true; addNewSale(); }
 		case refundSale: {selected = true; /*refundSaleMenu();*/ }
 		case back: {selected = true; mainMenu(); }
 		case error: {cout << "Error Returning to main menu" << endl; mainMenu(); }
 		}
 
 	}
+}
+
+
+void addNewSale() 
+{
+	createSale();
 }
 
 #pragma endregion
