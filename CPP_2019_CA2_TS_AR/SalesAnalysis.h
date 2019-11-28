@@ -40,7 +40,7 @@ public:
 #pragma region Operators
 	friend ostream& operator<<(ostream& os, SalesAnalysis& saleAnalysis);
 	friend istream& operator>>(istream& in, SalesAnalysis& saleAnalysis);
-	void operator()(Sale s);
+	void operator()(pair<int,Sale> x);
 #pragma endregion
 
 #pragma region Static Methods
