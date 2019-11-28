@@ -54,7 +54,7 @@ int main()
 	//StockItem Jeans;
 	//cout << Jeans.getTitle() << endl;
 	//StockItem vanns(152, "VANNNS", "BLUE", "XL", 2, 50);
-	//StockItem Jacket = StockItem("Jacket", "RED", "XL", 2, 50);
+	
 	//StockItem shoe(1, "Jacket", "RED", "XL", 2, 50);
 	//StockItem shoes(1, "Jacket", "RED", "XL", 2, 50);
 	//StockItem jeans;
@@ -78,7 +78,8 @@ int main()
 
 Sale createSale() 
 {
-	list<StockItem> items{};
+	StockItem Jacket = StockItem("Jacket", "RED", "XL", 2, 50);
+	list<StockItem> items{Jacket};
 	return Sale("test", items);
 }
 
