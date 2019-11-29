@@ -1,78 +1,19 @@
 #include "pch.h"
+#include "Store.h"
 #include "User-interface.h"
 
 // Method Definitions 
-bool removeStock(const StockItem& item);
-bool removeSale(const Sale& sale);
-SalesAnalysis createSaleAnalysis(time_t lastAnalysis);
+//SalesAnalysis createSaleAnalysis(time_t lastAnalysis);
 int intValidator();
 double doubleValidator();
 float floatValidator();
-//Stock set
-map<int,Sale> Sales;
-list<SalesAnalysis> AnalysisList;
+
 
 
 
 int main()
 {
-	//stock = StockItem::loadStock();
-	Sales = Sale::loadSales();
-	//AnalysisList = SalesAnalysis::loadAnalysises();
-	//cout << endl;
-	//cout << endl;
-
-	//cout << "Welcome" << endl;
-	//auto StockIT = stock.begin();
-	//StockItem temp;
-	//for (int i = 0; i < stock.size(); i++) 
-	//{
-	//	temp = *StockIT;
-
-	//	cout << "id " << temp.getTitle() << "";
-	//	StockIT++;
-	//	
-	//}
-
-	//cout << endl;
-	//
-
-
-	mainMenu();
-
-
-	for (auto i : Sales)
-	{
-		cout << i.second << endl;
-	}
-
-
- //   std::cout << "Hello World!\n";
-
-
-
-	//StockItem Jeans;
-	//cout << Jeans.getTitle() << endl;
-	//StockItem vanns(152, "VANNNS", "BLUE", "XL", 2, 50);
-	
-	//StockItem shoe(1, "Jacket", "RED", "XL", 2, 50);
-	//StockItem shoes(1, "Jacket", "RED", "XL", 2, 50);
-	//StockItem jeans;
-	//cout<<"Jacket ID  "<<Jacket.getID()<<endl;
-	//cout << "Jean ID  " << jeans.getID() << endl;
-	//list<StockItem> itemList;
-
-
-
-
-
-	//SalesAnalysis si = *AnalysisList.rbegin();
-	//time_t lastAnalysis = si.getDateOfCreation();
-	//SalesAnalysis s = createSaleAnalysis(lastAnalysis);
-	//int x = intValidator();
-	//StockItem::saveStock(stock);
-	Sale::saveSales(Sales);
-	//SalesAnalysis::saveAnalysises(AnalysisList);
+	Store store;
 }
 
 
@@ -83,41 +24,41 @@ Sale createSale()
 	return Sale("test", items);
 }
 
-SalesAnalysis createSaleAnalysis(time_t time)
-{
-	time_t lastAnalysis = /*(time_t)1573121444;*/time;
-	SalesAnalysis newAnalysis(lastAnalysis);
-	
-	printf("%-10s %-20s %-10s %-15s %-15s\n", "ID", "Sale Assistant","No. Items","Total Price","Date");
-	newAnalysis = for_each(Sales.begin(),Sales.end(), newAnalysis);
+//SalesAnalysis createSaleAnalysis(time_t time)
+//{
+//	time_t lastAnalysis = /*(time_t)1573121444;*/time;
+//	SalesAnalysis newAnalysis(lastAnalysis);
+//	
+//	printf("%-10s %-20s %-10s %-15s %-15s\n", "ID", "Sale Assistant","No. Items","Total Price","Date");
+//	newAnalysis = for_each(Sales.begin(),Sales.end(), newAnalysis);
+//
+//	cout << endl;
+//	cout << "New Analysis Generated: " << endl;
+//	printf("%-15s %-20s %-15s %-15s\n", "ID", "Last Analysis", "Total Value", "Date Generated");
+//	newAnalysis.print();
+//	return newAnalysis;
+//}
 
-	cout << endl;
-	cout << "New Analysis Generated: " << endl;
-	printf("%-15s %-20s %-15s %-15s\n", "ID", "Last Analysis", "Total Value", "Date Generated");
-	newAnalysis.print();
-	return newAnalysis;
-}
-
-bool removeStock(const int key)
-{
-	auto it = stock.find(key);
-	if (it != stock.end())
-	{
-		stock.erase(it);
-		return true;
-	}
-	return false;
-}
-bool removeSale(const int key)
-{
-	auto it = Sales.find(key);
-	if (it != Sales.end())
-	{
-		Sales.erase(it);
-		return true;
-	}
-	return false;
-}
+//bool removeStock(const int key)
+//{
+//	auto it = stock.find(key);
+//	if (it != stock.end())
+//	{
+//		stock.erase(it);
+//		return true;
+//	}
+//	return false;
+//}
+//bool removeSale(const int key)
+//{
+//	auto it = Sales.find(key);
+//	if (it != Sales.end())
+//	{
+//		Sales.erase(it);
+//		return true;
+//	}
+//	return false;
+//}
 
 /*
 Author: Tomas

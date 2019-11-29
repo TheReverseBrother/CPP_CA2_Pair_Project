@@ -2,7 +2,9 @@
 
 Store::Store()
 {
-	LoadAll();
+	this->stock = StockItem::loadStock();
+	this->sales = Sale::loadSales();
+	this->analysisList = SalesAnalysis::loadAnalysises();
 }
 
 Store::~Store()
@@ -51,12 +53,12 @@ StockItem Store::searchByPLACEHOLDER2()
 
 map<int, StockItem>& Store::getStock()
 {
-	return stock;
+	return this->stock;
 }
 
 map<int, Sale>& Store::getSales()
 {
-	return this->sales
+	return this->sales;
 }
 
 list<SalesAnalysis> Store::getAnalysises()
@@ -64,13 +66,14 @@ list<SalesAnalysis> Store::getAnalysises()
 	return this->analysisList;
 }
 
-void Store::SaveAll()
+ void Store::SaveAll()
 {
+	StockItem::saveStock(this->stock);
+	Sale::saveSales(this->sales);
+	SalesAnalysis::saveAnalysises(this->analysisList);
 }
 
 void Store::LoadAll()
 {
-	this->stock = StockItem::loadStock();
-	this->sales = Sale::loadSales();
-	this->analysisList = SalesAnalysis::loadAnalysises();
+
 }

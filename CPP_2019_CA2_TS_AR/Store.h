@@ -1,5 +1,11 @@
 #include "pch.h"
 #pragma once
+class SalesAnalysis;
+class Sale;
+class Stockitem;
+using namespace std;
+
+
 class Store
 {
 private:
@@ -10,7 +16,6 @@ private:
 public:
 	Store();
 	~Store();
-
 
 	bool addStockItem(StockItem& item);
 	bool addSale(Sale& sale);
