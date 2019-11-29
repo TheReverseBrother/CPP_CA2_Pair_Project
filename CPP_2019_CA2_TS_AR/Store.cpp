@@ -13,26 +13,57 @@ Store::~Store()
 
 bool Store::addStockItem(StockItem& item)
 {
-	return false;
+	int id = item.getID();
+	this->stock.insert(make_pair(id,item));
+	return true;
 }
 
 bool Store::addSale(Sale& sale)
 {
+	int id = sale.getID();
+	this->sales.insert(make_pair(id, sale));
 	return false;
 }
 
 bool Store::addAnalysis(SalesAnalysis& analysis)
 {
-	return false;
+	this->analysisList.push_back(analysis);
+	return true;
 }
 
 bool Store::removeStockItem(int& ID)
 {
+	map<int, StockItem>::iterator it;
+
+	it = this->stock.find(ID);
+
+	if (it != this->stock.end())
+	{
+		this->stock.erase(it);
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 	return false;
 }
 
 bool Store::removeSale(int& ID)
 {
+	map<int, Sale>::iterator it;
+	it = this->sales.find(ID);
+
+	if (it != this->sales.end())
+	{
+		this->sales.erase(it);
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+
 	return false;
 }
 
