@@ -2,6 +2,7 @@
 
 Store::Store()
 {
+	LoadAll();
 }
 
 Store::~Store()
@@ -69,4 +70,7 @@ void Store::SaveAll()
 
 void Store::LoadAll()
 {
+	this->stock = StockItem::loadStock();
+	this->sales = Sale::loadSales();
+	this->analysisList = SalesAnalysis::loadAnalysises();
 }
