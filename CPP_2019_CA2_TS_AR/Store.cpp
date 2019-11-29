@@ -51,17 +51,17 @@ StockItem Store::searchByPLACEHOLDER2()
 
 map<int, StockItem>& Store::getStock()
 {
-	// TODO: insert return statement here
+	return stock;
 }
 
 map<int, Sale>& Store::getSales()
 {
-	// TODO: insert return statement here
+	return this->sales
 }
 
 list<SalesAnalysis> Store::getAnalysises()
 {
-	return list<SalesAnalysis>();
+	return this->analysisList;
 }
 
 void Store::SaveAll()
