@@ -7,13 +7,19 @@
 int intValidator();
 double doubleValidator();
 float floatValidator();
-
+Store store;
 
 
 
 int main()
 {
-	Store store;
+	map<int, StockItem> m = store.getStock();
+
+
+	for (auto i : m)
+	{
+		i.second.print();
+	}
 }
 
 
