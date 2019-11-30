@@ -1,6 +1,8 @@
 48%/%George Duke%/%1573131444%/%52%/%102/Jeans/Blue/XL/10/2/%/101/Jacket/RED/XL/2/50/%/
 49%/%George Bently%/%1573131444%/%52%/%102/Jeans/Blue/XL/10/2/%/101/Jacket/RED/XL/2/50/%/
-51%/%JOSEPH%/%0%/%0%/%3/Jacket/RED/XL/10/50/%/
-52%/%MARK%/%0%/%0%/%3/Jacket/RED/XL/10/50/%/
-53%/%Joseph Joestar%/%0%/%0%/%3/Jacket/RED/XL/3/50/%/
-54%/%Mark joespeh%/%0%/%200%/%3/Jacket/RED/XL/4/50/%/
+51%/%JOSEPH%/%1571131444%/%0%/%3/Jacket/RED/XL/10/50/%/
+52%/%MARK%/%1572131444%/%0%/%3/Jacket/RED/XL/10/50/%/
+53%/%Joseph Joestar%/%1573111444%/%0%/%3/Jacket/RED/XL/3/50/%/
+54%/%Mark joespeh%/%1573130444%/%200%/%3/Jacket/RED/XL/4/50/%/
+55%/%Joey Pheonix%/%1573101444%/%250%/%3/Jacket/RED/XL/3/50/%/101/VANNNS/BLUE/XL/2/50/%/
+56%/%Mark joseph%/%1575131158%/%200%/%101/VANNNS/BLUE/XL/4/50/%/
