@@ -10,8 +10,9 @@ private:
 	time_t dayOfCreation;
 	time_t lastAnalysis;
 	float totalValueOfSales;
-	static int SalesCount;
+	
 public:
+	static int SalesCount;
 #pragma region Constructors
 	SalesAnalysis();
 	SalesAnalysis(int ID, time_t dayOfCreation,float totalValueOfSales);
