@@ -12,9 +12,9 @@ private:
 	list<StockItem> items;
 	float totalSalePrice;
 	time_t DOC;
+public:
 	static int salesCount;
 
-public:
 #pragma region Constructors
 	Sale();
 	Sale(string salesAssistant, list<StockItem> items);
