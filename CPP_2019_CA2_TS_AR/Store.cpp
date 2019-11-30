@@ -67,6 +67,23 @@ bool Store::removeSale(int& ID)
 	return false;
 }
 
+bool Store::checkStockItemExists(int ID)
+{
+	map<int, StockItem>::iterator it;
+
+	it = this->stock.find(ID);
+
+	if (it != this->stock.end())
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+	return false;
+}
+
 StockItem Store::searchByID(int& ID)
 {
 	return StockItem();

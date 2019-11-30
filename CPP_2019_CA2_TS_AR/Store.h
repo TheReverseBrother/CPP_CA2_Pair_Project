@@ -23,7 +23,7 @@ public:
 
 	bool removeStockItem(int& ID);
 	bool removeSale(int& ID);
-
+	bool checkStockItemExists(int ID);
 
 	StockItem searchByID(int& ID);
 	StockItem searchByPLACEHOLDER();
