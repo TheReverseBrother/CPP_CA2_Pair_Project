@@ -37,5 +37,25 @@ public:
 	void SaveAll();
 	void LoadAll();
 
+	void loadStaticValues()
+	{
+		ifstream in;
+		in.open("IDs.txt");
+
+		in >> StockItem::stockItemCount;
+		in >> Sale::salesCount;
+		in >> SalesAnalysis::SalesCount;
+	}
+
+	void saveStaticValues()
+	{
+		ofstream out;
+		out.open("IDs.txt");
+
+		out << StockItem::stockItemCount << endl;
+		out << Sale::salesCount << endl;
+		out << SalesAnalysis::SalesCount << endl;
+	}
+
 };
 
