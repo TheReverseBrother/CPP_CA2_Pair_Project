@@ -18,7 +18,7 @@ int main()
 	
 	std::cout << "" << endl;
 
-	createSale();
+	//createSale();
 	map<int, Sale> m = store.getSales();
 	for (auto i : m)
 	{
@@ -33,13 +33,14 @@ void createSale()
 	bool running = true;//used to allow picking
 	int ID = 0;
 	int quantity = 0;
+	float totalValue = 0;
 	list<StockItem> items;
 	while (running)
 	{
 		map<int, StockItem> stockList = store.getStock();
 		bool runningSelector = true;//used for selecting an object
 		bool quantitySelector = true;
-
+		
 		printf("%-10s %-10s %-10s %-10s %-10s %-10s\n", "ID", "Item", "Color", "Size", "Quantity", "Unit Price");//Print Table Header
 		for (auto i : stockList)
 		{
@@ -76,6 +77,7 @@ void createSale()
 
 		if (quantitySelector)
 		{
+			std::cout << endl;
 			std::cout << "Please Select A Quantity To Purchase:" << endl;
 		}
 
@@ -86,21 +88,23 @@ void createSale()
 			if (valid)
 			{
 				StockItem newItem = store.searchByID(ID);
+				totalValue += newItem.getCost() * quantity;
 				newItem.setQuantity(quantity);
 				items.push_back(newItem);
 				quantitySelector = false;
 			}
 			else
 			{
+				std::cout << endl;
 				std::cout << "Invalid Quantity Please Try Again" << endl;
 			}
 		}
 	}
+	std::cout << endl;
 	std::cout << "Please Enter Assistant Name" << endl;
 	string name;
-	cin >> name;
-	Sale sale(name,items);
-	sale.print();
+	getline(cin, name);
+	Sale sale(name,items,totalValue);
 	store.addSale(sale);
 }
 
