@@ -84,6 +84,13 @@ bool Store::checkStockItemExists(int ID)
 	return false;
 }
 
+bool Store::decrementStockQuantity(int ID, int Quantity)
+{
+
+
+	return false;
+}
+
 StockItem Store::searchByID(int& ID)
 {
 	return StockItem();

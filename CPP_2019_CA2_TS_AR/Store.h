@@ -23,7 +23,8 @@ public:
 
 	bool removeStockItem(int& ID);
 	bool removeSale(int& ID);
-	bool checkStockItemExists(int ID);
+	bool checkStockItemExists(int &ID);
+	bool decrementStockQuantity(int &ID,int &Quantity);
 
 	StockItem searchByID(int& ID);
 	StockItem searchByPLACEHOLDER();
