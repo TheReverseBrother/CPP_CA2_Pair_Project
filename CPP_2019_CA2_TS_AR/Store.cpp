@@ -5,10 +5,13 @@ Store::Store()
 	this->stock = StockItem::loadStock();
 	this->sales = Sale::loadSales();
 	this->analysisList = SalesAnalysis::loadAnalysises();
+	loadStaticValues();
 }
 
 Store::~Store()
 {
+	saveStaticValues();
+	SaveAll();
 }
 
 bool Store::addStockItem(StockItem& item)
@@ -22,6 +25,8 @@ bool Store::addSale(Sale& sale)
 {
 	int id = sale.getID();
 	this->sales.insert(make_pair(id, sale));
+
+	cout << "IN HERE" << endl;
 	return false;
 }
 
@@ -67,9 +72,48 @@ bool Store::removeSale(int& ID)
 	return false;
 }
 
+bool Store::checkStockItemExists(int &ID)
+{
+	map<int, StockItem>::iterator it;
+
+	it = this->stock.find(ID);
+
+	if (it != this->stock.end())
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+	return false;
+}
+
+bool Store::decrementStockQuantity(int &ID, int &Quantity)
+{
+	auto it = stock.find(ID);
+	
+	int s = it->second.getQuantity();
+
+	int x = s - Quantity;
+
+	if (x < 0)
+	{
+		return false;
+	}
+	else
+	{
+		it->second.setQuantity(x);
+		return true;
+	}
+
+	return false;
+}
+
 StockItem Store::searchByID(int& ID)
 {
-	return StockItem();
+
+	return stock.find(ID)->second;
 }
 
 StockItem Store::searchByPLACEHOLDER()

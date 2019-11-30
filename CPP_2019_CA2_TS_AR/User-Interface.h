@@ -4,7 +4,7 @@
 void addStockMenu();
 void modifyStockMenu();
 StockItem searchStockByID(int id);
-Sale createSale();
+//Sale createSale();
 void addSaleMenu();
 void analyseSalesMenu();
 void searchStockMenu();
@@ -380,7 +380,7 @@ void addSaleMenu()
 
 void addNewSale() 
 {
-	createSale();
+	//createSale();
 }
 
 #pragma endregion

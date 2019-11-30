@@ -4,6 +4,7 @@
 
 // Method Definitions 
 //SalesAnalysis createSaleAnalysis(time_t lastAnalysis);
+void createSale();
 int intValidator();
 double doubleValidator();
 float floatValidator();
@@ -13,9 +14,12 @@ Store store;
 
 int main()
 {
-	map<int, StockItem> m = store.getStock();
+	//map<int, StockItem> m = store.getStock();
+	
+	std::cout << "" << endl;
 
-
+	createSale();
+	map<int, Sale> m = store.getSales();
 	for (auto i : m)
 	{
 		i.second.print();
@@ -23,12 +27,89 @@ int main()
 }
 
 
-Sale createSale() 
+void createSale() 
 {
-	StockItem Jacket = StockItem("Jacket", "RED", "XL", 2, 50);
-	list<StockItem> items{Jacket};
-	return Sale("test", items);
+	bool runOnce = false;//used to change message
+	bool running = true;//used to allow picking
+	int ID = 0;
+	int quantity = 0;
+	float totalValue = 0;
+	list<StockItem> items;
+	while (running)
+	{
+		map<int, StockItem> stockList = store.getStock();
+		bool runningSelector = true;//used for selecting an object
+		bool quantitySelector = true;
+		
+		printf("%-10s %-10s %-10s %-10s %-10s %-10s\n", "ID", "Item", "Color", "Size", "Quantity", "Unit Price");//Print Table Header
+		for (auto i : stockList)
+		{
+			i.second.print();
+		}
+		if (runOnce)
+		{
+			std::cout << "Please Select An Item By ID(Press 0 to Finish Selecting)" << endl;
+		}
+		else
+		{
+			std::cout << "Please Select An Item By ID" << endl;
+			runOnce = true;
+		}
+
+		while (runningSelector)
+		{
+			ID = intValidator();//get ID
+
+			if (ID == 0 && runOnce)
+			{
+				runningSelector = false;
+				running = false;
+				quantitySelector = false;
+			}//can only terminate when one item selected
+			
+			bool checkExists = store.checkStockItemExists(ID);
+
+			if (checkExists)
+			{
+				runningSelector = false;
+			}
+		}
+
+		if (quantitySelector)
+		{
+			std::cout << endl;
+			std::cout << "Please Select A Quantity To Purchase:" << endl;
+		}
+
+		while (quantitySelector)
+		{
+			quantity = intValidator();
+			bool valid  = store.decrementStockQuantity(ID, quantity);
+			if (valid)
+			{
+				StockItem newItem = store.searchByID(ID);
+				totalValue += newItem.getCost() * quantity;
+				newItem.setQuantity(quantity);
+				items.push_back(newItem);
+				quantitySelector = false;
+			}
+			else
+			{
+				std::cout << endl;
+				std::cout << "Invalid Quantity Please Try Again" << endl;
+			}
+		}
+	}
+	std::cout << endl;
+	std::cout << "Please Enter Assistant Name" << endl;
+	string name;
+	getline(cin, name);
+	time_t timeNow = time(0);
+	Sale sale(name,items,totalValue,timeNow);
+	store.addSale(sale);
 }
+
+
 
 //SalesAnalysis createSaleAnalysis(time_t time)
 //{
