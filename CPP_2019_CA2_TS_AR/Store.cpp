@@ -97,7 +97,7 @@ bool Store::decrementStockQuantity(int &ID, int &Quantity)
 
 	int x = s - Quantity;
 
-	if (x < 1)
+	if (x < 0)
 	{
 		return false;
 	}
