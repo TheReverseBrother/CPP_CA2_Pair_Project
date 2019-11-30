@@ -17,7 +17,7 @@ public:
 
 #pragma region Constructors
 	Sale();
-	Sale(string salesAssistant, list<StockItem> items, float totalvalue);
+	Sale(string salesAssistant, list<StockItem> items, float totalvalue,time_t timeNow);
 	~Sale();
 #pragma endregion
 

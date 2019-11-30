@@ -12,13 +12,14 @@ Sale::Sale()
 	//setItems();
 }
 
-Sale::Sale(string salesAssistant, list<StockItem> items, float totalvalue)
+Sale::Sale(string salesAssistant, list<StockItem> items, float totalvalue,time_t timeNow)
 {
 	salesCount++;
 	setID(salesCount);
 	setAssistant(salesAssistant);
 	setItems(items);
 	setTotalSalePrice(totalvalue);
+	setTime(timeNow);
 }
 
 Sale::~Sale()
