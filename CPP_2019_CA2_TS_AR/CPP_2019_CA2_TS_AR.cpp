@@ -18,7 +18,7 @@ int main()
 	
 	std::cout << "" << endl;
 
-	//createSale();
+	createSale();
 	map<int, Sale> m = store.getSales();
 	for (auto i : m)
 	{
@@ -104,7 +104,8 @@ void createSale()
 	std::cout << "Please Enter Assistant Name" << endl;
 	string name;
 	getline(cin, name);
-	Sale sale(name,items,totalValue);
+	time_t timeNow = time(0);
+	Sale sale(name,items,totalValue,timeNow);
 	store.addSale(sale);
 }
 
