@@ -11,6 +11,7 @@
 #include "SalesAnalysis.h"
 #include "StockItem.h"
 #include "Sale.h"
+
 enum class SIZE { XS, S, M, L, XL, XXL, XXXL };
 using namespace std;
 

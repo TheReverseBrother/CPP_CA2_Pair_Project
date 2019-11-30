@@ -155,12 +155,14 @@
     <ClCompile Include="SalesAnalysis.cpp" />
     <ClCompile Include="StockItem.cpp" />
     <ClCompile Include="Sale.cpp" />
+    <ClCompile Include="Store.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="SalesAnalysis.h" />
     <ClInclude Include="StockItem.h" />
     <ClInclude Include="Sale.h" />
+    <ClInclude Include="Store.h" />
     <ClInclude Include="User-Interface.h" />
   </ItemGroup>
   <ItemGroup>
