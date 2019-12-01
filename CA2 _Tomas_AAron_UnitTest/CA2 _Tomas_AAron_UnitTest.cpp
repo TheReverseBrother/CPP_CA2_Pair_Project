@@ -7,6 +7,7 @@
 #include "../CPP_2019_CA2_TS_AR/StockItem.h"
 #include "../CPP_2019_CA2_TS_AR/Sale.h"
 #include "../CPP_2019_CA2_TS_AR/SalesAnalysis.h"
+#include "../CPP_2019_CA2_TS_AR/Store.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -375,6 +376,27 @@ namespace CA2TomasAAronUnitTest
 
 			float price = 1;
 			Assert::AreEqual(sA.getTotalValue(),price);
+		}
+	};
+
+	TEST_CLASS(Test_Store)
+	{
+		TEST_METHOD(Constructor_Test)
+		{
+			//Store store;
+			//int size1, size2;
+			//map<int, StockItem> s2 = StockItem::loadStock();
+			//map<int, StockItem> s1 = store.getStock();
+
+			//size1 = s1.count;
+			//size2 = s2.count;
+			//Assert::AreEqual(size1,size2);
+
+	/*		map<int, Sale> s3 = Sale::loadSales();
+			map<int, Sale> s4 = store.getSales();
+
+
+			Assert::AreEqual(s3, s4);*/
 		}
 	};
 }
