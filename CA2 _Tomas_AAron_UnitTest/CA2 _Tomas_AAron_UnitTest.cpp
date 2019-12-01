@@ -34,7 +34,7 @@ namespace CA2TomasAAronUnitTest
 			Assert::AreEqual(s1.getCost(),cost);
 		}
 
-		TEST_METHOD(setTitle_Test)
+		TEST_METHOD(setTitle_Fail)
 		{
 			//Test One Char
 			auto func = [] {
@@ -63,15 +63,20 @@ namespace CA2TomasAAronUnitTest
 
 			Assert::ExpectException<domain_error>(func3);
 
+
+		}
+
+		TEST_METHOD(setTitle_Pass)
+		{
 			//Test 4 Char
 			StockItem s;
 			string title = "Jean";
 			s.setTitle(title);
 
-			Assert::AreEqual(s.getTitle(),title);
+			Assert::AreEqual(s.getTitle(), title);
 
 			//Test Long String
-			
+
 			title = "Purple Hoodie";
 			s.setTitle(title);
 
@@ -79,7 +84,7 @@ namespace CA2TomasAAronUnitTest
 		}
 
 
-		TEST_METHOD(setColor_Test)
+		TEST_METHOD(setColor_Fail)
 		{
 			StockItem t;
 			string color = "2";
@@ -105,32 +110,45 @@ namespace CA2TomasAAronUnitTest
 
 			Assert::AreEqual(t.getColor(), color);
 
+		}
+	
+		TEST_METHOD(setColor_Pass)
+		{
+			StockItem t;
+			string color = "2";
 
 			//Test 4 Char
 			color = "WWWW";
 			t.setColor(color);
 
-			Assert::AreEqual(t.getColor(),color);
+			Assert::AreEqual(t.getColor(), color);
 
 			//Test Long String
 			color = "Eggshell White";
 			t.setColor(color);
 
 			Assert::AreEqual(t.getColor(), color);
-
 		}
-	
-		TEST_METHOD(setQuantity_Test)
+
+		TEST_METHOD(setQuantity_Fail)
 		{
 			StockItem t;
-			int num = 0;
+			int num = -1;
 
-			//Test 0 
+			//Test -1 
 			auto func = [&] {
 				t.setQuantity(num);
 			};
 
 			Assert::ExpectException<domain_error>(func);
+
+		}
+
+		TEST_METHOD(setQuantity_Pass)
+		{
+			StockItem t;
+			int num = 0;
+
 
 			//Test 1
 			num = 1;
@@ -141,14 +159,13 @@ namespace CA2TomasAAronUnitTest
 			num = 10;
 			t.setQuantity(num);
 
-			Assert::AreEqual(t.getQuantity(),num);
-
+			Assert::AreEqual(t.getQuantity(), num);
 		}
 
-		TEST_METHOD(setCost_Test)
+		TEST_METHOD(setCost_Fail)
 		{
 			StockItem t;
-			float cost = -0.00;
+			float cost = -1.00;
 
 			//Test -1.00
 			auto func = [&] {
@@ -157,23 +174,26 @@ namespace CA2TomasAAronUnitTest
 
 			Assert::ExpectException<domain_error>(func);
 
-			//Test 0.00
-			cost = 0.00;
-			auto func1 = [&] {
-				t.setCost(cost);
-			};
+		}
 
-			Assert::ExpectException<domain_error>(func1);
-
+		TEST_METHOD(setCost_Pass)
+		{
+			StockItem t;
+			float cost = 0.00;
 			//Test 12.00
 			cost = 12.00;
 			t.setCost(cost);
 
-			Assert::AreEqual(t.getCost(),cost);
+			Assert::AreEqual(t.getCost(), cost);
 
+			//Test 0.00
+			cost = 0.00;
+			t.setCost(cost);
+
+			Assert::AreEqual(t.getCost(), cost);
 
 		}
-};
+	};
 
 	TEST_CLASS(Test_Sale)
 	{
@@ -198,7 +218,7 @@ namespace CA2TomasAAronUnitTest
 			Assert::AreEqual(s.getTime(),timeNow);
 		}
 
-		TEST_METHOD(setItems_Test)
+		TEST_METHOD(setItems_Fail)
 		{
 			Sale s;
 			list<StockItem> items;
@@ -209,7 +229,13 @@ namespace CA2TomasAAronUnitTest
 
 			Assert::ExpectException<domain_error>(func);
 
-			//test With items
+		}
+
+		TEST_METHOD(setItems_Pass)
+		{
+			Sale s;
+			list<StockItem> items;
+			StockItem st;
 			items.push_back(st);
 			s.setItems(items);
 
@@ -217,11 +243,10 @@ namespace CA2TomasAAronUnitTest
 			int size1 = items.size();
 			int size2 = itemsInClass.size();
 
-			Assert::AreEqual(size1,size2);
-
+			Assert::AreEqual(size1, size2);
 		}
 
-		TEST_METHOD(setAssistant_Test)
+		TEST_METHOD(setAssistant_Fail)
 		{
 			Sale s;
 			string name = "J";
@@ -251,21 +276,38 @@ namespace CA2TomasAAronUnitTest
 
 			Assert::ExpectException<domain_error>(func2);
 
+		}
+
+		TEST_METHOD(setAssistant_Pass)
+		{
+			Sale s;
+			string name = "J";
 			//Test 4 Char
 			name = "John";
 			s.setAssistant(name);
 
-			Assert::AreEqual(s.getAssistant(),name);
+			Assert::AreEqual(s.getAssistant(), name);
 
 			//Test Long String
 			name = "John Quincy Adams";
 			s.setAssistant(name);
 
 			Assert::AreEqual(s.getAssistant(), name);
-
 		}
 
-		TEST_METHOD(removeItem_Test)
+		TEST_METHOD(removeItem_Fail)
+		{
+			Sale s;
+			list<StockItem> items;
+			StockItem st1(1, "Runners", "grey", "XXL", 2, 1.0);
+			items.push_back(st1);
+			s.setItems(items);
+			StockItem st;
+
+			bool removed = s.removeItem(st);
+			Assert::IsFalse(removed);
+		}
+		TEST_METHOD(removeItem_Pass)
 		{
 			Sale s;
 			list<StockItem> items;
@@ -273,11 +315,6 @@ namespace CA2TomasAAronUnitTest
 			int size1, size2;
 			items.push_back(st);
 			s.setItems(items);
-
-			list<StockItem> itemsInSale = s.getItems();
-			size1 = items.size();
-			size2 = itemsInSale.size();
-			Assert::AreEqual(size1,size2);
 
 			bool removed = s.removeItem(st);
 			Assert::IsTrue(removed);
@@ -327,8 +364,8 @@ namespace CA2TomasAAronUnitTest
 			Sale sale;
 			sale.setItems(itemlist);
 
-			list<Sale> AllSales;
-			AllSales.push_back(sale);
+			map<int,Sale> AllSales;
+			AllSales.insert(make_pair(sale.getID(),sale));
 
 			time_t lastAnalysis = time(0);
 			lastAnalysis -= 1000;
