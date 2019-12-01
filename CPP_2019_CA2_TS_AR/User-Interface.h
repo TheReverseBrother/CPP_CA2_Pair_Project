@@ -1,4 +1,13 @@
 #pragma once
+#include <functional>
+
+
+#pragma region Definitions
+
+map<int, StockItem> stock;
+
+#pragma endregion
+
 
 #pragma region method definitions
 void addStockMenu();
@@ -15,17 +24,33 @@ void refundSaleMenu();
 int mainMenuOptionCast(string input);
 int addStockMenuCast(string input);
 
+function <StockItem> Pfunc = [](int id)
+{
+	StockItem result = stock.find(id)->second;
+	return (result);
+};
+auto Pfunc = [](string input){};
 
 
+		
 void quitApplocation();
 #pragma endregion
 
-#pragma region Definitions
 
-map<int,StockItem> stock;
+vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc)
+{
+	vector<StockItem> results;
 
-#pragma endregion
+	for (StockItem n : results) 
+	{
+		if (Pfunc) 
+		{
+			results.push_back(n);
+		}
+	}
 
+
+}
 
 
 #pragma region enums
@@ -312,7 +337,7 @@ void modifyStockMenu()
 			{
 				int ID = stoi(IDinput);
 				
-				item = searchStockByID(ID);
+				item = searchStockBy(ID);
 				if (item.getID() == -1) 
 				{
 					cout << "No item has this id " << endl;
