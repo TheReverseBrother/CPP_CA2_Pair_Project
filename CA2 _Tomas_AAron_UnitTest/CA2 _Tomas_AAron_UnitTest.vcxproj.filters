@@ -30,6 +30,9 @@
     <ClCompile Include="..\CPP_2019_CA2_TS_AR\SalesAnalysis.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\CPP_2019_CA2_TS_AR\Store.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
