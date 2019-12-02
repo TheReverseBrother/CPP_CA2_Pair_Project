@@ -174,6 +174,22 @@ void Store::printStock(map<int, StockItem>& s)
 	}
 }
 
+void Store::createSaleAnalysis()
+{
+	time_t lastAnalysis = getLastAnalysisDate();
+	SalesAnalysis newAnalysis(lastAnalysis);
+
+	printf("%-10s %-20s %-10s %-15s %-15s\n", "ID", "Sale Assistant", "No. Items", "Total Price", "Date");
+	newAnalysis = for_each(sales.begin(), sales.end(), newAnalysis);
+
+	cout << endl;
+	cout << "New Analysis Generated: " << endl;
+	printf("%-15s %-20s %-15s %-15s\n", "ID", "Last Analysis", "Total Value", "Date Generated");
+	newAnalysis.print();
+
+	addAnalysis(newAnalysis);
+}
+
 map<int, StockItem>& Store::getStock()
 {
 	return this->stock;
@@ -192,7 +208,7 @@ list<SalesAnalysis> Store::getAnalysises()
 time_t Store::getLastAnalysisDate()
 {
 	SalesAnalysis s = *analysisList.rbegin();
-	time_t lastAnalysis = s.getLastAnalysis();
+	time_t lastAnalysis = s.getDateOfCreation();
 	return lastAnalysis;
 }
 
@@ -200,7 +216,11 @@ bool Store::checkIfNewSales()
 {
 	time_t lastAnalysis = getLastAnalysisDate();
 
-	bool newSales = any_of(sales.begin(), sales.end(), [lastAnalysis](pair<int,Sale> s) { if (s.second.getTime() > lastAnalysis){return true;}return false;});
+	bool newSales = any_of(sales.begin(), sales.end(), [lastAnalysis](pair<int,Sale> s) { 
+		if (s.second.getTime() > lastAnalysis)
+		{
+			return true;}
+		return false;});
 
 	if (newSales)
 	{
