@@ -383,20 +383,23 @@ namespace CA2TomasAAronUnitTest
 	{
 		TEST_METHOD(Constructor_Test)
 		{
-			//Store store;
-			//int size1, size2;
-			//map<int, StockItem> s2 = StockItem::loadStock();
-			//map<int, StockItem> s1 = store.getStock();
+			Store store;
+			int size1, size2;
+			map<int, StockItem> s2 = StockItem::loadStock();
+			map<int, StockItem> s1 = store.getStock();
 
-			//size1 = s1.count;
-			//size2 = s2.count;
-			//Assert::AreEqual(size1,size2);
+			size1 = s1.size();
+			size2 = s2.size();
+			Assert::AreEqual(size1,size2);
 
-	/*		map<int, Sale> s3 = Sale::loadSales();
+			map<int, Sale> s3 = Sale::loadSales();
 			map<int, Sale> s4 = store.getSales();
 
+			size1 = s3.size();
+			size2 = s4.size();
 
-			Assert::AreEqual(s3, s4);*/
+			Assert::AreEqual(size1, size2);
+
 		}
 	};
 }
