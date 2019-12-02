@@ -31,8 +31,8 @@ public:
 	StockItem searchByPLACEHOLDER2();
 	void printSales();
 	void printStock();
-	void printSales(map<int,Sale> s);
-	void printStock(map<int, StockItem> s);
+	void printSales(map<int,Sale>& s);
+	void printStock(map<int, StockItem>& s);
 
 	map<int, StockItem>& getStock();
 	map<int, Sale>& getSales();

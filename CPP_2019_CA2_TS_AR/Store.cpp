@@ -156,12 +156,22 @@ void Store::printStock()
 	}
 }
 
-void Store::printSales(map<int, Sale> s)
+void Store::printSales(map<int, Sale>& s)
 {
+	printf("%-10s %-20s %-10s %-15s %-15s\n", "ID", "Assistant", "No. Items", "Total Price", "Date");
+	for (pair<int, Sale> x : s)
+	{
+		x.second.print();
+	}
 }
 
-void Store::printStock(map<int, StockItem> s)
+void Store::printStock(map<int, StockItem>& s)
 {
+	printf("%-10s %-10s %-10s %-10s %-10s %-10s\n", "ID", "Item", "Color", "Size", "Quantity", "Unit Price");
+	for (pair<int, StockItem> i : s)
+	{
+		i.second.print();
+	}
 }
 
 map<int, StockItem>& Store::getStock()
