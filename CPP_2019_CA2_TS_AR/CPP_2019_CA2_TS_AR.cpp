@@ -19,11 +19,7 @@ int main()
 	std::cout << "" << endl;
 
 	createSale();
-	map<int, Sale> m = store.getSales();
-	for (auto i : m)
-	{
-		i.second.print();
-	}
+	store.printSales();
 }
 
 
@@ -41,11 +37,7 @@ void createSale()
 		bool runningSelector = true;//used for selecting an object
 		bool quantitySelector = true;
 		
-		printf("%-10s %-10s %-10s %-10s %-10s %-10s\n", "ID", "Item", "Color", "Size", "Quantity", "Unit Price");//Print Table Header
-		for (auto i : stockList)
-		{
-			i.second.print();
-		}
+		store.printStock();
 		if (runOnce)
 		{
 			std::cout << "Please Select An Item By ID(Press 0 to Finish Selecting)" << endl;
@@ -66,12 +58,27 @@ void createSale()
 				running = false;
 				quantitySelector = false;
 			}//can only terminate when one item selected
-			
-			bool checkExists = store.checkStockItemExists(ID);
-
-			if (checkExists)
+			else
 			{
-				runningSelector = false;
+				bool checkExists = store.checkStockItemExists(ID);
+
+				if (checkExists)
+				{
+					StockItem s = store.searchByID(ID);
+
+					if (s.getQuantity() > 0)
+					{
+						runningSelector = false;
+					}
+					else
+					{
+						cout << "Invalid Quantity for Sale Please Select Another Item" << endl;
+					}
+				}
+				else
+				{
+					cout << "Invalid ID Please Select Again" << endl;
+				}
 			}
 		}
 
