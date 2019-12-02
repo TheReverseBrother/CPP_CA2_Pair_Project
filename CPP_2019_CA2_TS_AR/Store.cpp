@@ -150,6 +150,10 @@ void Store::printSales()
 void Store::printStock()
 {
 	printf("%-10s %-10s %-10s %-10s %-10s %-10s\n", "ID", "Item", "Color", "Size", "Quantity", "Unit Price");
+	for (pair<int, StockItem> i : this->stock)
+	{
+		i.second.print();
+	}
 }
 
 void Store::printSales(map<int, Sale> s)
