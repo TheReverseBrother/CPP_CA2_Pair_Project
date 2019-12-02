@@ -189,6 +189,13 @@ list<SalesAnalysis> Store::getAnalysises()
 	return this->analysisList;
 }
 
+time_t Store::getLastAnalysisDate()
+{
+	SalesAnalysis s = *analysisList.rbegin();
+	time_t lastAnalysis = s.getLastAnalysis();
+	return lastAnalysis;
+}
+
  void Store::SaveAll()
 {
 	StockItem::saveStock(this->stock);

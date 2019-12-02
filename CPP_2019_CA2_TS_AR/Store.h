@@ -37,6 +37,7 @@ public:
 	map<int, StockItem>& getStock();
 	map<int, Sale>& getSales();
 	list<SalesAnalysis> getAnalysises();
+	time_t getLastAnalysisDate();
 
 	void SaveAll();
 	void LoadAll();
