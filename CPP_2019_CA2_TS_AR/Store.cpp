@@ -196,6 +196,19 @@ time_t Store::getLastAnalysisDate()
 	return lastAnalysis;
 }
 
+bool Store::checkIfNewSales()
+{
+	time_t lastAnalysis = getLastAnalysisDate();
+
+	bool newSales = any_of(sales.begin(), sales.end(), [lastAnalysis](pair<int,Sale> s) { if (s.second.getTime() > lastAnalysis){return true;}return false;});
+
+	if (newSales)
+	{
+		return true;
+	}
+	return false;
+}
+
  void Store::SaveAll()
 {
 	StockItem::saveStock(this->stock);

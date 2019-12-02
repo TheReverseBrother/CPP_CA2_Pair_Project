@@ -38,6 +38,7 @@ public:
 	map<int, Sale>& getSales();
 	list<SalesAnalysis> getAnalysises();
 	time_t getLastAnalysisDate();
+	bool checkIfNewSales();
 
 	void SaveAll();
 	void LoadAll();
