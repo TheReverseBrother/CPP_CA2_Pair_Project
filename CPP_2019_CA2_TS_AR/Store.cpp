@@ -140,11 +140,16 @@ StockItem Store::searchByPLACEHOLDER2()
 
 void Store::printSales()
 {
-	
+	printf("%-10s %-20s %-10s %-15s %-15s\n","ID","Assistant","No. Items","Total Price","Date");
+	for (pair<int,Sale> i : this->sales)
+	{
+		i.second.print();
+	}
 }
 
 void Store::printStock()
 {
+	printf("%-10s %-10s %-10s %-10s %-10s %-10s\n", "ID", "Item", "Color", "Size", "Quantity", "Unit Price");
 }
 
 void Store::printSales(map<int, Sale> s)
