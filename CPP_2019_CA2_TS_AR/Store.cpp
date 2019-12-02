@@ -19,7 +19,7 @@ bool Store::addStockItem(StockItem& item)
 	int id = item.getID();
 	auto it = this->stock.find(id);
 	
-	if (it != this->stock.end())
+	if (it == this->stock.end())
 	{
 		this->stock.insert(make_pair(id, item));
 		return true;
@@ -34,7 +34,7 @@ bool Store::addSale(Sale& sale)
 	int id = sale.getID();
 	auto it = this->sales.find(id);
 
-	if (it != sales.end())
+	if (it == sales.end())
 	{
 		this->sales.insert(make_pair(id, sale));
 		return true;
