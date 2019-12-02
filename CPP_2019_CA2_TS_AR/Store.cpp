@@ -138,6 +138,23 @@ StockItem Store::searchByPLACEHOLDER2()
 	return StockItem();
 }
 
+void Store::printSales()
+{
+	
+}
+
+void Store::printStock()
+{
+}
+
+void Store::printSales(map<int, Sale> s)
+{
+}
+
+void Store::printStock(map<int, StockItem> s)
+{
+}
+
 map<int, StockItem>& Store::getStock()
 {
 	return this->stock;
