@@ -17,16 +17,28 @@ Store::~Store()
 bool Store::addStockItem(StockItem& item)
 {
 	int id = item.getID();
-	this->stock.insert(make_pair(id,item));
-	return true;
+	auto it = this->stock.find(id);
+	
+	if (it != this->stock.end())
+	{
+		this->stock.insert(make_pair(id, item));
+		return true;
+	}
+
+
+	return false;
 }
 
 bool Store::addSale(Sale& sale)
 {
 	int id = sale.getID();
-	this->sales.insert(make_pair(id, sale));
+	auto it = this->sales.find(id);
 
-	cout << "IN HERE" << endl;
+	if (it != sales.end())
+	{
+		this->sales.insert(make_pair(id, sale));
+		return true;
+	}
 	return false;
 }
 
@@ -124,6 +136,42 @@ StockItem Store::searchByPLACEHOLDER()
 StockItem Store::searchByPLACEHOLDER2()
 {
 	return StockItem();
+}
+
+void Store::printSales()
+{
+	printf("%-10s %-20s %-10s %-15s %-15s\n","ID","Assistant","No. Items","Total Price","Date");
+	for (pair<int,Sale> i : this->sales)
+	{
+		i.second.print();
+	}
+}
+
+void Store::printStock()
+{
+	printf("%-10s %-10s %-10s %-10s %-10s %-10s\n", "ID", "Item", "Color", "Size", "Quantity", "Unit Price");
+	for (pair<int, StockItem> i : this->stock)
+	{
+		i.second.print();
+	}
+}
+
+void Store::printSales(map<int, Sale>& s)
+{
+	printf("%-10s %-20s %-10s %-15s %-15s\n", "ID", "Assistant", "No. Items", "Total Price", "Date");
+	for (pair<int, Sale> x : s)
+	{
+		x.second.print();
+	}
+}
+
+void Store::printStock(map<int, StockItem>& s)
+{
+	printf("%-10s %-10s %-10s %-10s %-10s %-10s\n", "ID", "Item", "Color", "Size", "Quantity", "Unit Price");
+	for (pair<int, StockItem> i : s)
+	{
+		i.second.print();
+	}
 }
 
 map<int, StockItem>& Store::getStock()
