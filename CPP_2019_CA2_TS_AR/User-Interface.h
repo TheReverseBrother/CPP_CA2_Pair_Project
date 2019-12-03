@@ -12,7 +12,6 @@ map<int, StockItem> stock;
 #pragma region method definitions
 void addStockMenu();
 void modifyStockMenu();
-StockItem searchStockByID(int id);
 Sale createSale();
 void addSaleMenu();
 void analyseSalesMenu();
@@ -20,15 +19,12 @@ void searchStockMenu();
 void removeItemMenu();
 void addNewStockItem();
 void addNewSale();
+void ModifyStock(StockItem item);
 void refundSaleMenu();
 int mainMenuOptionCast(string input);
 int addStockMenuCast(string input);
 
-function <StockItem> Pfunc = [](int id)
-{
-	StockItem result = stock.find(id)->second;
-	return (result);
-};
+
 auto Pfunc = [](string input){};
 
 
@@ -37,19 +33,19 @@ void quitApplocation();
 #pragma endregion
 
 
-vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc)
+vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockItem> stock)
 {
 	vector<StockItem> results;
 
 	for (StockItem n : results) 
 	{
-		if (Pfunc) 
+		if (Pfunc(n)) 
 		{
 			results.push_back(n);
 		}
 	}
 
-
+	return results;
 }
 
 
@@ -170,6 +166,8 @@ int mainMenuOptionCast(string input)
 
 #pragma endregion
 
+#pragma region Stock Menus
+
 #pragma region addStockMenu
 void addStockMenu()
 {
@@ -199,7 +197,9 @@ void addStockMenu()
 
 
 }
+#pragma endregion
 
+#pragma region addStockMenuCast
 int addStockMenuCast(string input)
 {
 
@@ -245,9 +245,9 @@ int addStockMenuCast(string input)
 	return option;
 
 }
+#pragma endregion
 
-
-
+#pragma region addNewStockItem
 void addNewStockItem()
 {
 	bool selected = false;
@@ -313,15 +313,16 @@ void addNewStockItem()
 
 	addStockMenu();
 }
+#pragma endregion
 
-
+#pragma region modifyStockMenu
 void modifyStockMenu()
 {
 	bool selected = false;
 	smatch matches;
 	string IDinput;
 	regex IDReg("^[0-9]+$");
-
+	vector<StockItem> results = {};
 	StockItem item;
 
 	while (!selected)
@@ -337,20 +338,23 @@ void modifyStockMenu()
 			{
 				int ID = stoi(IDinput);
 				
-				item = searchStockBy(ID);
-				if (item.getID() == -1) 
+				function <bool(StockItem)> pFunc = [ID](StockItem item)
 				{
-					cout << "No item has this id " << endl;
-				}
-				else 
+					
+					return item.getID() == ID ? true : false;
+				};
+
+				results = searchStockBy(pFunc,stock);
+
+				if (results.size() == 1) 
 				{
 					selected = true;
-					//add modify stock method
+					ModifyStock(results.front());
 				}
-
-
-
-
+				else
+				{
+					cout << "No Item With Matching ID" << endl;
+				}
 			}
 			catch (invalid_argument & e)
 			{
@@ -363,13 +367,59 @@ void modifyStockMenu()
 			addStockMenu();
 
 		}
+	}
+}
+#pragma endregion
 
+#pragma region modifyStock
+void ModifyStock (StockItem item) 
+{
+
+	bool selected = false;
+	smatch matches;
+	string input;
+	regex TitleReg("[Tt][Ii][Tt][Ll][Ee]$");
+	regex ColorReg("[Cc][Oo][Ll][Oo][Rr]$");
+	regex SizeReg("[Ss][Ii][Zz][Ee]$");
+	regex QuanityReg("[Qq][Uu][Aa][Nn][Ii][Tt][Yy]$");
+	regex PriceReg("[Pp][Rr][Ii][Cc][Ee]$");
+
+
+	while (!selected)
+	{
+		cout << "Modify Stock" << endl << endl;
+		cout << "1: Title" << endl << endl;
+		cout << "2: Color" << endl << endl;
+		cout << "3: Size" << endl << endl;
+		cout << "4: Quanity" << endl << endl;
+		cout << "5: Price" << endl << endl;
+		getline(cin,input);
+
+		if (regex_search(input, matches, TitleReg) || input == "1") 
+		{
+
+		}
+		else if (regex_search(input, matches, ColorReg) || input == "2")
+		{
+
+		}
+		else if (regex_search(input, matches, SizeReg) || input == "3")
+		{
+
+		}
+		else if (regex_search(input, matches, QuanityReg) || input == "4")
+		{
+
+		}
+		else if (regex_search(input, matches, PriceReg) || input == "4")
+		{
+
+		}
 	}
 
 
 }
-
-
+#pragma endregion
 
 
 #pragma endregion
@@ -412,43 +462,6 @@ void addNewSale()
 
 #pragma region analyseSalesMenu
 void analyseSalesMenu() {}
-#pragma endregion
-
-#pragma region searchStockMenu
-void searchStockMenu() {}
-
-
-#pragma region  Searches
-
-
-StockItem searchStockByID(int id)
-{
-	StockItem item;
-
-	//for (auto it = stock.begin(); it != stock.end(); it++)
-	//{
-	//	item = *it;
-	//	if (item.getID() == id)
-	//	{
-	//		return item;
-	//	}
-	//	else 
-	//	{
-	//		return item = StockItem(-1, "null", "null", "null", 0, 0);
-	//	}
-	//	
-
-	//}
-
-	StockItem s;
-	return s;
-}
-
-
-#pragma endregion
-
-
-
 #pragma endregion
 
 #pragma region removeItemMenu
