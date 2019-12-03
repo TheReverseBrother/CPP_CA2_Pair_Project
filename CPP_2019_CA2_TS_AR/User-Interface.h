@@ -452,20 +452,43 @@ void ModifyStock (StockItem item)
 				cout << "5: XL" << endl;
 				getline(cin, input);
 
-				if()
-
-
-
-
 				if (input != "")
 				{
-					try
-					{
-						item.setColor(input);
-						cout << "Successfully Changed Item Color" << endl;
+					if (input == "1" || input == "XS" || input == "xs") 
+					{ 
+						string size = "XS";
+						item.setSize(size);
+						cout << "Successfully Changed Item Size" << endl;
+					selected = true;
+					}
+					if (input == "2" || input == "S" || input == "s") 
+					{ 
+						string size = "S";
+						item.setSize(size);
+						cout << "Successfully Changed Item Size" << endl;
 						selected = true;
 					}
-					catch (domain_error e) { cout << "Invalid Length of String" << endl; }
+					if (input == "3" || input == "M" || input == "m") 
+					{ 
+						string size = "M";
+						item.setSize(size);
+						cout << "Successfully Changed Item Size" << endl;
+						selected = true;
+					}
+					if (input == "4" || input == "L" || input == "l") 
+					{ 
+						string size = "L";
+						item.setSize(size);
+						cout << "Successfully Changed Item Size" << endl;
+						selected = true;
+					}
+					if (input == "5" || input == "XL" || input == "xl") 
+					{ 
+						string size = "XL"; 
+						item.setSize(size);
+						cout << "Successfully Changed Item Size" << endl;
+						selected = true;
+					}
 				}
 			}
 			selected = false;
