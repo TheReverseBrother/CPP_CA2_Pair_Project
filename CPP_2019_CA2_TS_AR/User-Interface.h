@@ -383,37 +383,109 @@ void ModifyStock (StockItem item)
 	regex SizeReg("[Ss][Ii][Zz][Ee]$");
 	regex QuanityReg("[Qq][Uu][Aa][Nn][Ii][Tt][Yy]$");
 	regex PriceReg("[Pp][Rr][Ii][Cc][Ee]$");
+	regex BackReg("[Bb][Aa][Cc][Kk]$");
 
 
 	while (!selected)
 	{
 		cout << "Modify Stock" << endl << endl;
-		cout << "1: Title" << endl << endl;
-		cout << "2: Color" << endl << endl;
-		cout << "3: Size" << endl << endl;
-		cout << "4: Quanity" << endl << endl;
-		cout << "5: Price" << endl << endl;
+		cout << "1: Title" << endl;
+		cout << "2: Color" << endl;
+		cout << "3: Size" << endl;
+		cout << "4: Quanity" << endl;
+		cout << "5: Price" << endl ;
+		cout << "6: Back" << endl ;
 		getline(cin,input);
 
 		if (regex_search(input, matches, TitleReg) || input == "1") 
 		{
+			while (!selected)
+			{
+				cout << "Please enter new Title" << endl;
+				input = "";
+				getline(cin, input);
 
+				if (input != "") 
+				{
+					try 
+					{ 
+						item.setTitle(input);
+						cout << "Successfully Changed Item Title" << endl;
+						selected = true;
+					}
+					catch (domain_error e) { cout << "Invalid Length of String" << endl; }
+				}
+			}
+			selected = false;
 		}
 		else if (regex_search(input, matches, ColorReg) || input == "2")
 		{
+			while (!selected)
+			{
+				cout << "Please enter new Color" << endl;
+				input = "";
+				getline(cin, input);
 
+				if (input != "")
+				{
+					try
+					{
+						item.setColor(input);
+						cout << "Successfully Changed Item Color" << endl;
+						selected = true;
+					}
+					catch (domain_error e) { cout << "Invalid Length of String" << endl; }
+				}
+			}
+			selected = false;
 		}
 		else if (regex_search(input, matches, SizeReg) || input == "3")
 		{
+			while (!selected)
+			{
+				cout << "Please Select new Size" << endl;
+				input = "";
+				cout << "1: XS" << endl;
+				cout << "2: S" << endl;
+				cout << "3: M" << endl;
+				cout << "4: L" << endl;
+				cout << "5: XL" << endl;
+				getline(cin, input);
 
+				if()
+
+
+
+
+				if (input != "")
+				{
+					try
+					{
+						item.setColor(input);
+						cout << "Successfully Changed Item Color" << endl;
+						selected = true;
+					}
+					catch (domain_error e) { cout << "Invalid Length of String" << endl; }
+				}
+			}
+			selected = false;
 		}
 		else if (regex_search(input, matches, QuanityReg) || input == "4")
 		{
 
 		}
-		else if (regex_search(input, matches, PriceReg) || input == "4")
+		else if (regex_search(input, matches, PriceReg) || input == "5")
 		{
 
+		}
+		else if (regex_search(input, matches, BackReg) || input == "6")
+		{
+			selected = true;
+			mainMenu();
+		}
+		else 
+		{
+			cout << "Invalid Input" << endl;
 		}
 	}
 
