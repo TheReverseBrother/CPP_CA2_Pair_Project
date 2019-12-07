@@ -21,16 +21,29 @@ void addNewStockItem();
 void addNewSale();
 void ModifyStock(StockItem item);
 void refundSaleMenu();
+void refundSaleMenu(); 
+inline int intValidator();
+inline float floatValidator();
 int mainMenuOptionCast(string input);
 int addStockMenuCast(string input);
 
-
-auto Pfunc = [](string input){};
-
-
-		
 void quitApplocation();
 #pragma endregion
+
+
+void printStockVector(vector<StockItem> vec) 
+{
+	
+
+	for (auto it = vec.begin(); it != vec.end(); it++)
+	{
+		cout << "Results" << endl;
+		cout<< *it << endl;
+	}
+
+}
+
+
 
 
 vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockItem> stock)
@@ -305,7 +318,7 @@ void addNewStockItem()
 			cost = stod(input);
 			selected = true;
 		}
-
+		cout << title << color << size << quantity << cost << endl;
 		StockItem item (title, color, size, quantity, cost);
 		stock.insert(make_pair(item.getID(),item));
 
@@ -384,6 +397,9 @@ void ModifyStock (StockItem item)
 	regex QuanityReg("[Qq][Uu][Aa][Nn][Ii][Tt][Yy]$");
 	regex PriceReg("[Pp][Rr][Ii][Cc][Ee]$");
 	regex BackReg("[Bb][Aa][Cc][Kk]$");
+	int newValue;
+	float newPrice;
+
 
 
 	while (!selected)
@@ -459,35 +475,39 @@ void ModifyStock (StockItem item)
 						string size = "XS";
 						item.setSize(size);
 						cout << "Successfully Changed Item Size" << endl;
-					selected = true;
+						selected = true;
 					}
-					if (input == "2" || input == "S" || input == "s") 
+					else if (input == "2" || input == "S" || input == "s") 
 					{ 
 						string size = "S";
 						item.setSize(size);
 						cout << "Successfully Changed Item Size" << endl;
 						selected = true;
 					}
-					if (input == "3" || input == "M" || input == "m") 
+					else if (input == "3" || input == "M" || input == "m") 
 					{ 
 						string size = "M";
 						item.setSize(size);
 						cout << "Successfully Changed Item Size" << endl;
 						selected = true;
 					}
-					if (input == "4" || input == "L" || input == "l") 
+					else if (input == "4" || input == "L" || input == "l") 
 					{ 
 						string size = "L";
 						item.setSize(size);
 						cout << "Successfully Changed Item Size" << endl;
 						selected = true;
 					}
-					if (input == "5" || input == "XL" || input == "xl") 
+					else if (input == "5" || input == "XL" || input == "xl") 
 					{ 
 						string size = "XL"; 
 						item.setSize(size);
 						cout << "Successfully Changed Item Size" << endl;
 						selected = true;
+					}
+					else
+					{
+						cout << "Invalid Input" << endl;
 					}
 				}
 			}
@@ -495,12 +515,27 @@ void ModifyStock (StockItem item)
 		}
 		else if (regex_search(input, matches, QuanityReg) || input == "4")
 		{
-
+			while (!selected) 
+			{
+				cout << "Enter  new Quantity" << endl;
+				newValue = intValidator();
+				item.setQuantity(newValue);
+				selected = true;
+			}
+			selected = false;
 		}
 		else if (regex_search(input, matches, PriceReg) || input == "5")
 		{
-
+			while (!selected)
+			{
+				cout << "Enter  new Price" << endl;
+				newPrice = floatValidator();
+				item.setCost(newPrice);
+				selected = true;
+			}
+			selected = false;
 		}
+
 		else if (regex_search(input, matches, BackReg) || input == "6")
 		{
 			selected = true;
@@ -514,6 +549,49 @@ void ModifyStock (StockItem item)
 
 
 }
+#pragma endregion
+
+#pragma region searchStock
+
+void searchStockMenu() 
+{
+	bool selected = false;
+	string input;
+	vector<StockItem> results;
+	while (!selected)
+	{
+		cout << "Search" << endl << endl;
+
+		cout << "1: Get All Stock" << endl;
+
+
+		getline(cin, input);
+
+
+		if (input == "1") 
+		{
+			function <bool(StockItem)> pFunc = [](StockItem item)
+			{
+
+				return item.getID() > 100 ? true : false;
+			};
+
+			results = searchStockBy(pFunc, stock);
+
+			
+
+
+		}
+
+
+
+
+
+	}
+
+
+}
+
 #pragma endregion
 
 
