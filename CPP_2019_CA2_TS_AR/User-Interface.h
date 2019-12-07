@@ -653,4 +653,3 @@ void quitApplocation()
 	exit(1);
 }
 #pragma endregion
-
