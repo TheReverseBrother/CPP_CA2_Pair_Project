@@ -57,6 +57,7 @@ void createSale()
 		else
 		{
 			std::cout << "Please Select An Item By ID" << endl;
+			std::cout << "Enter any Letter to return to sales Menu" << endl;
 			runOnce = true;
 		}
 
@@ -105,30 +106,45 @@ void createSale()
 		}
 	}
 	std::cout << endl;
-	std::cout << "Please Enter Assistant Name" << endl;
-	string name;
-	getline(cin, name);
-	time_t timeNow = time(0);
-	Sale sale(name,items,totalValue,timeNow);
-	store.addSale(sale);
+
+	running = true;
+	
+	while (running)
+	{
+		std::cout << "Please Enter Assistant Name" << endl;
+		string name;
+		getline(cin, name);
+		time_t timeNow = time(0);
+		try
+		{
+			Sale sale(name, items, totalValue, timeNow);
+			store.addSale(sale);
+			running = false;
+		}
+		catch (domain_error & e)
+		{
+			std::cout << "Assistant Name to short " << endl;
+		}
+	}
+	addSaleMenu();
 }
 
 
 
-//SalesAnalysis createSaleAnalysis(time_t time)
-//{
-//	time_t lastAnalysis = /*(time_t)1573121444;*/time;
-//	SalesAnalysis newAnalysis(lastAnalysis);
-//	
-//	printf("%-10s %-20s %-10s %-15s %-15s\n", "ID", "Sale Assistant","No. Items","Total Price","Date");
-//	newAnalysis = for_each(Sales.begin(),Sales.end(), newAnalysis);
-//
-//	cout << endl;
-//	cout << "New Analysis Generated: " << endl;
-//	printf("%-15s %-20s %-15s %-15s\n", "ID", "Last Analysis", "Total Value", "Date Generated");
-//	newAnalysis.print();
-//	return newAnalysis;
-//}
+SalesAnalysis createSaleAnalysis(time_t time)
+{
+	time_t lastAnalysis = /*(time_t)1573121444;*/time;
+	SalesAnalysis newAnalysis(lastAnalysis);
+	
+	printf("%-10s %-20s %-10s %-15s %-15s\n", "ID", "Sale Assistant","No. Items","Total Price","Date");
+	newAnalysis = for_each(sales.begin(),sales.end(), newAnalysis);
+
+	cout << endl;
+	cout << "New Analysis Generated: " << endl;
+	printf("%-15s %-20s %-15s %-15s\n", "ID", "Last Analysis", "Total Value", "Date Generated");
+	newAnalysis.print();
+	return newAnalysis;
+}
 
 //bool removeStock(const int key)
 //{
