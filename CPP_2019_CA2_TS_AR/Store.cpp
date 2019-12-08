@@ -26,7 +26,7 @@ bool Store::addSale(Sale& sale)
 	int id = sale.getID();
 	this->sales.insert(make_pair(id, sale));
 
-	cout << "IN HERE" << endl;
+	cout << "Succesfully added sale" << endl;
 	return false;
 }
 
