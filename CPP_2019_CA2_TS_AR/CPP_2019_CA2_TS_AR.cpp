@@ -146,26 +146,26 @@ SalesAnalysis createSaleAnalysis(time_t time)
 	return newAnalysis;
 }
 
-//bool removeStock(const int key)
-//{
-//	auto it = stock.find(key);
-//	if (it != stock.end())
-//	{
-//		stock.erase(it);
-//		return true;
-//	}
-//	return false;
-//}
-//bool removeSale(const int key)
-//{
-//	auto it = Sales.find(key);
-//	if (it != Sales.end())
-//	{
-//		Sales.erase(it);
-//		return true;
-//	}
-//	return false;
-//}
+bool removeStock(const int key)
+{
+	auto it = stock.find(key);
+	if (it != stock.end())
+	{
+		stock.erase(it);
+		return true;
+	}
+	return false;
+}
+bool removeSale(const int key)
+{
+	auto it = sales.find(key);
+	if (it != sales.end())
+	{
+		sales.erase(it);
+		return true;
+	}
+	return false;
+}
 
 /*
 Author: Tomas
