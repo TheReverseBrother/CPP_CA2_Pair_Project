@@ -30,7 +30,7 @@ public:
 	StockItem searchByPLACEHOLDER();
 	StockItem searchByPLACEHOLDER2();
 
-	map<int, StockItem>& getStock();
+	map<int, StockItem> *getStock();
 	map<int, Sale>& getSales();
 	list<SalesAnalysis> getAnalysises();
 
