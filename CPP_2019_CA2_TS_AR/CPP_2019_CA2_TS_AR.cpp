@@ -41,12 +41,12 @@ void createSale()
 	list<StockItem> items;
 	while (running)
 	{
-		map<int, StockItem> stockList = store.getStock();
+		map<int, StockItem> *stockList = store.getStock();
 		bool runningSelector = true;//used for selecting an object
 		bool quantitySelector = true;
 		
 		printf("%-10s %-10s %-10s %-10s %-10s %-10s\n", "ID", "Item", "Color", "Size", "Quantity", "Unit Price");//Print Table Header
-		for (auto i : stockList)
+		for (auto i : (*stockList))
 		{
 			i.second.print();
 		}
@@ -148,10 +148,10 @@ SalesAnalysis createSaleAnalysis(time_t time)
 
 bool removeStock(const int key)
 {
-	auto it = stock.find(key);
-	if (it != stock.end())
+	auto it = (*stock).find(key);
+	if (it != (*stock).end())
 	{
-		stock.erase(it);
+		(*stock).erase(it);
 		return true;
 	}
 	return false;
