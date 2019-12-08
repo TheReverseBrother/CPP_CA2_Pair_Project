@@ -36,7 +36,7 @@ public:
 	void createSaleAnalysis();
 
 
-	map<int, StockItem>& getStock();
+	map<int, StockItem> *getStock();
 	map<int, Sale>& getSales();
 	list<SalesAnalysis> getAnalysises();
 	time_t getLastAnalysisDate();

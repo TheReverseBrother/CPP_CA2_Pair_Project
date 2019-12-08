@@ -14,7 +14,6 @@ SalesAnalysis::SalesAnalysis(int ID, time_t dayOfCreation, float totalValueOfSal
 {
 	setID(ID);
 	setDateOfCreation(dayOfCreation);
-	
 	setTotalValue(totalValueOfSales);
 }
 

@@ -332,14 +332,18 @@ map<int,StockItem> StockItem::loadStock()
 	return stock;
 }
 
-void StockItem::saveStock(const map<int,StockItem>& stock)
+void StockItem::saveStock(map<int,StockItem> &stock)
 {
 	ofstream out;
 	out.open("stock-list.txt");
+	StockItem temp;
+
 
 	for (auto i : stock)
 	{
-		out << i.second << endl;
+		temp = i.second;
+		out << temp << endl;
+		cout << "Test " << temp << endl;
 	}
 
 	out.close();
