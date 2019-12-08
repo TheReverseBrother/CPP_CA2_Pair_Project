@@ -8,7 +8,7 @@ void createSale();
 int intValidator();
 double doubleValidator();
 float floatValidator();
-Store store;
+
 
 
 
@@ -17,6 +17,10 @@ int main()
 	//map<int, StockItem> m = store.getStock();
 	
 	std::cout << "" << endl;
+
+
+	mainMenu();
+
 
 	createSale();
 	map<int, Sale> m = store.getSales();
