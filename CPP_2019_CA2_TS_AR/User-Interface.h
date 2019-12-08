@@ -1,4 +1,5 @@
 #pragma once
+#include "pch.h"
 #include <functional>
 #include<vector>
 #include<algorithm>
@@ -7,6 +8,8 @@
 #pragma region Definitions
 Store store;
 map<int, StockItem> stock = store.getStock();
+map<int, Sale> sales = store.getSales();
+list<SalesAnalysis> analysisList = store.getAnalysises();
 
 #pragma endregion
 
@@ -21,13 +24,13 @@ void searchStockMenu();
 void removeItemMenu();
 void addNewStockItem();
 void addNewSale();
-void ModifyStock(StockItem item);
-void refundSaleMenu();
+void ModifyStock(StockItem &item);
 void refundSaleMenu();
 inline int intValidator();
 inline float floatValidator();
 int mainMenuOptionCast(string input);
 int addStockMenuCast(string input);
+SalesAnalysis createSaleAnalysis(time_t time);
 
 void quitApplocation();
 #pragma endregion
@@ -212,7 +215,7 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 			{
 			case newItem: {selected = true; addNewStockItem(); }
 			case modifyStock: {selected = true; modifyStockMenu(); }
-			case back: {selected = true; mainMenu(); }
+			case back: {selected = true; mainMenu();}
 			case error: {cout << "Error Returning to main menu" << endl; mainMenu(); }
 			}
 
@@ -328,10 +331,16 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 				cost = stod(input);
 				selected = true;
 			}
-			cout << title << color << size << quantity << cost << endl;
+			
+			map<int, StockItem>::iterator it = stock.end();
+			it--;
 			StockItem item(title, color, size, quantity, cost);
+			item.setID(it->second.getID() + 1);
+
 
 			stock.insert(make_pair(item.getID(), item));
+
+			cout << "Successfuly Created: " << item;
 
 		}
 
@@ -374,24 +383,17 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 
 					results = searchStockBy(pFunc, stock);
 
-					StockItem test;
-
-					for (vector<StockItem>::iterator It = results.begin(); It != results.end(); It++)
+					if (results.size() == 1)
 					{
-						test = (*It);
-						cout << "Result: " <<  test << endl;
+						selected = true;
+						for (vector<StockItem>::iterator It = results.begin(); It != results.end(); It++)
+						{
+							item = (*It);
+							cout << "Result: " << item << endl;
+						}
+						ModifyStock(stock.at(item.getID()));
 					}
 
-
-					/*	if (results.size() == 1)
-						{
-							selected = true;
-							ModifyStock(results.front());
-						}
-						else
-						{
-							cout << "No Item With Matching ID" << endl;
-						}*/
 				}
 				catch (invalid_argument & e)
 				{
@@ -409,7 +411,7 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 #pragma endregion
 
 #pragma region modifyStock
-	void ModifyStock(StockItem item)
+	void ModifyStock(StockItem &item)
 	{
 
 		bool selected = false;
@@ -429,6 +431,7 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 		while (!selected)
 		{
 			cout << "Modify Stock" << endl << endl;
+			cout << "Item to Modify: " << item << endl << endl;
 			cout << "1: Title" << endl;
 			cout << "2: Color" << endl;
 			cout << "3: Size" << endl;
@@ -449,7 +452,8 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 					{
 						try
 						{
-							item.setTitle(input);
+							stock.at(item.getID()).setTitle(input);
+							/*item.setTitle(input);*/
 							cout << "Successfully Changed Item Title" << endl;
 							selected = true;
 						}
@@ -470,7 +474,7 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 					{
 						try
 						{
-							item.setColor(input);
+							stock.at(item.getID()).setColor(input);
 							cout << "Successfully Changed Item Color" << endl;
 							selected = true;
 						}
@@ -497,35 +501,35 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 						if (input == "1" || input == "XS" || input == "xs")
 						{
 							string size = "XS";
-							item.setSize(size);
+							stock.at(item.getID()).setSize(size);
 							cout << "Successfully Changed Item Size" << endl;
 							selected = true;
 						}
 						else if (input == "2" || input == "S" || input == "s")
 						{
 							string size = "S";
-							item.setSize(size);
+							stock.at(item.getID()).setSize(size);
 							cout << "Successfully Changed Item Size" << endl;
 							selected = true;
 						}
 						else if (input == "3" || input == "M" || input == "m")
 						{
 							string size = "M";
-							item.setSize(size);
+							stock.at(item.getID()).setSize(size);
 							cout << "Successfully Changed Item Size" << endl;
 							selected = true;
 						}
 						else if (input == "4" || input == "L" || input == "l")
 						{
 							string size = "L";
-							item.setSize(size);
+							stock.at(item.getID()).setSize(size);
 							cout << "Successfully Changed Item Size" << endl;
 							selected = true;
 						}
 						else if (input == "5" || input == "XL" || input == "xl")
 						{
 							string size = "XL";
-							item.setSize(size);
+							stock.at(item.getID()).setSize(size);
 							cout << "Successfully Changed Item Size" << endl;
 							selected = true;
 						}
@@ -543,7 +547,7 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 				{
 					cout << "Enter  new Quantity" << endl;
 					newValue = intValidator();
-					item.setQuantity(newValue);
+					stock.at(item.getID()).setQuantity(newValue);
 					selected = true;
 				}
 				selected = false;
@@ -554,7 +558,7 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 				{
 					cout << "Enter  new Price" << endl;
 					newPrice = floatValidator();
-					item.setCost(newPrice);
+					stock.at(item.getID()).setCost(newPrice);
 					selected = true;
 				}
 				selected = false;
@@ -658,7 +662,14 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 #pragma endregion
 
 #pragma region analyseSalesMenu
-	void analyseSalesMenu() {}
+	void analyseSalesMenu() 
+	{
+		list<SalesAnalysis>::iterator it = analysisList.end();
+		it--;
+		time_t time = (*it).getDateOfCreation();
+		createSaleAnalysis(time);
+		mainMenu();
+	}
 #pragma endregion
 
 #pragma region removeItemMenu
