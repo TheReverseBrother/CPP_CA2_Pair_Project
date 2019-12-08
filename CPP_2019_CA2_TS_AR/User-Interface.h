@@ -7,7 +7,7 @@
 
 #pragma region Definitions
 Store store;
-map<int, StockItem> stock = store.getStock();
+map<int, StockItem> *stock = store.getStock();
 map<int, Sale> sales = store.getSales();
 list<SalesAnalysis> analysisList = store.getAnalysises();
 
@@ -40,13 +40,16 @@ void quitApplocation();
 void printStockVector(vector<StockItem> vec)
 {
 
-
-	for (auto it = vec.begin(); it != vec.end(); it++)
+	if (vec.size() < 1) { cout << "No Results Found" << endl; }
+	else
 	{
-		cout << "Results" << endl;
-		cout << (*it) << endl;
+		cout << "Results" << endl << endl;
+		for (auto it = vec.begin(); it != vec.end(); it++)
+		{
+			cout << "ID: " << (*it).getID() << "| Title: " << (*it).getTitle() << "| Color: " << (*it).getColor() << "| Size: " << (*it).getSize()
+				<< "| Quantity: " << (*it).getQuantity() << "| Cost: " << (*it).getCost() << endl;
+		}
 	}
-
 }
 
 
@@ -96,7 +99,7 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 	enum salesMenuEnums
 	{
 		newSale = 1,
-		refundSale = 2,
+		Salesback = 2,
 
 	};
 #pragma endregion
@@ -290,6 +293,7 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 			{
 				cout << "please enter stock Item Title" << endl;
 				getline(cin, title);
+				transform(title.begin(), title.end(), title.begin(), ::toupper);
 				selected = true;
 			}
 
@@ -299,15 +303,55 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 			{
 				cout << "please enter stock Item Color" << endl;
 				getline(cin, color);
+				transform(color.begin(), color.end(), color.begin(), ::toupper);
 				selected = true;
 			}
 			selected = false;
 
 			while (!selected)
 			{
-				cout << "please enter stock Item Size 'XS, S, M, L, XL'" << endl;
-				getline(cin, size);
-				selected = true;
+				cout << "Please Select new Size" << endl;
+				input = "";
+				cout << "1: XS" << endl;
+				cout << "2: S" << endl;
+				cout << "3: M" << endl;
+				cout << "4: L" << endl;
+				cout << "5: XL" << endl;
+				getline(cin, input);
+
+				if (input != "")
+				{
+					if (input == "1" || input == "XS" || input == "xs")
+					{
+						size = "XS";
+						selected = true;
+					}
+					else if (input == "2" || input == "S" || input == "s")
+					{
+						size = "S";
+						selected = true;
+					}
+					else if (input == "3" || input == "M" || input == "m")
+					{
+						size = "M";
+						selected = true;
+					}
+					else if (input == "4" || input == "L" || input == "l")
+					{
+						size = "L";
+						selected = true;
+					}
+					else if (input == "5" || input == "XL" || input == "xl")
+					{
+						size = "XL";
+
+						selected = true;
+					}
+					else
+					{
+						cout << "Invalid Input" << endl;
+					}
+				}
 			}
 
 			selected = false;
@@ -331,15 +375,15 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 				selected = true;
 			}
 			
-			map<int, StockItem>::iterator it = stock.end();
+			map<int, StockItem>::iterator it = (*stock).end();
 			it--;
 			StockItem item(title, color, size, quantity, cost);
 			item.setID(it->second.getID() + 1);
 
 
-			stock.insert(make_pair(item.getID(), item));
+			(*stock).insert(make_pair(item.getID(), item));
 
-			cout << "Successfuly Created: " << item;
+			cout << "Successfuly Created: " << item <<endl;
 
 		}
 
@@ -380,7 +424,7 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 						}
 					};
 
-					results = searchStockBy(pFunc, stock);
+					results = searchStockBy(pFunc, (*stock));
 
 					if (results.size() == 1)
 					{
@@ -390,7 +434,7 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 							item = (*It);
 							cout << "Result: " << item << endl;
 						}
-						ModifyStock(stock.at(item.getID()));
+						ModifyStock((*stock).at(item.getID()));
 					}
 
 				}
@@ -451,7 +495,7 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 					{
 						try
 						{
-							stock.at(item.getID()).setTitle(input);
+							(*stock).at(item.getID()).setTitle(input);
 							/*item.setTitle(input);*/
 							cout << "Successfully Changed Item Title" << endl;
 							selected = true;
@@ -473,7 +517,7 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 					{
 						try
 						{
-							stock.at(item.getID()).setColor(input);
+							(*stock).at(item.getID()).setColor(input);
 							cout << "Successfully Changed Item Color" << endl;
 							selected = true;
 						}
@@ -500,35 +544,35 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 						if (input == "1" || input == "XS" || input == "xs")
 						{
 							string size = "XS";
-							stock.at(item.getID()).setSize(size);
+							(*stock).at(item.getID()).setSize(size);
 							cout << "Successfully Changed Item Size" << endl;
 							selected = true;
 						}
 						else if (input == "2" || input == "S" || input == "s")
 						{
 							string size = "S";
-							stock.at(item.getID()).setSize(size);
+							(*stock).at(item.getID()).setSize(size);
 							cout << "Successfully Changed Item Size" << endl;
 							selected = true;
 						}
 						else if (input == "3" || input == "M" || input == "m")
 						{
 							string size = "M";
-							stock.at(item.getID()).setSize(size);
+							(*stock).at(item.getID()).setSize(size);
 							cout << "Successfully Changed Item Size" << endl;
 							selected = true;
 						}
 						else if (input == "4" || input == "L" || input == "l")
 						{
 							string size = "L";
-							stock.at(item.getID()).setSize(size);
+							(*stock).at(item.getID()).setSize(size);
 							cout << "Successfully Changed Item Size" << endl;
 							selected = true;
 						}
 						else if (input == "5" || input == "XL" || input == "xl")
 						{
 							string size = "XL";
-							stock.at(item.getID()).setSize(size);
+							(*stock).at(item.getID()).setSize(size);
 							cout << "Successfully Changed Item Size" << endl;
 							selected = true;
 						}
@@ -546,7 +590,7 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 				{
 					cout << "Enter  new Quantity" << endl;
 					newValue = intValidator();
-					stock.at(item.getID()).setQuantity(newValue);
+					(*stock).at(item.getID()).setQuantity(newValue);
 					selected = true;
 				}
 				selected = false;
@@ -557,7 +601,7 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 				{
 					cout << "Enter  new Price" << endl;
 					newPrice = floatValidator();
-					stock.at(item.getID()).setCost(newPrice);
+					(*stock).at(item.getID()).setCost(newPrice);
 					selected = true;
 				}
 				selected = false;
@@ -583,41 +627,146 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 	void searchStockMenu()
 	{
 		bool selected = false;
+		smatch matches;
 		string input;
+		regex AllReg("[Aa][Ll][Ll]$");
+		regex TitleReg("[Tt][Ii][Tt][Ll][Ee]$");
+		regex ColorReg("[Cc][Oo][Ll][Oo][Rr]$");
+		regex SizeReg("[Ss][Ii][Zz][Ee]$");
+		regex BackReg("[Bb][Aa][Cc][Kk]$");
+
+
+
+
 		vector<StockItem> results;
 		while (!selected)
 		{
 			cout << "Search" << endl << endl;
 
-			cout << "1: Get All Stock" << endl;
+			cout << "1: Search All" << endl;
+			cout << "2: Search Title" << endl;
+			cout << "3: Search Color" << endl;
+			cout << "4: Search Size" << endl;
+			cout << "5: back" << endl;
 
 
 			getline(cin, input);
 
 
-			if (input == "1")
+			if (input == "1" || regex_search(input, matches, AllReg))
 			{
 				function <bool(StockItem)> pFunc = [](StockItem item)
 				{
-					cout << item.getID() << endl;
 					return item.getID() > 100 ? true : false;
 				};
 
-				results = searchStockBy(pFunc, stock);
-
-
-
-
+				results = searchStockBy(pFunc, (*stock));
+				printStockVector(results);
 			}
 
+			else if (input == "2" || regex_search(input, matches, TitleReg))
+			{
+				while (!selected)
+				{
+					cout << "Enter Title" << endl;
+					getline(cin, input);
+					transform(input.begin(), input.end(), input.begin(), ::toupper);
 
+					function <bool(StockItem)> pFunc = [input](StockItem item)
+					{
+						return item.getTitle() == input ? true : false;
+					};
 
+					results = searchStockBy(pFunc, (*stock));
+					printStockVector(results);
+					selected = true;
+				}
+				selected = false;
 
+			}
+			else if (input == "3" || regex_search(input, matches, ColorReg))
+			{
+				while (!selected)
+				{
+					cout << "Enter Color" << endl;
+					getline(cin, input);
+					transform(input.begin(), input.end(), input.begin(), ::toupper);
 
+					function <bool(StockItem)> pFunc = [input](StockItem item)
+					{
+						return item.getColor() == input ? true : false;
+					};
+
+					results = searchStockBy(pFunc, (*stock));
+					printStockVector(results);
+					selected = true;
+				}
+				selected = false;
+			}
+			else if (input == "4" || regex_search(input, matches, SizeReg))
+			{
+				while (!selected)
+				{
+					cout << "Please Select Search Size" << endl;
+					cout << "use numbers only" << endl;
+					input = "";
+					cout << "1: XS" << endl;
+					cout << "2: S" << endl;
+					cout << "3: M" << endl;
+					cout << "4: L" << endl;
+					cout << "5: XL" << endl;
+					getline(cin, input);
+
+					if (input != "")
+					{
+						if (input == "1" || input == "XS" || input == "xs")
+						{
+							input = "XS";
+							selected = true;
+						}
+						else if (input == "2" || input == "S" || input == "s")
+						{
+							input = "S";
+							selected = true;
+						}
+						else if (input == "3" || input == "M" || input == "m")
+						{
+							input = "M";
+							selected = true;
+						}
+						else if (input == "4" || input == "L" || input == "l")
+						{
+							input = "L";
+							selected = true;
+						}
+						else if (input == "5" || input == "XL" || input == "xl")
+						{
+							input = "XL";
+							selected = true;
+						}
+						else
+						{
+							cout << "Invalid Input" << endl;
+						}
+					}
+				}
+				selected = false;
+
+				function <bool(StockItem)> pFunc = [input](StockItem item)
+				{
+					return item.getSize() == input ? true : false;
+				};
+
+				results = searchStockBy(pFunc, (*stock));
+				printStockVector(results);
+	
+			}
+			else if (input == "5" || regex_search(input, matches, BackReg)) { selected = true;  mainMenu(); }
+			else { cout << "Invalid Input" << endl; }
+		
 		}
-
-
 	}
+			
 
 #pragma endregion
 
@@ -636,16 +785,14 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 		{
 			cout << "Sale Menu" << endl << endl;
 			cout << "1: New Sale" << endl;
-			cout << "2: Refund Sale" << endl;
-			cout << "3: Back" << endl;
+			cout << "2: Back" << endl;
 			getline(cin, input);
 			option = addStockMenuCast(input);
 
 			switch (option)
 			{
 			case newSale: {selected = true; addNewSale(); }
-			case refundSale: {selected = true; /*refundSaleMenu();*/ }
-			case back: {selected = true; mainMenu(); }
+			case Salesback: {selected = true; mainMenu(); }
 			case error: {cout << "Error Returning to main menu" << endl; mainMenu(); }
 			}
 
@@ -685,16 +832,10 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 
 			if (regex_search(IDinput, matches, IDReg))
 			{
-
-
 				try
 				{
 					int ID = stoi(IDinput);
-					function <bool(StockItem)> pFunc = [&ID](StockItem item)
-					{
-						return item.getID() == ID ? true : false;
-					};
-					removeStock(ID);
+					store.removeStockItem(ID);
 					cout << "Successfully removed Item from Stock" << endl;
 					selected = true;
 				}
@@ -711,12 +852,6 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 #pragma region quit
 	void quitApplocation()
 	{
-
-
-		StockItem::saveStock(stock);
-		//Sale::saveSales(Sales);
-		//SalesAnalysis::saveAnalysises(AnalysisList);
-
 		exit(1);
 	}
 #pragma endregion
