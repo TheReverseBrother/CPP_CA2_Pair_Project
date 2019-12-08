@@ -1,5 +1,3 @@
-
-101/Test/blue/xs/5/15
+101/Test/blue/xs/0/15
 102/Jacket/RED/XL/0/50
 103/VANNNS/BLUE/XL/34/50
-
