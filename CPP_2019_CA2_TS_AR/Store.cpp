@@ -126,14 +126,15 @@ StockItem Store::searchByPLACEHOLDER2()
 	return StockItem();
 }
 
-map<int, StockItem>& Store::getStock()
+map<int, StockItem> *Store::getStock()
 {
-	return this->stock;
+	map<int, StockItem> *pStock = &stock;
+	return pStock;
 }
 
-map<int, Sale>& Store::getSales()
+map<int, Sale> &Store::getSales()
 {
-	return this->sales;
+	return sales;
 }
 
 list<SalesAnalysis> Store::getAnalysises()

@@ -55,7 +55,7 @@ public:
 
 #pragma region Static Methods
 	static map<int,StockItem> loadStock();
-	static void saveStock(const map<int,StockItem>& stock);
+	static void saveStock(map<int,StockItem>& stock);
 #pragma endregion
 };
 
