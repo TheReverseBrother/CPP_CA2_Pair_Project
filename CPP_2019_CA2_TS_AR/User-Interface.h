@@ -31,7 +31,8 @@ inline float floatValidator();
 int mainMenuOptionCast(string input);
 int addStockMenuCast(string input);
 SalesAnalysis createSaleAnalysis(time_t time);
-
+bool removeStock(const int key);
+bool removeSale(const int key);
 void quitApplocation();
 #pragma endregion
 
@@ -55,7 +56,6 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 {
 	vector<StockItem> results = {};
 	StockItem temp;
-	int count = 101;
 	bool test;
 
 	
@@ -65,7 +65,6 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 			if (test)
 			{
 				auto item2 = stock.at(item.second.getID());
-				count++;
 
 				results.push_back(stock.at(item2.getID()));
 			}
@@ -673,7 +672,40 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 #pragma endregion
 
 #pragma region removeItemMenu
-	void removeItemMenu() {}
+	void removeItemMenu() 
+	{
+		bool selected = false;
+		smatch matches;
+		string IDinput;
+		regex IDReg("^[0-9]+$");
+		while (!selected)
+		{
+			cout << "Enter ID of Item you wish to remove from the store" << endl ;
+			getline(cin, IDinput);
+
+			if (regex_search(IDinput, matches, IDReg))
+			{
+
+
+				try
+				{
+					int ID = stoi(IDinput);
+					function <bool(StockItem)> pFunc = [&ID](StockItem item)
+					{
+						return item.getID() == ID ? true : false;
+					};
+					removeStock(ID);
+					cout << "Successfully removed Item from Stock" << endl;
+					selected = true;
+				}
+				catch (out_of_range & e)
+				{
+
+				}
+			}
+		}
+		mainMenu();
+	}
 #pragma endregion
 
 #pragma region quit
