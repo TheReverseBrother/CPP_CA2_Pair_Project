@@ -44,17 +44,16 @@ void createSale()
 	int quantity = 0;
 	float totalValue = 0;
 	list<StockItem> items;
-	while (running)
+	while (running) //Runs the Picking Function
 	{
-		map<int, StockItem> *stockList = store.getStock();
-		bool runningSelector = true;//used for selecting an object
-		bool quantitySelector = true;
 		
-		printf("%-10s %-10s %-10s %-10s %-10s %-10s\n", "ID", "Item", "Color", "Size", "Quantity", "Unit Price");//Print Table Header
-		for (auto i : (*stockList))
-		{
-			i.second.print();
-		}
+		bool runningSelector = true;//used for selecting an object
+		bool quantitySelector = true; // Used for selecting a Quantity
+		
+		//print stock
+		store.printStock();
+
+		//One Item must be chosen so changes message based on runs
 		if (runOnce)
 		{
 			std::cout << "Please Select An Item By ID(Press 0 to Finish Selecting)" << endl;
@@ -66,6 +65,7 @@ void createSale()
 			runOnce = true;
 		}
 
+		//Selecting an item validator
 		while (runningSelector)
 		{
 			ID = intValidator();//get ID
@@ -91,6 +91,7 @@ void createSale()
 			std::cout << "Please Select A Quantity To Purchase:" << endl;
 		}
 
+		//Makes user check quantity
 		while (quantitySelector)
 		{
 			quantity = intValidator();
