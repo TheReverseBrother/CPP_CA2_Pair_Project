@@ -116,16 +116,6 @@ StockItem Store::searchByID(int& ID)
 	return stock.find(ID)->second;
 }
 
-StockItem Store::searchByPLACEHOLDER()
-{
-	return StockItem();
-}
-
-StockItem Store::searchByPLACEHOLDER2()
-{
-	return StockItem();
-}
-
 map<int, StockItem> *Store::getStock()
 {
 	map<int, StockItem> *pStock = &stock;

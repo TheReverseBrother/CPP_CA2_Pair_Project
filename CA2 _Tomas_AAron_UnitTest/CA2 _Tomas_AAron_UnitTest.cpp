@@ -391,7 +391,7 @@ namespace CA2TomasAAronUnitTest
 			Store s;
 			int size1, size2;
 			map<int, StockItem> s2 = StockItem::loadStock();
-			map<int, StockItem> s1 = s.getStock();
+			map<int, StockItem> s1 = *s.getStock();
 
 			size1 = s1.size();
 			size2 = s2.size();
@@ -422,15 +422,13 @@ namespace CA2TomasAAronUnitTest
 			Assert::IsTrue(removed);
 		}
 
-		TEST_METHOD(addStockitem_Fail)
-		{
-			bool alreadyExists = store.addStockItem(s);
+		//TEST_METHOD(addStockitem_Fail)
+		//{
+		//	bool alreadyExists = store.addStockItem(s);
 
-			Assert::IsFalse(alreadyExists);
+		//	Assert::IsFalse(alreadyExists);
 
-
-			Assert::
-		}
+		//}
 
 		TEST_METHOD(addSale_Fail)
 		{
@@ -439,12 +437,72 @@ namespace CA2TomasAAronUnitTest
 			Assert::IsFalse(added);
 		}
 
-		TEST_METHOD(removeSale_Pass)
+		//TEST_METHOD(removeSale_Pass)
+		//{
+		//	StockItem item(1, "REEBOK SHOES", "RED", "XL", 40, 5.00);
+		//	Sale sale1;
+		//	s.setID(9999);
+		//	store.addSale(sale1);
+		//	int id = 9999;
+		//	bool removed = store.removeSale(id);
+		//
+		//	Assert::IsTrue(removed);
+		//}
+
+		TEST_METHOD(searchByID_Pass)
 		{
-			int id = sale.getID();
-			bool removed = store.removeSale(id);
-		
-			Assert::IsTrue(removed);
+			int ID = 1;
+
+			StockItem st = store.searchByID(ID);
+
+			Assert::AreEqual(ID,st.getID());
 		}
+
+		TEST_METHOD(decrementQuantity_Pass)
+		{
+			int ID = 25;
+			StockItem item(ID,"REEBOK SHOES","RED","XL",40,5.00);
+			store.addStockItem(item);
+			int quantityToDecrement = 10;
+			
+			bool decremented = store.decrementStockQuantity(ID,quantityToDecrement);
+
+
+			Assert::IsTrue(decremented);
+
+		}
+
+		TEST_METHOD(decrementQuantity_Fail)
+		{
+			int ID = 26;
+			StockItem item(ID, "REEBOK SHOES", "RED", "XL", 40, 5.00);
+			store.addStockItem(item);
+			int quantityToDecrement = 50;
+			
+			bool decremented = store.decrementStockQuantity(ID, quantityToDecrement);
+
+
+			Assert::IsFalse(decremented);
+		}
+
+		TEST_METHOD(checkIFExists_Pass)
+		{
+			int ID = 26;
+			StockItem item(ID, "REEBOK SHOES", "RED", "XL", 40, 5.00);
+			store.addStockItem(item);
+			bool exists = store.checkStockItemExists(ID);
+
+			Assert::IsTrue(exists);
+		}
+
+		TEST_METHOD(checkIFExists_Fail)
+		{
+			int ID = 9999;
+			
+			bool exists = store.checkStockItemExists(ID);
+
+			Assert::IsFalse(exists);
+		}
+
 	};
 }
