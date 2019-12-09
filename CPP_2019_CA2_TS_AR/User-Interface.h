@@ -25,7 +25,6 @@ void removeItemMenu();
 void addNewStockItem();
 void addNewSale();
 void ModifyStock(StockItem &item);
-void refundSaleMenu();
 inline int intValidator();
 inline float floatValidator();
 int mainMenuOptionCast(string input);
@@ -44,17 +43,28 @@ void printStockVector(vector<StockItem> vec)
 	else
 	{
 		cout << "Results" << endl << endl;
+		printf("%-10s %-12s %-12s %-12s %-12s %-12s\n", "ID", "|Item", "|Color", "|Size", "|Quantity", "|Unit Price");
+		
+		
+		cout << string(75, '-') << endl;
+
 		for (auto it = vec.begin(); it != vec.end(); it++)
 		{
-			cout << "ID: " << (*it).getID() << "| Title: " << (*it).getTitle() << "| Color: " << (*it).getColor() << "| Size: " << (*it).getSize()
-				<< "| Quantity: " << (*it).getQuantity() << "| Cost: " << (*it).getCost() << endl;
+			/*cout << "ID: " << (*it).getID() << "| Title: " << (*it).getTitle() << "| Color: " << (*it).getColor() << "| Size: " << (*it).getSize()
+				<< "| Quantity: " << (*it).getQuantity() << "| Cost: " << (*it).getCost() << endl;*/
+			(*it).print();
+
 		}
+		cout << endl;
 	}
 }
 
 
-
-
+//
+/*
+Authour: Aaron
+Searchs the stock for results based on pFunc passed
+*/ 
 vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockItem>& stock)
 {
 	vector<StockItem> results = {};
@@ -107,7 +117,10 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 #pragma region mainMenu
 
 
-
+/*
+Authour: Aaron
+main menu accepts typed commands or numbers for input
+*/
 	void mainMenu()
 	{
 		int option;
@@ -116,15 +129,14 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 
 		while (!selected)
 		{
-
-			cout << "Main Menu" << endl << endl;
+			cout << endl;
+			cout << "---Main Menu---" << endl << endl;
 			cout << "1: Add Stock" << endl;
 			cout << "2: Add Sale" << endl;
 			cout << "3: Analyse Sales" << endl;
 			cout << "4: Search Stock" << endl;
 			cout << "5: Remove Item" << endl;
 			cout << "6: Quit" << endl;
-
 			getline(cin, input);
 
 			option = mainMenuOptionCast(input);
@@ -137,12 +149,15 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 			case searchStock: {selected = true; searchStockMenu(); }
 			case removeItem: {selected = true; removeItemMenu(); }
 			case quit: {selected = true; quitApplocation(); }
-			case error: {selected = true;  cout << "Error Returning to main menu" << endl; mainMenu(); }
+			case error: {selected = true;  cout << "Error Returning to main menu" << endl; cout << endl; mainMenu(); }
 			}
 		}
 	}
 
-
+/*
+Authour: Aaron
+main menu casts comman inputs to numbers for switch case
+*/
 	int mainMenuOptionCast(string input)
 	{
 		int option = -1;
@@ -171,7 +186,7 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 			}
 			catch (invalid_argument & e)
 			{
-				cout << "invaild Menu Selection in Main Menu" << endl;
+				cout << "invaild Menu Selection in Main Menu" << endl; cout << endl;
 				return option = -1;
 			}
 		}
@@ -206,12 +221,16 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 
 		while (!selected)
 		{
-			cout << "Stock Menu" << endl << endl;
+			cout << endl;
+			cout << "---Stock Menu---" << endl << endl;
 			cout << "1: New Item" << endl;
 			cout << "2: Modify Stock" << endl;
 			cout << "3: Back" << endl;
+	
 			getline(cin, input);
+			cout << endl;
 			option = addStockMenuCast(input);
+
 
 			switch (option)
 			{
@@ -276,6 +295,10 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 #pragma endregion
 
 #pragma region addNewStockItem
+	/*
+Authour: Aaron
+has some built in validation for creating new stock items
+*/
 	void addNewStockItem()
 	{
 		bool selected = false;
@@ -310,6 +333,7 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 
 			while (!selected)
 			{
+				cout << endl;
 				cout << "Please Select new Size" << endl;
 				input = "";
 				cout << "1: XS" << endl;
@@ -392,6 +416,10 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 #pragma endregion
 
 #pragma region modifyStockMenu
+	/*
+Authour: Aaron
+calls a search funtion that returns one stock item which then calls modify stock
+*/
 	void modifyStockMenu()
 	{
 		bool selected = false;
@@ -403,7 +431,8 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 
 		while (!selected)
 		{
-			cout << "Modify Stock" << endl << endl;
+			cout << endl;
+			cout << "---Modify Stock---" << endl << endl;
 			cout << "enter any letter to return to Stock menu" << endl << endl;
 			cout << "Enter Stock ID" << endl;
 			getline(cin, IDinput);
@@ -453,7 +482,14 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 	}
 #pragma endregion
 
+
+
 #pragma region modifyStock
+
+	/*
+Authour: Aaron
+a menu that allows the user to modify a selected stock item
+*/
 	void ModifyStock(StockItem &item)
 	{
 
@@ -473,7 +509,8 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 
 		while (!selected)
 		{
-			cout << "Modify Stock" << endl << endl;
+			cout << endl;
+			cout << "---Modify Stock---" << endl << endl;
 			cout << "Item to Modify: " << item << endl << endl;
 			cout << "1: Title" << endl;
 			cout << "2: Color" << endl;
@@ -481,6 +518,7 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 			cout << "4: Quanity" << endl;
 			cout << "5: Price" << endl;
 			cout << "6: Back" << endl;
+			cout << endl;
 			getline(cin, input);
 
 			if (regex_search(input, matches, TitleReg) || input == "1")
@@ -530,6 +568,7 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 			{
 				while (!selected)
 				{
+					cout << endl;
 					cout << "Please Select new Size" << endl;
 					input = "";
 					cout << "1: XS" << endl;
@@ -641,7 +680,7 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 		vector<StockItem> results;
 		while (!selected)
 		{
-			cout << "Search" << endl << endl;
+			cout << "---Search---" << endl << endl;
 
 			cout << "1: Search All" << endl;
 			cout << "2: Search Title" << endl;
@@ -708,7 +747,6 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 				while (!selected)
 				{
 					cout << "Please Select Search Size" << endl;
-					cout << "use numbers only" << endl;
 					input = "";
 					cout << "1: XS" << endl;
 					cout << "2: S" << endl;
@@ -783,7 +821,8 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 
 		while (!selected)
 		{
-			cout << "Sale Menu" << endl << endl;
+			cout << endl;
+			cout << "---Sale Menu---" << endl << endl;
 			cout << "1: New Sale" << endl;
 			cout << "2: Back" << endl;
 			getline(cin, input);

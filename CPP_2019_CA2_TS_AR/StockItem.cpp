@@ -133,7 +133,8 @@ float StockItem::getCost() const
 #pragma region Methods
 void StockItem::print()
 {
-	printf("%-10d %-10s %-10s %-10s %-10d %-10f\n", this->ID, this->title.c_str(), this->color.c_str(), this->size.c_str(), this->quantity, this->cost);
+	printf("%-10d %1s %-10s %1s %-10s %1s %-10s %1s %-10d %1s %-10f\n", this->ID,"|", this->title.c_str(), "|", this->color.c_str(), "|", this->size.c_str(), "|", this->quantity, "|", this->cost);
+
 }
 #pragma endregion
 
