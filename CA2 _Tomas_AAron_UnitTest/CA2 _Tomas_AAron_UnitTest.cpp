@@ -128,6 +128,7 @@ namespace CA2TomasAAronUnitTest
 			color = "Eggshell White";
 			t.setColor(color);
 
+			
 			Assert::AreEqual(t.getColor(), color);
 		}
 
@@ -381,25 +382,69 @@ namespace CA2TomasAAronUnitTest
 
 	TEST_CLASS(Test_Store)
 	{
+	public:
+		Store store;
+		StockItem s;
+		Sale sale;
 		TEST_METHOD(Constructor_Test)
 		{
-			Store store;
+			Store s;
 			int size1, size2;
 			map<int, StockItem> s2 = StockItem::loadStock();
-			map<int, StockItem> s1 = store.getStock();
+			map<int, StockItem> s1 = s.getStock();
 
 			size1 = s1.size();
 			size2 = s2.size();
 			Assert::AreEqual(size1,size2);
 
 			map<int, Sale> s3 = Sale::loadSales();
-			map<int, Sale> s4 = store.getSales();
+			map<int, Sale> s4 = s.getSales();
 
 			size1 = s3.size();
 			size2 = s4.size();
 
 			Assert::AreEqual(size1, size2);
 
+		}
+
+		TEST_METHOD(addStockItem_Pass)
+		{
+			bool added = store.addStockItem(s);
+
+			Assert::IsTrue(added);
+		}
+
+		TEST_METHOD(RemoveItem_Pass)
+		{
+			int id = s.getID();
+			bool removed = store.removeStockItem(id);
+
+			Assert::IsTrue(removed);
+		}
+
+		TEST_METHOD(addStockitem_Fail)
+		{
+			bool alreadyExists = store.addStockItem(s);
+
+			Assert::IsFalse(alreadyExists);
+
+
+			Assert::
+		}
+
+		TEST_METHOD(addSale_Fail)
+		{
+			bool added = store.addSale(sale);
+
+			Assert::IsFalse(added);
+		}
+
+		TEST_METHOD(removeSale_Pass)
+		{
+			int id = sale.getID();
+			bool removed = store.removeSale(id);
+		
+			Assert::IsTrue(removed);
 		}
 	};
 }

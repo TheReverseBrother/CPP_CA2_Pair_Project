@@ -34,7 +34,7 @@ bool Store::addSale(Sale& sale)
 	int id = sale.getID();
 	auto it = this->sales.find(id);
 
-	if (it == sales.end())
+	if (it != sales.end())
 	{
 		this->sales.insert(make_pair(id, sale));
 		return true;
