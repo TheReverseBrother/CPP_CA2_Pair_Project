@@ -31,7 +31,11 @@ int main()
 	}
 }
 
-
+/*
+Author Tomas
+Used to create a sale a user can only select valid items and cannot select quantitys that do not exist.
+It also decrements the stock by the quantity chosen
+*/
 void createSale() 
 {
 	bool runOnce = false;//used to change message
@@ -130,7 +134,10 @@ void createSale()
 	addSaleMenu();
 }
 
-
+/**
+Author: Tomas
+Checks if a new sale has occured and then creates an analysis  if one has otherwise says it cant
+*/
 void createAnalysis()
 {
 	bool newSale = store.checkIfNewSales();

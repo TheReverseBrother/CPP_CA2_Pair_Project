@@ -72,6 +72,10 @@ bool Store::removeSale(int& ID)
 	return false;
 }
 
+/*
+Author Tomas
+Used to check if an item exists by an ID
+*/
 bool Store::checkStockItemExists(int &ID)
 {
 	map<int, StockItem>::iterator it;
@@ -89,6 +93,10 @@ bool Store::checkStockItemExists(int &ID)
 	return false;
 }
 
+/*
+Author Tomas
+Used to decrement a stock Item quantity once a sale occurs will not allow decrement below 0
+*/
 bool Store::decrementStockQuantity(int &ID, int &Quantity)
 {
 	auto it = stock.find(ID);
@@ -110,23 +118,38 @@ bool Store::decrementStockQuantity(int &ID, int &Quantity)
 	return false;
 }
 
+/*
+Author Tomas
+Simple Search Item (Better One in User Interface)
+*/
 StockItem Store::searchByID(int& ID)
 {
 
 	return stock.find(ID)->second;
 }
 
+
+/*
+Give pointer to stock Map
+*/
 map<int, StockItem> *Store::getStock()
 {
 	map<int, StockItem> *pStock = &stock;
 	return pStock;
 }
 
+/*
+Returns reference to Sales Map
+*/
 map<int, Sale> &Store::getSales()
 {
 	return sales;
 }
 
+
+/*
+Gets All Sale Analysis'
+*/
 list<SalesAnalysis> Store::getAnalysises()
 {
 	return this->analysisList;
@@ -139,7 +162,10 @@ list<SalesAnalysis> Store::getAnalysises()
 	SalesAnalysis::saveAnalysises(this->analysisList);
 }
 
-
+ /*
+ Author Tomas
+ Gets the last Analysis Date
+ */
  time_t Store::getLastAnalysisDate()
  {
 	 SalesAnalysis s = *analysisList.rbegin();
@@ -147,6 +173,10 @@ list<SalesAnalysis> Store::getAnalysises()
 	 return lastAnalysis;
  }
 
+ /*
+	Author Tomas
+	Checks the last Analysis date to the Sale Date and if sale happens after last analysis it returns true
+ */
  bool Store::checkIfNewSales()
  {
 	 time_t lastAnalysis = getLastAnalysisDate();
@@ -165,6 +195,9 @@ list<SalesAnalysis> Store::getAnalysises()
 	 return false;
  }
 
+ /*
+ Creates Sale Analysis if a new Sale had occured uses a functor to iterate through all Sales and add up final Price
+ */
  void Store::createSaleAnalysis()
  {
 	 time_t lastAnalysis = getLastAnalysisDate();
@@ -181,6 +214,10 @@ list<SalesAnalysis> Store::getAnalysises()
 	 addAnalysis(newAnalysis);
  }
 
+ /*
+ Author Tomas
+ Used to print all sales
+ */
  void Store::printSales()
  {
 	 printf("%-10s %-20s %-10s %-15s %-15s\n", "ID", "Assistant", "No. Items", "Total Price", "Date");
@@ -190,6 +227,10 @@ list<SalesAnalysis> Store::getAnalysises()
 	 }
  }
 
+ /*
+ Author Tomas
+ Used to print all Stock
+ */
  void Store::printStock()
  {
 	 printf("%-10s %-10s %-10s %-10s %-10s %-10s\n", "ID", "Item", "Color", "Size", "Quantity", "Unit Price");
@@ -199,6 +240,10 @@ list<SalesAnalysis> Store::getAnalysises()
 	 }
  }
 
+ /*
+ Author Tomas
+ Used to print a select amount of sales
+ */
  void Store::printSales(map<int, Sale>& s)
  {
 	 printf("%-10s %-20s %-10s %-15s %-15s\n", "ID", "Assistant", "No. Items", "Total Price", "Date");
@@ -208,6 +253,10 @@ list<SalesAnalysis> Store::getAnalysises()
 	 }
  }
 
+ /*
+ Author Tomas
+ Used to print select amount of stock
+ */
  void Store::printStock(map<int, StockItem>& s)
  {
 	 printf("%-10s %-10s %-10s %-10s %-10s %-10s\n", "ID", "Item", "Color", "Size", "Quantity", "Unit Price");

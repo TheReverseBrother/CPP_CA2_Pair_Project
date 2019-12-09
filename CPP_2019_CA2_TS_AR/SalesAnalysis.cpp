@@ -148,6 +148,12 @@ istream& operator>>(istream& in,SalesAnalysis& saleAnalysis)
 
 }
 
+/*
+Author Tomas
+Functor used for creating the sales analysis
+The Analysis is created using the Last analysis date and it is passed into the Sales 
+map and adds to the value of sales if its younger than than the last analysis
+*/
 void SalesAnalysis::operator()(pair<int, Sale> x)
 {
 	
