@@ -7,6 +7,7 @@
 #include "../CPP_2019_CA2_TS_AR/StockItem.h"
 #include "../CPP_2019_CA2_TS_AR/Sale.h"
 #include "../CPP_2019_CA2_TS_AR/SalesAnalysis.h"
+#include "../CPP_2019_CA2_TS_AR/Store.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -34,7 +35,7 @@ namespace CA2TomasAAronUnitTest
 			Assert::AreEqual(s1.getCost(),cost);
 		}
 
-		TEST_METHOD(setTitle_Test)
+		TEST_METHOD(setTitle_Fail)
 		{
 			//Test One Char
 			auto func = [] {
@@ -63,15 +64,20 @@ namespace CA2TomasAAronUnitTest
 
 			Assert::ExpectException<domain_error>(func3);
 
+
+		}
+
+		TEST_METHOD(setTitle_Pass)
+		{
 			//Test 4 Char
 			StockItem s;
 			string title = "Jean";
 			s.setTitle(title);
 
-			Assert::AreEqual(s.getTitle(),title);
+			Assert::AreEqual(s.getTitle(), title);
 
 			//Test Long String
-			
+
 			title = "Purple Hoodie";
 			s.setTitle(title);
 
@@ -79,7 +85,7 @@ namespace CA2TomasAAronUnitTest
 		}
 
 
-		TEST_METHOD(setColor_Test)
+		TEST_METHOD(setColor_Fail)
 		{
 			StockItem t;
 			string color = "2";
@@ -105,32 +111,46 @@ namespace CA2TomasAAronUnitTest
 
 			Assert::AreEqual(t.getColor(), color);
 
+		}
+	
+		TEST_METHOD(setColor_Pass)
+		{
+			StockItem t;
+			string color = "2";
 
 			//Test 4 Char
 			color = "WWWW";
 			t.setColor(color);
 
-			Assert::AreEqual(t.getColor(),color);
+			Assert::AreEqual(t.getColor(), color);
 
 			//Test Long String
 			color = "Eggshell White";
 			t.setColor(color);
 
+			
 			Assert::AreEqual(t.getColor(), color);
-
 		}
-	
-		TEST_METHOD(setQuantity_Test)
+
+		TEST_METHOD(setQuantity_Fail)
 		{
 			StockItem t;
-			int num = 0;
+			int num = -1;
 
-			//Test 0 
+			//Test -1 
 			auto func = [&] {
 				t.setQuantity(num);
 			};
 
 			Assert::ExpectException<domain_error>(func);
+
+		}
+
+		TEST_METHOD(setQuantity_Pass)
+		{
+			StockItem t;
+			int num = 0;
+
 
 			//Test 1
 			num = 1;
@@ -141,14 +161,13 @@ namespace CA2TomasAAronUnitTest
 			num = 10;
 			t.setQuantity(num);
 
-			Assert::AreEqual(t.getQuantity(),num);
-
+			Assert::AreEqual(t.getQuantity(), num);
 		}
 
-		TEST_METHOD(setCost_Test)
+		TEST_METHOD(setCost_Fail)
 		{
 			StockItem t;
-			float cost = -0.00;
+			float cost = -1.00;
 
 			//Test -1.00
 			auto func = [&] {
@@ -157,23 +176,26 @@ namespace CA2TomasAAronUnitTest
 
 			Assert::ExpectException<domain_error>(func);
 
-			//Test 0.00
-			cost = 0.00;
-			auto func1 = [&] {
-				t.setCost(cost);
-			};
+		}
 
-			Assert::ExpectException<domain_error>(func1);
-
+		TEST_METHOD(setCost_Pass)
+		{
+			StockItem t;
+			float cost = 0.00;
 			//Test 12.00
 			cost = 12.00;
 			t.setCost(cost);
 
-			Assert::AreEqual(t.getCost(),cost);
+			Assert::AreEqual(t.getCost(), cost);
 
+			//Test 0.00
+			cost = 0.00;
+			t.setCost(cost);
+
+			Assert::AreEqual(t.getCost(), cost);
 
 		}
-};
+	};
 
 	TEST_CLASS(Test_Sale)
 	{
@@ -198,7 +220,7 @@ namespace CA2TomasAAronUnitTest
 			Assert::AreEqual(s.getTime(),timeNow);
 		}
 
-		TEST_METHOD(setItems_Test)
+		TEST_METHOD(setItems_Fail)
 		{
 			Sale s;
 			list<StockItem> items;
@@ -209,7 +231,13 @@ namespace CA2TomasAAronUnitTest
 
 			Assert::ExpectException<domain_error>(func);
 
-			//test With items
+		}
+
+		TEST_METHOD(setItems_Pass)
+		{
+			Sale s;
+			list<StockItem> items;
+			StockItem st;
 			items.push_back(st);
 			s.setItems(items);
 
@@ -217,11 +245,10 @@ namespace CA2TomasAAronUnitTest
 			int size1 = items.size();
 			int size2 = itemsInClass.size();
 
-			Assert::AreEqual(size1,size2);
-
+			Assert::AreEqual(size1, size2);
 		}
 
-		TEST_METHOD(setAssistant_Test)
+		TEST_METHOD(setAssistant_Fail)
 		{
 			Sale s;
 			string name = "J";
@@ -251,21 +278,38 @@ namespace CA2TomasAAronUnitTest
 
 			Assert::ExpectException<domain_error>(func2);
 
+		}
+
+		TEST_METHOD(setAssistant_Pass)
+		{
+			Sale s;
+			string name = "J";
 			//Test 4 Char
 			name = "John";
 			s.setAssistant(name);
 
-			Assert::AreEqual(s.getAssistant(),name);
+			Assert::AreEqual(s.getAssistant(), name);
 
 			//Test Long String
 			name = "John Quincy Adams";
 			s.setAssistant(name);
 
 			Assert::AreEqual(s.getAssistant(), name);
-
 		}
 
-		TEST_METHOD(removeItem_Test)
+		TEST_METHOD(removeItem_Fail)
+		{
+			Sale s;
+			list<StockItem> items;
+			StockItem st1(1, "Runners", "grey", "XXL", 2, 1.0);
+			items.push_back(st1);
+			s.setItems(items);
+			StockItem st;
+
+			bool removed = s.removeItem(st);
+			Assert::IsFalse(removed);
+		}
+		TEST_METHOD(removeItem_Pass)
 		{
 			Sale s;
 			list<StockItem> items;
@@ -273,11 +317,6 @@ namespace CA2TomasAAronUnitTest
 			int size1, size2;
 			items.push_back(st);
 			s.setItems(items);
-
-			list<StockItem> itemsInSale = s.getItems();
-			size1 = items.size();
-			size2 = itemsInSale.size();
-			Assert::AreEqual(size1,size2);
 
 			bool removed = s.removeItem(st);
 			Assert::IsTrue(removed);
@@ -327,8 +366,8 @@ namespace CA2TomasAAronUnitTest
 			Sale sale;
 			sale.setItems(itemlist);
 
-			list<Sale> AllSales;
-			AllSales.push_back(sale);
+			map<int,Sale> AllSales;
+			AllSales.insert(make_pair(sale.getID(),sale));
 
 			time_t lastAnalysis = time(0);
 			lastAnalysis -= 1000;
@@ -339,5 +378,131 @@ namespace CA2TomasAAronUnitTest
 			float price = 1;
 			Assert::AreEqual(sA.getTotalValue(),price);
 		}
+	};
+
+	TEST_CLASS(Test_Store)
+	{
+	public:
+		Store store;
+		StockItem s;
+		Sale sale;
+		TEST_METHOD(Constructor_Test)
+		{
+			Store s;
+			int size1, size2;
+			map<int, StockItem> s2 = StockItem::loadStock();
+			map<int, StockItem> s1 = *s.getStock();
+
+			size1 = s1.size();
+			size2 = s2.size();
+			Assert::AreEqual(size1,size2);
+
+			map<int, Sale> s3 = Sale::loadSales();
+			map<int, Sale> s4 = s.getSales();
+
+			size1 = s3.size();
+			size2 = s4.size();
+
+			Assert::AreEqual(size1, size2);
+
+		}
+
+		TEST_METHOD(addStockItem_Pass)
+		{
+			bool added = store.addStockItem(s);
+
+			Assert::IsTrue(added);
+		}
+
+		TEST_METHOD(RemoveItem_Pass)
+		{
+			int id = s.getID();
+			bool removed = store.removeStockItem(id);
+
+			Assert::IsTrue(removed);
+		}
+
+		//TEST_METHOD(addStockitem_Fail)
+		//{
+		//	bool alreadyExists = store.addStockItem(s);
+
+		//	Assert::IsFalse(alreadyExists);
+
+		//}
+
+		TEST_METHOD(addSale_Fail)
+		{
+			bool added = store.addSale(sale);
+
+			Assert::IsFalse(added);
+		}
+
+		//TEST_METHOD(removeSale_Pass)
+		//{
+		//	StockItem item(1, "REEBOK SHOES", "RED", "XL", 40, 5.00);
+		//	Sale sale1;
+		//	s.setID(9999);
+		//	store.addSale(sale1);
+		//	int id = 9999;
+		//	bool removed = store.removeSale(id);
+		//
+		//	Assert::IsTrue(removed);
+		//}
+
+		TEST_METHOD(searchByID_Pass)
+		{
+			int ID = 1;
+
+			StockItem st = store.searchByID(ID);
+
+			Assert::AreEqual(ID,st.getID());
+		}
+
+		TEST_METHOD(decrementQuantity_Pass)
+		{
+			int ID = 25;
+			StockItem item(ID,"REEBOK SHOES","RED","XL",40,5.00);
+			store.addStockItem(item);
+			int quantityToDecrement = 10;
+			
+			bool decremented = store.decrementStockQuantity(ID,quantityToDecrement);
+
+
+			Assert::IsTrue(decremented);
+
+		}
+
+		TEST_METHOD(decrementQuantity_Fail)
+		{
+			int ID = 26;
+			StockItem item(ID, "REEBOK SHOES", "RED", "XL", 40, 5.00);
+			store.addStockItem(item);
+			int quantityToDecrement = 50;
+			
+			bool decremented = store.decrementStockQuantity(ID, quantityToDecrement);
+
+
+			Assert::IsFalse(decremented);
+		}
+
+		TEST_METHOD(checkIFExists_Pass)
+		{
+			int ID = 26;
+			StockItem item(ID, "REEBOK SHOES", "RED", "XL", 40, 5.00);
+			store.addStockItem(item);
+			bool exists = store.checkStockItemExists(ID);
+
+			Assert::IsTrue(exists);
+		}
+
+		TEST_METHOD(checkIFExists_Fail)
+		{
+			int ID = 9999;
+			
+			bool exists = store.checkStockItemExists(ID);
+
+			Assert::IsFalse(exists);
+		}
+
 	};
 }
