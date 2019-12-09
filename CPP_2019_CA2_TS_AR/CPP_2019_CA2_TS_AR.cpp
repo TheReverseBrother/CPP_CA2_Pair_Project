@@ -8,6 +8,7 @@ void createSale();
 int intValidator();
 double doubleValidator();
 float floatValidator();
+void createAnalysis();
 
 
 
@@ -130,20 +131,20 @@ void createSale()
 }
 
 
-
-SalesAnalysis createSaleAnalysis(time_t time)
+void createAnalysis()
 {
-	time_t lastAnalysis = /*(time_t)1573121444;*/time;
-	SalesAnalysis newAnalysis(lastAnalysis);
-	
-	printf("%-10s %-20s %-10s %-15s %-15s\n", "ID", "Sale Assistant","No. Items","Total Price","Date");
-	newAnalysis = for_each(sales.begin(),sales.end(), newAnalysis);
+	bool newSale = store.checkIfNewSales();
 
-	cout << endl;
-	cout << "New Analysis Generated: " << endl;
-	printf("%-15s %-20s %-15s %-15s\n", "ID", "Last Analysis", "Total Value", "Date Generated");
-	newAnalysis.print();
-	return newAnalysis;
+
+	if (newSale)
+	{
+		cout << "Creating New Sale Analysis" << endl;
+		store.createSaleAnalysis();
+	}
+	else
+	{
+		cout << "Unable To Create Analysis A Sale Hasnt Occured Since The Last Analysis" << endl;
+	}
 }
 
 bool removeStock(const int key)
@@ -166,6 +167,8 @@ bool removeSale(const int key)
 	}
 	return false;
 }
+
+
 
 /*
 Author: Tomas

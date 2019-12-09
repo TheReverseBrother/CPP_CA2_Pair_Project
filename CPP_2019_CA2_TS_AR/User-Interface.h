@@ -30,7 +30,7 @@ inline int intValidator();
 inline float floatValidator();
 int mainMenuOptionCast(string input);
 int addStockMenuCast(string input);
-SalesAnalysis createSaleAnalysis(time_t time);
+void createAnalysis();
 bool removeStock(const int key);
 bool removeSale(const int key);
 void quitApplocation();
@@ -810,10 +810,7 @@ vector<StockItem> searchStockBy(function<bool(StockItem)> Pfunc, map<int, StockI
 #pragma region analyseSalesMenu
 	void analyseSalesMenu() 
 	{
-		list<SalesAnalysis>::iterator it = analysisList.end();
-		it--;
-		time_t time = (*it).getDateOfCreation();
-		createSaleAnalysis(time);
+		createAnalysis();
 		mainMenu();
 	}
 #pragma endregion

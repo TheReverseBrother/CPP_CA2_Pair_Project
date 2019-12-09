@@ -27,8 +27,6 @@ public:
 	bool decrementStockQuantity(int &ID,int &Quantity);
 
 	StockItem searchByID(int& ID);
-	StockItem searchByPLACEHOLDER();
-	StockItem searchByPLACEHOLDER2();
 	void printSales();
 	void printStock();
 	void printSales(map<int,Sale>& s);
