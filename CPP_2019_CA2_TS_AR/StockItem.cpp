@@ -234,7 +234,6 @@ map<int,StockItem> StockItem::loadStock()
 	{
 		try
 		{
-		//cout << "test";
 		in >> temp;
 		error = temp;
 
@@ -307,9 +306,6 @@ map<int,StockItem> StockItem::loadStock()
 
 			// create object and add to set
 
-			//cout << "test2" << title << color << size << Quantity << Cost << endl;
-
-
 			StockItem item(ID, title, color, size, Quantity, Cost);
 			stock.insert(make_pair(item.getID(),item));
 		}
@@ -332,14 +328,17 @@ map<int,StockItem> StockItem::loadStock()
 	return stock;
 }
 
-void StockItem::saveStock(const map<int,StockItem>& stock)
+void StockItem::saveStock(map<int,StockItem> &stock)
 {
 	ofstream out;
 	out.open("stock-list.txt");
+	StockItem temp;
+
 
 	for (auto i : stock)
 	{
-		out << i.second << endl;
+		temp = i.second;
+		out << temp << endl;
 	}
 
 	out.close();

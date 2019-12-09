@@ -17,28 +17,16 @@ Store::~Store()
 bool Store::addStockItem(StockItem& item)
 {
 	int id = item.getID();
-	auto it = this->stock.find(id);
-	
-	if (it == this->stock.end())
-	{
-		this->stock.insert(make_pair(id, item));
-		return true;
-	}
-
-
-	return false;
+	this->stock.insert(make_pair(id,item));
+	return true;
 }
 
 bool Store::addSale(Sale& sale)
 {
 	int id = sale.getID();
-	auto it = this->sales.find(id);
+	this->sales.insert(make_pair(id, sale));
 
-	if (it != sales.end())
-	{
-		this->sales.insert(make_pair(id, sale));
-		return true;
-	}
+	cout << "Succesfully added sale" << endl;
 	return false;
 }
 
@@ -138,95 +126,20 @@ StockItem Store::searchByPLACEHOLDER2()
 	return StockItem();
 }
 
-void Store::printSales()
+map<int, StockItem> *Store::getStock()
 {
-	printf("%-10s %-20s %-10s %-15s %-15s\n","ID","Assistant","No. Items","Total Price","Date");
-	for (pair<int,Sale> i : this->sales)
-	{
-		i.second.print();
-	}
+	map<int, StockItem> *pStock = &stock;
+	return pStock;
 }
 
-void Store::printStock()
+map<int, Sale> &Store::getSales()
 {
-	printf("%-10s %-10s %-10s %-10s %-10s %-10s\n", "ID", "Item", "Color", "Size", "Quantity", "Unit Price");
-	for (pair<int, StockItem> i : this->stock)
-	{
-		i.second.print();
-	}
-}
-
-void Store::printSales(map<int, Sale>& s)
-{
-	printf("%-10s %-20s %-10s %-15s %-15s\n", "ID", "Assistant", "No. Items", "Total Price", "Date");
-	for (pair<int, Sale> x : s)
-	{
-		x.second.print();
-	}
-}
-
-void Store::printStock(map<int, StockItem>& s)
-{
-	printf("%-10s %-10s %-10s %-10s %-10s %-10s\n", "ID", "Item", "Color", "Size", "Quantity", "Unit Price");
-	for (pair<int, StockItem> i : s)
-	{
-		i.second.print();
-	}
-}
-
-void Store::createSaleAnalysis()
-{
-	time_t lastAnalysis = getLastAnalysisDate();
-	SalesAnalysis newAnalysis(lastAnalysis);
-
-	printf("%-10s %-20s %-10s %-15s %-15s\n", "ID", "Sale Assistant", "No. Items", "Total Price", "Date");
-	newAnalysis = for_each(sales.begin(), sales.end(), newAnalysis);
-
-	cout << endl;
-	cout << "New Analysis Generated: " << endl;
-	printf("%-15s %-20s %-15s %-15s\n", "ID", "Last Analysis", "Total Value", "Date Generated");
-	newAnalysis.print();
-
-	addAnalysis(newAnalysis);
-}
-
-map<int, StockItem>& Store::getStock()
-{
-	return this->stock;
-}
-
-map<int, Sale>& Store::getSales()
-{
-	return this->sales;
+	return sales;
 }
 
 list<SalesAnalysis> Store::getAnalysises()
 {
 	return this->analysisList;
-}
-
-time_t Store::getLastAnalysisDate()
-{
-	SalesAnalysis s = *analysisList.rbegin();
-	time_t lastAnalysis = s.getDateOfCreation();
-	return lastAnalysis;
-}
-
-bool Store::checkIfNewSales()
-{
-	time_t lastAnalysis = getLastAnalysisDate();
-
-	bool newSales = any_of(sales.begin(), sales.end(), [lastAnalysis](pair<int,Sale> s) { 
-		if (s.second.getTime() > lastAnalysis)
-		{
-			return true;}
-		return false;});
-
-	if (newSales)
-	{
-		return true;
-	}
-	return false;
 }
 
  void Store::SaveAll()
